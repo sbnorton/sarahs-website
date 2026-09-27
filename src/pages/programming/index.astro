@@ -1,0 +1,173 @@
+---
+import SiteLayout from '../../layouts/Layout.astro';
+import {
+  availableProjectTags,
+  projectStatusDefinitions,
+  projectTagDefinitions,
+  projects,
+} from '../../data/projects';
+import styles from './page.module.css';
+
+const skillGroups = [
+  {
+    name: 'Languages',
+    items: ['TypeScript', 'Python', 'Java', 'SQL'],
+  },
+  { name: 'Frontend', items: ['React', 'CSS', 'Figma'] },
+  { name: 'Backend', items: ['Node.js', 'PostgreSQL', 'Docker'] },
+  { name: 'Tools', items: ['Astro', 'AWS', 'Git', 'Lightroom'] },
+];
+---
+
+<SiteLayout
+  title="Projects"
+  description="Selected software projects and coding work by Sarah Norton."
+>
+  <section class={styles.projectPage}>
+    <header class={styles.pageHeader}>
+      <div class={styles.headerInner}>
+        <div>
+          <p class="eyebrow">Engineering</p>
+          <h1 class={styles.typewriter}>Projects</h1>
+        </div>
+        <p class="headerDescription">
+          Side projects, open source tools, and shipped products. Mostly built
+          nights and weekends.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section class={styles.projectSection} aria-label="Selected projects">
+        <div
+          class={styles.tagFilters}
+          role="group"
+          aria-label="Filter projects by technology"
+        >
+          <button
+            class={styles.tagFilter}
+            type="button"
+            data-project-filter="all"
+            aria-pressed="true"
+          >
+            All
+          </button>
+          {availableProjectTags.map((tag) => (
+            <button
+              class={styles.tagFilter}
+              type="button"
+              data-project-filter={tag}
+              aria-pressed="false"
+            >
+              {projectTagDefinitions[tag].label}
+            </button>
+          ))}
+        </div>
+        <div class={styles.projectList}>
+          {projects.map((project, index) => (
+            <a
+              class={styles.project}
+              href="/contact"
+              data-project-tags={project.tags.join(' ')}
+            >
+              <span class={styles.projectNumber}>
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <div class={styles.projectName}>
+                <h2>{project.name}</h2>
+                <span
+                  class:list={[
+                    styles.status,
+                    styles[projectStatusDefinitions[project.status].tone],
+                  ]}
+                >
+                  {projectStatusDefinitions[project.status].label}
+                </span>
+              </div>
+              <p class={styles.projectDescription}>{project.description}</p>
+              <div class={styles.tags}>
+                {project.tags.slice(0, 3).map((tag) => (
+                  <span>{projectTagDefinitions[tag].label}</span>
+                ))}
+              </div>
+              <div class={styles.projectMeta}>
+                <span>{project.year}</span>
+                <span class={styles.projectArrow} aria-hidden="true">
+                  ↗
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section class={styles.skillsSection}>
+        <div class={styles.skillsInner}>
+          <p class={styles.eyebrow}>Skills &amp; stack</p>
+          <div class={styles.skillGrid}>
+            {skillGroups.map((group) => (
+              <div>
+                <h2>{group.name}</h2>
+                <ul>
+                  {group.items.map((item) => (
+                    <li>
+                      <span></span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class={styles.ctaSection}>
+        <div class={styles.ctaInner}>
+          <div>
+            <h2>Open to opportunities.</h2>
+            <p>Full-time, contract, or consulting. Let’s see if it’s a fit.</p>
+          </div>
+          <div class={styles.ctaActions}>
+            <a class={styles.primaryButton} href="mailto:hello@sarahnorton.no">
+              Email me <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class={styles.footer}>
+      <a href="/">← Back home</a>
+      <span>© 2026 Sarah Norton</span>
+    </footer>
+  </section>
+</SiteLayout>
+
+<script>
+  const filterButtons = document.querySelectorAll<HTMLButtonElement>(
+    '[data-project-filter]'
+  );
+  const projectCards = document.querySelectorAll<HTMLElement>(
+    '[data-project-tags]'
+  );
+
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const filter = button.dataset.projectFilter ?? 'all';
+
+      filterButtons.forEach((filterButton) => {
+        const isActive = filterButton === button;
+        filterButton.setAttribute('aria-pressed', String(isActive));
+      });
+
+      projectCards.forEach((project) => {
+        const tags = project.dataset.projectTags?.split(' ') ?? [];
+        project.toggleAttribute(
+          'hidden',
+          filter !== 'all' && !tags.includes(filter)
+        );
+      });
+    });
+  });
+</script>

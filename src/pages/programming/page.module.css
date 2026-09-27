@@ -1,0 +1,449 @@
+:global(body) {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Poppins:Regular", sans-serif;
+}
+
+.pageHeader,
+.projectSection,
+.skillsSection,
+.ctaSection {
+  padding: 5rem 2rem;
+}
+.headerInner,
+.projectList,
+.skillsInner,
+.tagFilters,
+.ctaInner {
+  width: min(100%, var(--content-width));
+  margin: 0 auto;
+}
+.pageHeader {
+  border-bottom: 1px solid #d8d5cf;
+}
+.headerInner {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 3rem;
+}
+.typewriter {
+  font-family: "Poppins:Bold", sans-serif;
+
+  margin: 1rem 0;
+  font-size: clamp(2rem, 8vw, 6rem);
+  font-weight: 700;
+  letter-spacing: 0;
+
+  /* 2. Layout & Overflow */
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 0.15em solid var(--accent);
+  padding-right: 0.2em;
+
+  /* 3. Smooth Character Animation */
+  width: 0; /* Starts hidden */
+  animation:
+    typing 1.8s steps(8, end) forwards,
+    /* 8 steps for 8 characters in "Projects" */ blink-caret 0.75s step-end
+      infinite;
+}
+
+/* Smooth character-by-character reveal */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 8ch; /* Match exact character count of "Projects" */
+  }
+}
+
+/* Caret blinking effect */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--accent);
+  }
+}
+
+.projectSection {
+  padding-top: 2.4rem;
+  padding-bottom: 5.5rem;
+}
+.tagFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.tagFilter {
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: 0.68rem "Roboto:Regular", sans-serif;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+}
+.tagFilter:hover,
+.tagFilter[aria-pressed='true'] {
+  border-color: var(--deep-blue);
+  background: var(--deep-blue);
+  color: var(--paper);
+}
+.projectList {
+  display: grid;
+  gap: 0.6rem;
+}
+.project {
+  display: grid;
+  grid-template-columns: 2rem 12rem minmax(12rem, 1fr) minmax(12rem, 15rem) 4rem;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.4rem;
+  border: 1px solid var(--border);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.2s;
+}
+.project:hover {
+  border-color: var(--deep-blue);
+  background: var(--surface);
+  transform: translateY(-2px);
+}
+.projectNumber,
+.projectMeta,
+.tags,
+.status {
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+}
+.projectNumber,
+.projectMeta,
+.tags {
+  color: var(--muted);
+}
+.projectNumber,
+.projectMeta,
+.tags,
+.status {
+  font-family: "Roboto:Regular", sans-serif;
+}
+.projectName {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.projectName h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  letter-spacing: -0.04em;
+}
+.status {
+  padding: 0.28rem 0.45rem;
+  color: #171717;
+  font-weight: 700;
+}
+.status.lime {
+  background: #cadb54;
+}
+.status.universityBlue {
+  background: #00509e;
+  color: #fff;
+}
+
+.status.coral {
+  background: #e45f4e;
+  color: #fff;
+}
+.status.sky {
+  background: #9bd0df;
+}
+.status.muted {
+  background: #d8d5cf;
+}
+.projectDescription {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.35rem;
+}
+.tags span {
+  padding: 0.3rem 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--background);
+}
+.projectMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+.projectArrow {
+  color: var(--foreground);
+  font-family: sans-serif;
+  font-size: 1.2rem;
+  transition: transform 0.2s;
+}
+.project:hover .projectArrow {
+  transform: translate(3px, -3px);
+}
+[hidden] {
+  display: none;
+}
+.skillsSection {
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+.skillsSection .eyebrow {
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+}
+.skillGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+.skillGrid h2 {
+  margin: 0 0 1.1rem;
+  font-size: 0.9rem;
+}
+.skillGrid ul {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font: 0.8rem "Roboto:Regular", sans-serif;
+}
+.skillGrid li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.skillGrid li span {
+  width: 0.35rem;
+  height: 0.35rem;
+  flex: 0 0 0.35rem;
+  border-radius: 50%;
+  background: #e45f4e;
+}
+.ctaSection {
+  background: var(--charcoal);
+  color: var(--paper);
+}
+.ctaInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.ctaInner h2 {
+  margin: 0 0 0.6rem;
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+.ctaInner p {
+  margin: 0;
+  color: #b9c4c5;
+}
+.ctaActions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.7rem;
+}
+.primaryButton,
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.9rem 1.2rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border 0.2s;
+}
+.primaryButton {
+  background: #e45f4e;
+  color: #fff;
+}
+.primaryButton:hover {
+  background: #cadb54;
+  color: #171717;
+}
+.secondaryButton {
+  border: 1px solid #6d6a65;
+  color: #f7f5f0;
+}
+.secondaryButton:hover {
+  border-color: #f7f5f0;
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid #3e5256;
+  background: var(--charcoal);
+  color: #b9c4c5;
+  font: 0.68rem "Roboto:Regular", sans-serif;
+}
+.footer a {
+  color: inherit;
+  text-decoration: none;
+}
+.footer a:hover {
+  color: #cadb54;
+}
+
+@media (max-width: 900px) {
+  .project {
+    grid-template-columns: 2rem 12rem minmax(10rem, 1fr) 4rem;
+  }
+  .tags {
+    grid-column: 3 / 4;
+    justify-content: flex-start;
+    grid-row: 2;
+  }
+  .projectMeta {
+    grid-column: 4;
+    grid-row: 1;
+  }
+}
+
+@media (max-width: 700px) {
+  .pageHeader,
+  .projectSection,
+  .skillsSection,
+  .ctaSection {
+    padding-right: 1.25rem;
+    padding-left: 1.25rem;
+  }
+  .pageHeader {
+    padding-top: 5rem;
+  }
+  .headerInner,
+  .ctaInner {
+    display: block;
+  }
+  .headerDescription {
+    margin-top: 2rem;
+  }
+  .projectSection {
+    padding-top: 1.5rem;
+  }
+  .project {
+    grid-template-columns: 1.5rem 1fr 2.5rem;
+    gap: 0.7rem 1rem;
+    padding: 1.1rem;
+  }
+  .projectNumber {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .projectName {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .projectMeta {
+    grid-column: 3;
+    grid-row: 1;
+    display: block;
+    text-align: right;
+  }
+  .projectArrow {
+    display: block;
+    margin-top: 0.4rem;
+  }
+  .projectDescription {
+    grid-column: 2 / 4;
+    grid-row: 2;
+  }
+  .tags {
+    grid-column: 2 / 4;
+    grid-row: 3;
+  }
+  .skillGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem 1rem;
+  }
+  .ctaActions {
+    margin-top: 2rem;
+  }
+  .footer {
+    padding-right: 1.25rem;
+    padding-left: 1.25rem;
+  }
+}
+
+:global(html[data-theme='dark']) body {
+  background: #171717;
+  color: #f7f5f0;
+}
+
+:global(html[data-theme='dark']) .pageHeader,
+:global(html[data-theme='dark']) .projectSection,
+:global(html[data-theme='dark']) .ctaSection {
+  background: #171717;
+}
+
+:global(html[data-theme='dark']) .skillsSection {
+  background: #242424;
+}
+
+:global(html[data-theme='dark']) .pageHeader,
+:global(html[data-theme='dark']) .project,
+:global(html[data-theme='dark']) .tags span {
+  border-color: #454545;
+}
+
+:global(html[data-theme='dark']) .project:hover {
+  background: #303030;
+  border-color: #f7f5f0;
+}
+
+:global(html[data-theme='dark']) .tagFilter {
+  border-color: #454545;
+  color: #aaa8a2;
+}
+
+:global(html[data-theme='dark']) .tagFilter:hover,
+:global(html[data-theme='dark']) .tagFilter[aria-pressed='true'] {
+  border-color: #f7f5f0;
+  background: #f7f5f0;
+  color: #171717;
+}
+
+:global(html[data-theme='dark']) .headerDescription,
+:global(html[data-theme='dark']) .projectDescription,
+:global(html[data-theme='dark']) .projectNumber,
+:global(html[data-theme='dark']) .projectMeta,
+:global(html[data-theme='dark']) .tags,
+:global(html[data-theme='dark']) .skillGrid ul,
+:global(html[data-theme='dark']) .ctaInner p {
+  color: #aaa8a2;
+}

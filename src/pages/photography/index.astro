@@ -1,0 +1,23 @@
+---
+import SiteLayout from '../../layouts/Layout.astro';
+import PhotographyGallery from '../../components/photoGallery/PhotographyGallery';
+import { galleryImages } from '../../data/images';
+import styles from './page.module.css';
+---
+
+<SiteLayout
+  title="Photography"
+  description="A selection of Sarah Norton's photography work."
+>
+  <section class={styles.photographyPage}>
+    <header class={styles.pageHeader}>
+      <p class="eyebrow">Selected work</p>
+      <h1 class="title">Photography</h1>
+      <p class="subtitle">
+        Landscapes, people, and the small moments that make a place
+        unforgettable.
+      </p>
+    </header>
+    <PhotographyGallery images={galleryImages} client:load />
+  </section>
+</SiteLayout>

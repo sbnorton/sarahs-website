@@ -1,0 +1,23 @@
+.photographyPage {
+  max-width: var(--content-width);
+  margin: 0 auto 8vh;
+  padding: 0 2rem;
+  color: var(--ink);
+}
+
+.pageHeader {
+  padding: 4rem 0 2rem;
+}
+
+.intro {
+  width: 100%;
+  max-width: none;
+  margin-bottom: 2rem;
+  font-size: 1.15rem;
+}
+
+@media (max-width: 600px) {
+  .photographyPage {
+    padding: 0 1rem;
+  }
+}

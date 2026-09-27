@@ -29,7 +29,7 @@ export default function PhotographySection() {
       </button>
       <footer>
         <div className={cn(styles.footerRule)} aria-hidden="true">
-          <img alt="" src={`${assetPathPrefix}/4394d.svg`} />
+          <img alt="" src={`${assetPathPrefix}/svg/4394d.svg`} />
         </div>
         <div className={cn(styles.footerRow)}>
           <p>Sarah Norton</p>

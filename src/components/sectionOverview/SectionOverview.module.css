@@ -17,8 +17,8 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  width: 272px;
-  height: 66px;
+  width: 52px;
+  height: 52px;
   padding: 0;
   border-radius: 999px;
   color: white;
@@ -29,6 +29,8 @@
 .overviewItem img {
   position: absolute;
   right: 0;
+  width: 52px;
+  height: 52px;
   opacity: 0.72;
   transition: opacity 200ms ease;
 }
@@ -36,8 +38,10 @@
 .overviewNumber {
   position: absolute;
   z-index: 1;
-  right: 22px;
+  right: 0;
+  width: 52px;
   color: #737373;
+  text-align: center;
 }
 
 .overviewLabel {
@@ -55,6 +59,11 @@
   opacity: 1;
 }
 
+.isActive,
+.overviewItem:hover {
+  width: 272px;
+}
+
 .isActive .overviewLabel,
 .overviewItem:hover .overviewLabel {
   opacity: 1;
@@ -67,6 +76,11 @@
   }
 
   .overviewItem {
+    width: 52px;
+  }
+
+  .isActive,
+  .overviewItem:hover {
     width: 66px;
   }
 

@@ -38,7 +38,7 @@ export default function SectionOverview() {
           >
             <span className={cn(styles.overviewLabel)}>- {section.label}</span>
             <span className={cn(styles.overviewNumber)}>0{index + 1}</span>
-            <img alt="" aria-hidden="true" src={`${assetPathPrefix}/9d52b.svg`} />
+            <img alt="" aria-hidden="true" src={`${assetPathPrefix}/svg/9d52b.svg`} />
           </button>
         )
       })}

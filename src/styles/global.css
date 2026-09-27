@@ -53,6 +53,15 @@
   --charcoal: #232323;
   --deep-blue: #0b323f;
   --muted: #727272;
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --surface: #f7f7f5;
+  --border: #d8d8d2;
+  --primary: var(--deep-blue);
+  --secondary: #d9f7fe;
+  --content-width: 1180px;
+  --radius: 6px;
+  --accent: #e45f4e;
 }
 
 html {
@@ -80,4 +89,24 @@ button {
 
 a {
   text-decoration: none;
+}
+
+.eyebrow {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-family: "Poppins:SemiBold", sans-serif;
+  font-size: 11px;
+}
+
+.title {
+  margin: 0;
+  font-family: "Poppins:Bold", sans-serif;
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  line-height: 0.95;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  line-height: 1.5;
 }

@@ -31,15 +31,24 @@
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   justify-self: start;
   font-family: "Poppins:Bold", sans-serif;
   letter-spacing: 0.02em;
 }
 
+.brandLogo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
 .topNav {
   display: flex;
   align-items: center;
-  gap: clamp(44px, 9vw, 170px);
+  gap: clamp(24px, 4vw, 64px);
 }
 
 .topNav button,
@@ -57,8 +66,8 @@
 .toneToggle {
   position: relative;
   justify-self: end;
-  width: 72px;
-  height: 36px;
+  width: 56px;
+  height: 28px;
   border-radius: 999px;
   background: #d9d9d9;
 }
@@ -66,12 +75,14 @@
 .toneToggle img {
   position: absolute;
   top: 2px;
-  left: 4px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
   transition: transform 220ms ease;
 }
 
 :global(.dark) .toneToggle img {
-  transform: translateX(33px);
+  transform: translateX(28px);
 }
 
 .heroTitle {
@@ -90,7 +101,7 @@
 
 @media (max-width: 1100px) and (min-width: 761px) {
   .topNav {
-    gap: 44px;
+    gap: 28px;
   }
 }
 
@@ -118,5 +129,10 @@
     left: 34px;
     font-size: 9px;
     letter-spacing: 0.55em;
+  }
+
+  .brandLogo {
+    width: 22px;
+    height: 22px;
   }
 }

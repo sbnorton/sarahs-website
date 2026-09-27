@@ -26,7 +26,7 @@ export default function DesignSection() {
         </a>
       </div>
       <div className={cn(styles.sectionRule)} aria-hidden="true">
-        <img alt="" src={`${assetPathPrefix}/1f7c2.svg`} />
+        <img alt="" src={`${assetPathPrefix}/svg/1f7c2.svg`} />
       </div>
     </section>
   )
