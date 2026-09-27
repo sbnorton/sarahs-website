@@ -2,10 +2,13 @@
 interface Props {
 	title: string;
 	description?: string;
+	showNav?: boolean;
 }
 import "../styles/global.css";
+import TopNav from "../components/topNav/TopNav";
+import SiteFooter from "../components/siteFooter/SiteFooter.astro";
 
-const { title, description } = Astro.props;
+const { title, description, showNav = true } = Astro.props;
 ---
 
 <!doctype html>
@@ -18,6 +21,8 @@ const { title, description } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
+		{showNav && <TopNav client:load />}
 		<slot />
+		<SiteFooter />
 	</body>
 </html>

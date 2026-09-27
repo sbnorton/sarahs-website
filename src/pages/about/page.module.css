@@ -1,23 +1,8 @@
 .aboutPage {
-  max-width: var(--content-width);
+  box-sizing: border-box;
+  width: min(calc(100% - 64px), 1120px);
   margin: 0 auto;
-  padding: 4rem 2rem 3rem;
-}
-
-.eyebrow {
-  margin: 0 0 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--muted);
-}
-
-.title {
-  margin: 0;
-  font-size: clamp(2.25rem, 5vw, 4rem);
-  line-height: 1;
-  letter-spacing: 0;
+  padding: 4rem 4.1% 3rem;
 }
 
 .aboutCard {
@@ -163,7 +148,8 @@
 
 @media (max-width: 720px) {
   .aboutPage {
-    padding: 3rem 1rem 2rem;
+    width: calc(100% - 32px);
+    padding: 3rem 24px 2rem;
   }
 
   /* target the global subtitle class within this component */
@@ -194,5 +180,12 @@
     align-items: flex-start;
     flex-direction: column;
     margin-top: 1.5rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .aboutPage {
+    width: calc(100% - 20px);
+    padding: 46px 18px 2rem;
   }
 }

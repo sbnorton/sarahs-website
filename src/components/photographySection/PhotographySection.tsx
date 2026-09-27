@@ -1,13 +1,16 @@
-import { assetPathPrefix, scrollToSection } from "../../data/progammingSectionData"
+import { scrollToSection } from "../../data/progammingSectionData"
+import { galleryImages } from "../../data/images"
 import styles from "./PhotographySection.module.css"
 import shared from "../../styles/shared.module.css"
 import { cn } from "../portfolioStyles"
 
 export default function PhotographySection() {
+  const previewImages = galleryImages.slice(0, 3)
+
   return (
     <section className={cn(styles.photoSection, shared.sectionPad)} id="photography">
       <div className={cn(shared.sectionIntro, shared.light)}>
-        <p className={cn(shared.eyebrow)}>03 - Photography</p>
+        <p className={cn(shared.eyebrow)}>02 - Photography</p>
         <p className={cn(shared.sectionCopy)}>
           Even though I sit in front of a computer a lot, I also enjoy taking
           photos; whether it be weddings, portraits, travel or landscape
@@ -16,9 +19,15 @@ export default function PhotographySection() {
         </p>
       </div>
       <div className={cn(styles.photoStrip)}>
-        <div className={cn(styles.photoEdge, styles.left)} />
-        <div className={cn(styles.photoMain)} />
-        <div className={cn(styles.photoEdge, styles.right)} />
+        {previewImages.map((image, index) => (
+          <a
+            className={cn(index === 1 ? styles.photoMain : styles.photoEdge)}
+            href="/photography"
+            key={image.id}
+          >
+            <img src={image.thumbnail} alt={image.alt} loading="lazy" />
+          </a>
+        ))}
       </div>
       <div className={cn(styles.galleryCta)}>
         <p>If you want to see more, you can:</p>
@@ -27,23 +36,6 @@ export default function PhotographySection() {
       <button className={cn(styles.returnTop)} onClick={() => scrollToSection("welcome")}>
         Return to the top
       </button>
-      <footer>
-        <div className={cn(styles.footerRule)} aria-hidden="true">
-          <img alt="" src={`${assetPathPrefix}/svg/4394d.svg`} />
-        </div>
-        <div className={cn(styles.footerRow)}>
-          <p>Sarah Norton</p>
-          <div>
-            <a href="https://linkedin.com">linkedin</a>
-            <a href="https://instagram.com">instagram</a>
-          </div>
-        </div>
-        <p className={cn(styles.copyright)}>
-          <em>self created.</em>
-          <br />
-          All rights reserved. 2024
-        </p>
-      </footer>
     </section>
   )
 }

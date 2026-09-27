@@ -19,8 +19,8 @@ export default function Homepage() {
         onToggleDarkMode={() => setDarkMode((current) => !current)}
       />
       <ProgrammingSection />
-      <DesignSection />
       <PhotographySection />
+      <DesignSection />
     </main>
   )
 }

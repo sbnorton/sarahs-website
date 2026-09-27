@@ -7,21 +7,31 @@ export default function SectionOverview() {
   const [activeSection, setActiveSection] = useState<SectionId>("welcome")
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-        if (visible) setActiveSection(visible.target.id as SectionId)
-      },
-      { rootMargin: "-28% 0px -52% 0px", threshold: [0, 0.2, 0.5] },
-    )
+    let frame = 0
+    const updateActiveSection = () => {
+      frame = 0
+      const anchor = window.innerHeight * 0.35
+      const active = sections.find(({ id }) => {
+        const element = document.getElementById(id)
+        if (!element) return false
+        const bounds = element.getBoundingClientRect()
+        return bounds.top <= anchor && bounds.bottom > anchor
+      })
 
-    sections.forEach(({ id }) => {
-      const element = document.getElementById(id)
-      if (element) observer.observe(element)
-    })
-    return () => observer.disconnect()
+      if (active) setActiveSection(active.id)
+    }
+    const handleScroll = () => {
+      if (!frame) frame = requestAnimationFrame(updateActiveSection)
+    }
+
+    updateActiveSection()
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    window.addEventListener("resize", handleScroll)
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("resize", handleScroll)
+      if (frame) cancelAnimationFrame(frame)
+    }
   }, [])
 
   return (

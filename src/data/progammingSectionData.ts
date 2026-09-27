@@ -1,13 +1,13 @@
-export const assetPathPrefix = "/assets"
+export const assetPathPrefix = "/assets";
 
 export const sections = [
   { id: "welcome", label: "Welcome" },
   { id: "programming", label: "Programming" },
-  { id: "design", label: "Design & UX" },
   { id: "photography", label: "Photography" },
-] as const
+  { id: "design", label: "Design & UX" },
+] as const;
 
-export type SectionId = (typeof sections)[number]["id"]
+export type SectionId = (typeof sections)[number]["id"];
 
 export const projects = [
   {
@@ -28,8 +28,8 @@ export const projects = [
     tags: ["NodeJS", "Webflow"],
     tone: "blue",
   },
-] as const
+] as const;
 
 export function scrollToSection(id: SectionId) {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 }

@@ -1,32 +1,49 @@
 ---
-import SiteLayout from '../../layouts/Layout.astro';
-import styles from './page.module.css';
+import SiteLayout from "../../layouts/Layout.astro";
+import styles from "./page.module.css";
 ---
 
 <SiteLayout title="About Sarah Norton">
   <article class={styles.aboutPage}>
     <div class={styles.pageIntro}>
-      <p class={styles.eyebrow}>About me</p>
-      <h1 class={styles.title}>Hi, I&apos;m Sarah.</h1>
-      <p class="subtitle">Computer science student, designer, and photographer.</p>
+      <p class="eyebrow">About me</p>
+      <h1 class="title">Hi, I&apos;m Sarah.</h1>
+      <p class="subtitle">
+        Computer science student, designer, and photographer.
+      </p>
     </div>
 
     <div class={styles.aboutCard}>
       <div class={styles.contentColumn}>
         <div>
           <h2 class={styles.hello}>Hello!</h2>
-          <p class={styles.nameIntro}><strong>Sarah Norton</strong> <span class={styles.muted}>building thoughtful digital experiences.</span></p>
+          <p class={styles.nameIntro}>
+            <strong>Sarah Norton</strong>
+            <span class={styles.muted}
+              >building thoughtful digital experiences.</span>
+          </p>
           <div class={styles.bio}>
-            <p>I study computer science at NTNU and enjoy working where technology, design, and people meet.</p>
-            <p>My projects range from mobile development and visual computing to brand, interface, and photographic work.</p>
-            <p class={styles.emphasis}>I like making things that feel clear, useful, and a little unexpected.</p>
+            <p>
+              I study computer science at NTNU and enjoy working where
+              technology, design, and people meet.
+            </p>
+            <p>
+              My projects range from mobile development and visual computing to
+              brand, interface, and photographic work.
+            </p>
+            <p class={styles.emphasis}>
+              I like making things that feel clear, useful, and a little
+              unexpected.
+            </p>
           </div>
         </div>
 
         <div class={styles.cardFooter}>
           <div class={styles.divider}></div>
           <div class={styles.actions}>
-            <a class={styles.cta} href="mailto:hello@sarahnorton.no">Get in touch</a>
+            <a class={styles.cta} href="mailto:hello@sarahnorton.no"
+              >Get in touch</a
+            >
             <div class={styles.connect}>
               <p class={styles.connectLabel}>Find me online</p>
               <div class={styles.links}>
@@ -39,13 +56,11 @@ import styles from './page.module.css';
       </div>
 
       <div class={styles.portrait}>
-        <img src="/assets/svg/logo/sarahslogo-black.svg" alt="Sarah Norton logo" />
+        <img
+          src="/assets/svg/logo/sarahslogo-black.svg"
+          alt="Sarah Norton logo"
+        />
       </div>
     </div>
-
-    <footer class={styles.pageFooter}>
-      <a href="/">← Back home</a>
-      <span>© 2026 Sarah Norton</span>
-    </footer>
   </article>
 </SiteLayout>

@@ -1,0 +1,109 @@
+.siteHeader {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 79px 4.5% 0;
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.overHero {
+  color: #ffffff;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  justify-self: start;
+  color: inherit;
+  font-family: "Poppins:Bold", sans-serif;
+  letter-spacing: 0.02em;
+  transition: opacity 180ms ease;
+}
+
+.brand:hover,
+.topNav a:hover {
+  opacity: 0.65;
+}
+
+.brandLogo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.topNav {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 4vw, 64px);
+}
+
+.topNav a {
+  color: inherit;
+  transition: opacity 180ms ease;
+}
+
+.topNav a.active {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+
+.toneToggle {
+  position: relative;
+  justify-self: end;
+  width: 56px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #d9d9d9;
+}
+
+.toneToggle img {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  transition: transform 220ms ease;
+}
+
+.toneToggle[aria-pressed="true"] img {
+  transform: translateX(28px);
+}
+
+@media (max-width: 1100px) and (min-width: 761px) {
+  .topNav {
+    gap: 28px;
+  }
+}
+
+@media (max-width: 760px) {
+  .siteHeader {
+    grid-template-columns: 1fr auto;
+    padding: 44px 30px 0;
+  }
+
+  .overHero {
+    padding-top: 44px;
+  }
+
+  .topNav {
+    position: absolute;
+    top: 106px;
+    right: 30px;
+    left: 30px;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 9px;
+  }
+
+  .brandLogo {
+    width: 22px;
+    height: 22px;
+  }
+}
