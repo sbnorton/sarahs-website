@@ -9,6 +9,11 @@
   font-size: 12px;
 }
 
+.siteHeader:not(.overHero) {
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+
 .overHero {
   color: #ffffff;
 }
@@ -86,6 +91,10 @@
   .siteHeader {
     grid-template-columns: 1fr auto;
     padding: 44px 30px 0;
+  }
+
+  .siteHeader:not(.overHero) {
+    padding-bottom: 24px;
   }
 
   .overHero {
