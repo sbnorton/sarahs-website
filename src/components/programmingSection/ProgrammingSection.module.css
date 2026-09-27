@@ -1,0 +1,126 @@
+.programming {
+  position: relative;
+  isolation: isolate;
+  min-height: 970px;
+  background: transparent;
+  transition: background 300ms ease, color 300ms ease;
+}
+
+.programming::before {
+  position: absolute;
+  z-index: -1;
+  inset-block: 0;
+  left: 50%;
+  width: 100vw;
+  background: var(--paper);
+  content: "";
+  transform: translateX(-50%);
+}
+
+:global(.dark) .programming {
+  color: var(--paper);
+}
+
+:global(.dark) .programming::before {
+  background: var(--paper);
+}
+
+:global(.dark) .programming .eyebrow {
+  color: #bdbdbd;
+}
+
+:global(.dark) .projectCard {
+  color: #e8eeee;
+}
+
+:global(.dark) .mint { background: #214438; }
+:global(.dark) .rose { background: #542f38; }
+:global(.dark) .blue { background: #244b58; }
+
+:global(.dark) .courseLink {
+  color: var(--muted);
+}
+
+.projectGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.projectCard {
+  display: flex;
+  min-height: 355px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 31px 37px 40px;
+  border-radius: 6px;
+  color: #bdbdbd;
+  font-family: "Roboto:Medium", sans-serif;
+}
+
+.mint { background: #f0fff4; }
+.rose { background: #ffdfdf; }
+.blue { background: #d9f7fe; }
+
+.projectTitle {
+  margin: 0;
+  font-size: clamp(19px, 1.85vw, 30px);
+  line-height: 1.2;
+}
+
+.projectMeta {
+  font-size: 10px;
+}
+
+.projectMeta p {
+  margin: 0 0 16px;
+}
+
+.cardRule {
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+
+.cardRule img {
+  display: block;
+}
+
+.tagRow {
+  display: flex;
+  gap: 10px;
+}
+
+.tagRow span {
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(217, 217, 217, 0.3);
+  color: white;
+}
+
+.courseLink {
+  align-self: center;
+  justify-self: center;
+  color: #bdbdbd;
+  font-family: "Roboto:Regular", sans-serif;
+  font-size: clamp(16px, 1.85vw, 30px);
+  text-decoration: underline;
+}
+
+@media (max-width: 760px) {
+  .projectGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .projectCard {
+    min-height: 300px;
+    padding: 28px;
+  }
+
+  .courseLink {
+    justify-self: start;
+    margin: 28px 0 10px;
+  }
+}

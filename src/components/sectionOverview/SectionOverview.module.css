@@ -1,0 +1,76 @@
+.sectionOverview {
+  position: fixed;
+  z-index: 20;
+  top: 50%;
+  right: 4.7%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  color: white;
+  mix-blend-mode: difference;
+  transform: translateY(-50%);
+}
+
+.overviewItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 272px;
+  height: 66px;
+  padding: 0;
+  border-radius: 999px;
+  color: white;
+  font-size: 10px;
+  transition: background 240ms ease, width 240ms ease;
+}
+
+.overviewItem img {
+  position: absolute;
+  right: 0;
+  opacity: 0.72;
+  transition: opacity 200ms ease;
+}
+
+.overviewNumber {
+  position: absolute;
+  z-index: 1;
+  right: 22px;
+  color: #737373;
+}
+
+.overviewLabel {
+  margin-right: 78px;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.isActive {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.92) 83%);
+}
+
+.isActive img {
+  opacity: 1;
+}
+
+.isActive .overviewLabel,
+.overviewItem:hover .overviewLabel {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (max-width: 760px) {
+  .sectionOverview {
+    right: 12px;
+  }
+
+  .overviewItem {
+    width: 66px;
+  }
+
+  .overviewLabel {
+    display: none;
+  }
+}

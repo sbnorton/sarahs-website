@@ -1,0 +1,122 @@
+.hero {
+  position: relative;
+  height: 810px;
+  min-height: 100dvh;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+.heroImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 118%;
+  object-fit: cover;
+}
+
+.heroShade {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 28, 37, 0.48);
+}
+
+.siteHeader {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 79px 4.5% 0;
+  font-size: 12px;
+}
+
+.brand {
+  justify-self: start;
+  font-family: "Poppins:Bold", sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.topNav {
+  display: flex;
+  align-items: center;
+  gap: clamp(44px, 9vw, 170px);
+}
+
+.topNav button,
+.topNav a,
+.brand {
+  transition: opacity 180ms ease;
+}
+
+.topNav button:hover,
+.topNav a:hover,
+.brand:hover {
+  opacity: 0.65;
+}
+
+.toneToggle {
+  position: relative;
+  justify-self: end;
+  width: 72px;
+  height: 36px;
+  border-radius: 999px;
+  background: #d9d9d9;
+}
+
+.toneToggle img {
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  transition: transform 220ms ease;
+}
+
+:global(.dark) .toneToggle img {
+  transform: translateX(33px);
+}
+
+.heroTitle {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 4.45%;
+  margin: 0;
+  font-family: "Inter:Regular", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.91em;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%) rotate(180deg);
+}
+
+@media (max-width: 1100px) and (min-width: 761px) {
+  .topNav {
+    gap: 44px;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    height: 720px;
+  }
+
+  .siteHeader {
+    grid-template-columns: 1fr auto;
+    padding: 44px 30px 0;
+  }
+
+  .topNav {
+    position: absolute;
+    top: 106px;
+    right: 30px;
+    left: 30px;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 9px;
+  }
+
+  .heroTitle {
+    left: 34px;
+    font-size: 9px;
+    letter-spacing: 0.55em;
+  }
+}

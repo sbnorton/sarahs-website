@@ -1,0 +1,53 @@
+.sectionPad {
+  box-sizing: border-box;
+  width: min(calc(100% - 48px), 1280px);
+  margin-inline: auto;
+  padding: 74px 4.1%;
+}
+
+.sectionIntro {
+  max-width: 94%;
+  margin-bottom: 34px;
+}
+
+.eyebrow {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-family: "Poppins:SemiBold", sans-serif;
+  font-size: 11px;
+}
+
+.sectionCopy {
+  margin: 0;
+  font-size: clamp(16px, 1.85vw, 30px);
+  line-height: 1.45;
+}
+
+.light .eyebrow {
+  color: #e0e0e0;
+}
+
+@media (max-width: 760px) {
+  .sectionPad {
+    width: calc(100% - 32px);
+    padding: 58px 24px;
+  }
+
+  .sectionIntro {
+    max-width: calc(100% - 42px);
+  }
+}
+
+@media (max-width: 1100px) and (min-width: 761px) {
+  .sectionPad {
+    width: calc(100% - 40px);
+    padding-inline: 40px;
+  }
+}
+
+@media (max-width: 520px) {
+  .sectionPad {
+    width: calc(100% - 20px);
+    padding: 46px 18px;
+  }
+}
