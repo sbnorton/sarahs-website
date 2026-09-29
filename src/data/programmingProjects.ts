@@ -154,7 +154,7 @@ export const projects: Project[] = [
       "Explored real-time rendering and interactive 3D environments.",
     ],
 
-    screenshots: null,
+    screenshots: ["/public/assets/images/mjaavatn.png"],
     videoUrl: "https://youtube.com/embed/weKFIjwk46M",
     github: null,
   },
