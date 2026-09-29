@@ -151,10 +151,10 @@ export const projects: Project[] = [
       "Developed as part of the TDT4195 Graphics and Visualisation course.",
       "Created an interactive 3D visualization of the Earth.",
       "Implemented graphics and interaction using C++ and C.",
-      "Explored real-time rendering and interactive 3D environments.",
+      "Explored real-time rendering and how shaders work.",
     ],
 
-    screenshots: ["/public/assets/images/mjaavatn.png"],
+    screenshots: [],
     videoUrl: "https://youtube.com/embed/weKFIjwk46M",
     github: null,
   },
