@@ -65,7 +65,7 @@ export const projects: Project[] = [
     title: 'Personal website',
     subtitle: 'Photography and CS Portfolio',
 
-    tags: ['TypeScript', 'React', 'Astro'],
+    tags: ['React', 'Astro', 'Cloudflare'],
     labels: ['personal', 'active'],
 
     description:

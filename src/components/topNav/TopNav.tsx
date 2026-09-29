@@ -57,7 +57,7 @@ export default function TopNav() {
     { href: '/programming', label: 'PROGRAMMING' },
     { href: '/photography', label: 'PHOTOGRAPHY' },
     { href: '/design', label: 'DESIGN' },
-    { href: '/about', label: 'ABOUT ME' },
+    { href: '/about', label: 'ABOUT' },
     { href: '/contact', label: 'CONTACT' },
   ];
 
