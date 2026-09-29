@@ -1,6 +1,6 @@
 export default ({ mode }) => ({
   site: mode === 'production'
-    ? 'https:/sbnorton.github.io'
+    ? 'https://github.com/sbnorton'
     : 'http://localhost:4321',
 
   base: mode === 'production'
