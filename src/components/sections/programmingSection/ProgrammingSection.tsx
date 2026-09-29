@@ -38,7 +38,7 @@ export default function ProgrammingSection() {
       </div>
 
       <div className={cn(styles.projectGrid)}>
-        {projects.map((project) => {
+        {projects.slice(0, 2).map((project) => {
           const image = project.screenshots?.[0];
 
           return (
@@ -102,6 +102,12 @@ export default function ProgrammingSection() {
       {activeProject && (
         <ProjectModal project={activeProject} onClose={closeModal} />
       )}
+
+      <div className={cn(styles.projectActions)}>
+        <a href="/programming" className={cn(styles.showMoreButton)}>
+          Show me more programming projects! <span aria-hidden="true">↗</span>
+        </a>
+      </div>
     </section>
   );
 }

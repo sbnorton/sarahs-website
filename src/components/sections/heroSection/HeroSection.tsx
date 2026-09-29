@@ -1,14 +1,8 @@
-import { assetPathPrefix } from "../../../data/programmingProjects"
-import styles from "./HeroSection.module.css"
-import { cn } from "../../portfolioStyles"
-import TopNav from "../../topNav/TopNav"
+import { assetPathPrefix } from "../../../data/programmingProjects";
+import styles from "./HeroSection.module.css";
+import { cn } from "../../portfolioStyles";
 
-interface Props {
-  darkMode: boolean
-  onToggleDarkMode: () => void
-}
-
-export default function HeroSection({ darkMode, onToggleDarkMode }: Props) {
+export default function HeroSection() {
   return (
     <section className={cn(styles.hero)} id="welcome">
       <img
@@ -16,13 +10,10 @@ export default function HeroSection({ darkMode, onToggleDarkMode }: Props) {
         src={`${assetPathPrefix}/images/mjaavatn.png`}
         alt="Aerial view of kayaks"
       />
+
       <div className={cn(styles.heroShade)} />
-      <TopNav
-        overHero
-        darkMode={darkMode}
-        onToggleDarkMode={onToggleDarkMode}
-      />
+
       <p className={cn(styles.heroTitle)}>WELCOME TO MY PORTFOLIO</p>
     </section>
-  )
+  );
 }

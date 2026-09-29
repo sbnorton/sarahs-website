@@ -1,4 +1,3 @@
-import { useState } from "react"
 import DesignSection from "./sections/designSection/DesignSection"
 import HeroSection from "./sections/heroSection/HeroSection"
 import PhotographySection from "./sections/photographySection/PhotographySection"
@@ -9,15 +8,10 @@ import { cn } from "./portfolioStyles"
 import "../styles/global.css"
 
 export default function Homepage() {
-  const [darkMode, setDarkMode] = useState(false)
-
   return (
-    <main className={cn(styles.site, darkMode && styles.dark, darkMode && "dark")}>
+    <main className={cn(styles.site)}>
       <SectionOverview />
-      <HeroSection
-        darkMode={darkMode}
-        onToggleDarkMode={() => setDarkMode((current) => !current)}
-      />
+      <HeroSection />
       <ProgrammingSection />
       <PhotographySection />
       <DesignSection />

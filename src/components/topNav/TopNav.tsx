@@ -1,69 +1,63 @@
 import { useEffect, useState } from "react";
+
 import { assetPathPrefix } from "../../data/programmingProjects";
 import styles from "./TopNav.module.css";
 import { cn } from "../portfolioStyles";
 
-interface Props {
-  overHero?: boolean;
-  darkMode?: boolean;
-  onToggleDarkMode?: () => void;
-  currentPath?: string;
-}
+export default function TopNav() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [activePath, setActivePath] = useState("/");
+  const isHomepage = activePath === "/";
 
-export default function TopNav({
-  overHero = false,
-  darkMode,
-  onToggleDarkMode,
-  currentPath,
-}: Props) {
-  const [internalDarkMode, setInternalDarkMode] = useState(false);
-  const isDarkMode = darkMode ?? internalDarkMode;
-  const toggleDarkMode =
-    onToggleDarkMode ?? (() => setInternalDarkMode((current) => !current));
-  
-  const logo =
-    overHero || isDarkMode ? "sarahslogo-white.svg" : "sarahslogo-black.svg";
-
-  // Renamed state variable to avoid collision with the prop name
-  // Standardize the initial path from props or window
   const getNormalizedPath = (path?: string) => {
     if (!path) return "/";
+
     const cleaned = path.replace(/\/$/, "");
+
     return cleaned === "" ? "/" : cleaned;
   };
 
-  const [activePath, setActivePath] = useState(() => 
-    getNormalizedPath(currentPath)
-  );
+  // Read the existing document theme after React has mounted.
+  useEffect(() => {
+    setIsDarkMode(document.documentElement.dataset.theme === "dark");
+  }, []);
 
   useEffect(() => {
-    const updatePath = () => {
+    const updateNavigation = () => {
       setActivePath(getNormalizedPath(window.location.pathname));
+
+      setIsDarkMode(document.documentElement.dataset.theme === "dark");
     };
 
-    updatePath();
-    window.addEventListener("popstate", updatePath);
-    window.addEventListener("astro:after-swap", updatePath);
-    
+    updateNavigation();
+    console.log(
+      "navigation",
+      window.location.pathname,
+      document.documentElement.dataset.theme,
+    );
+
+    window.addEventListener("popstate", updateNavigation);
+    document.addEventListener("astro:after-swap", updateNavigation);
+
     return () => {
-      window.removeEventListener("popstate", updatePath);
-      window.removeEventListener("astro:after-swap", updatePath);
+      window.removeEventListener("popstate", updateNavigation);
+      document.removeEventListener("astro:after-swap", updateNavigation);
     };
   }, []);
 
-  // Sync state if currentPath prop updates from Astro page navigation
-  useEffect(() => {
-    if (currentPath) {
-      setActivePath(getNormalizedPath(currentPath));
-    }
-  }, [currentPath]);
+  const toggleDarkMode = () => {
+    const nextTheme = document.documentElement.dataset.theme !== "dark";
 
-  useEffect(() => {
-    document.documentElement.dataset.theme = isDarkMode ? "dark" : "light";
-    return () => {
-      delete document.documentElement.dataset.theme;
-    };
-  }, [isDarkMode, overHero]);
+    document.documentElement.dataset.theme = nextTheme ? "dark" : "light";
+
+    localStorage.setItem("theme", nextTheme ? "dark" : "light");
+
+    setIsDarkMode(nextTheme);
+    console.log("toggle", nextTheme);
+  };
+
+  const logo =
+    isHomepage || isDarkMode ? "sarahslogo-white.svg" : "sarahslogo-black.svg";
 
   const links = [
     { href: "/", label: "HOMEPAGE" },
@@ -75,7 +69,7 @@ export default function TopNav({
   ];
 
   return (
-    <header className={cn(styles.siteHeader, overHero && styles.overHero)}>
+    <header className={cn(styles.siteHeader, isHomepage && styles.overHero)}>
       <a className={cn(styles.brand)} href="/">
         <img
           className={cn(styles.brandLogo)}
@@ -85,9 +79,11 @@ export default function TopNav({
         />
         SARAH NORTON
       </a>
+
       <nav className={cn(styles.topNav)} aria-label="Main navigation">
         {links.map((link) => {
           const isActive = activePath === getNormalizedPath(link.href);
+
           return (
             <a
               key={link.href}
@@ -99,7 +95,9 @@ export default function TopNav({
           );
         })}
       </nav>
+
       <button
+        type="button"
         className={cn(styles.toneToggle)}
         aria-label="Toggle dark mode"
         aria-pressed={isDarkMode}

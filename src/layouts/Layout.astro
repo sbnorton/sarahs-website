@@ -1,36 +1,52 @@
 ---
 interface Props {
-    title: string;
-    description?: string;
-    showNav?: boolean;
+  title: string;
+  description?: string;
+  showNav?: boolean;
 }
+
+import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 import TopNav from "../components/topNav/TopNav";
 import SiteFooter from "../components/siteFooter/SiteFooter.astro";
 
 const { title, description, showNav = true } = Astro.props;
-
-// 1. Get the current page route URL
-const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="generator" content={Astro.generator} />
-        {description && <meta name="description" content={description} />}
-        <title>{title}</title>
-    </head>
-    <body>
-        <!-- 2. Pass currentPath to TopNav & wrap in header to persist across navigation -->
-        {showNav && (
-            <header transition:persist>
-                <TopNav currentPath={currentPath} client:load />
-            </header>
-        )}
-        <slot />
-        <SiteFooter />
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+	<link rel="icon" type="image/svg+xml" href="./public/favicon.svg" />
+
+    {description && <meta name="description" content={description} />}
+
+    <title>{title}</title>
+
+    <ClientRouter />
+
+    <script is:inline>
+      const applyTheme = () => {
+        const savedTheme = localStorage.getItem("theme");
+
+        document.documentElement.dataset.theme =
+          savedTheme === "dark" ? "dark" : "light";
+      };
+
+      applyTheme();
+
+      document.addEventListener("astro:after-swap", applyTheme);
+    </script>
+  </head>
+
+  <body>
+    {showNav && <TopNav client:load transition:persist />}
+
+    <slot />
+
+    <SiteFooter />
+  </body>
 </html>

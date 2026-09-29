@@ -69,7 +69,7 @@ export const projects: Project[] = [
     labels: ["personal", "active"],
 
     description:
-      "You are currently looking at it 😄! A website for showcasing my portfolio; both for code projects and photography work.",
+      "You are currently looking at it 😄! A website for showcasing my portfolio; both for programming projects and photography work.",
 
     year: "2026",
 

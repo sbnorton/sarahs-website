@@ -1,7 +1,7 @@
 .programming {
   position: relative;
   isolation: isolate;
-  min-height: 970px;
+  min-height: 55em;
   background: transparent;
   transition:
     background 300ms ease,
@@ -31,20 +31,6 @@
   color: #bdbdbd;
 }
 
-:global(.dark) .projectCard {
-  color: #e8eeee;
-}
-
-:global(.dark) .mint {
-  background: #214438;
-}
-:global(.dark) .rose {
-  background: #542f38;
-}
-:global(.dark) .blue {
-  background: #244b58;
-}
-
 :global(.dark) .courseLink {
   color: var(--muted);
 }
@@ -55,20 +41,23 @@
   gap: 12px;
 }
 
+/* ---------- Cards ---------- */
+
 .projectCard {
   --pad-top: 31px;
   --pad-x: 37px;
-  --pad-bottom: 40px;
+  --pad-bottom: 36px;
 
   position: relative;
   display: flex;
   min-height: 355px;
   flex-direction: column;
   justify-content: space-between;
+  gap: 1.5rem;
   padding: var(--pad-top) var(--pad-x) var(--pad-bottom);
   overflow: hidden;
   border-radius: 6px;
-  color: #bdbdbd;
+  color: #1f1f1f; /* dark text: readable on every light card colour */
   font-family: "Roboto:Medium", sans-serif;
   transition: transform 0.2s;
 }
@@ -77,11 +66,34 @@
   transform: translateY(-2px);
 }
 
+/* Card colour palette (used when a project has no screenshot) */
+.mint {
+  background: #f0fff4;
+}
+.rose {
+  background: #ffdfdf;
+}
+.blue {
+  background: #63acbd;
+}
+
 /* Cards with a screenshot: neutral base, image bleeds to the card edges */
 .withImage {
   background: #f4f2ee;
 }
 
+:global(.dark) .projectCard {
+  color: #e8eeee;
+}
+:global(.dark) .mint {
+  background: #214438;
+}
+:global(.dark) .rose {
+  background: #542f38;
+}
+:global(.dark) .blue {
+  background: #244b58;
+}
 :global(.dark) .withImage {
   background: #2a2a2a;
 }
@@ -128,86 +140,89 @@
   border-radius: 6px;
 }
 
-.mint {
-  background: #f0fff4;
+.projectTitle {
+  display: block;
+  margin: 0;
+  font-family: "Poppins:Bold", sans-serif;
+  font-size: clamp(19px, 1.85vw, 28px);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
 }
-.rose {
-  background: #ffdfdf;
+
+/* ---------- Status labels (same look as the programming page) ---------- */
+
+.projectLabels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
 }
-.blue {
-  background: #d9f7fe;
+
+.projectStatus {
+  padding: 0.28rem 0.45rem;
+  color: #171717;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
 }
+
+/* Tone classes come AFTER .projectStatus so their colours win */
 .lime {
   background: #cadb54;
-  color: #171717;
 }
 .sky {
   background: #9bd0df;
-  color: #171717;
+}
+.inDevelopment {
+  background: #ffb302;
+}
+.muted {
+  background: #d8d5cf;
 }
 .universityBlue {
   background: #00509e;
   color: #ffffff;
 }
-.inDevelopment {
-  background: #c1a259;
+.coral {
+  background: #e45f4e;
+  color: #ffffff;
 }
 
-.projectTitle {
-  display: block;
-  margin: 0;
-  font-size: clamp(19px, 1.85vw, 30px);
-  line-height: 1.2;
-}
-
-.projectStatus {
-  margin: 8px 0 0;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
+/* ---------- Description + tags ---------- */
 
 .projectMeta {
-  font-size: 10px;
+  font-size: 0.68rem;
 }
 
 .projectDescription {
-  min-height: 2.8em;
-  line-height: 1.45;
-}
-
-.projectMeta p {
   margin: 0 0 16px;
-}
-
-.cardRule {
-  display: block;
-  width: 100%;
-  height: 1px;
-  margin-bottom: 18px;
-  overflow: hidden;
-}
-
-.cardRule img {
-  display: block;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  opacity: 0.85;
+  font-family: 'Poppins:Regular';
 }
 
 .tagRow {
   display: flex;
-  gap: 10px;
-}
-
-.tagRow span {
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: rgba(217, 217, 217, 0.3);
-  color: white;
-}
-
-.projectLabels {
-  display: flex;
-  gap: 8px;
   flex-wrap: wrap;
+  gap: 0.35rem;
+  font-family: "Roboto:Regular", sans-serif;
+  letter-spacing: 0.04em;
+}
+
+/* Same tag style as the programming page */
+.tagRow span {
+  padding: 0.3rem 0.45rem;
+  border: 1px solid var(--border, #d8d5cf);
+  border-radius: var(--radius, 4px);
+  background: var(--background, transparent);
+  color: var(--muted, #6b6b6b);
+}
+
+:global(.dark) .tagRow span {
+  border-color: #454545;
+  color: #aaa8a2;
 }
 
 .courseLink {
@@ -236,4 +251,35 @@
     justify-self: start;
     margin: 28px 0 10px;
   }
+}
+
+.projectActions {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+.showMoreButton {
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 0.7rem;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s,
+    transform 0.2s;
+}
+
+.showMoreButton:hover {
+  border-color: var(--deep-blue);
+  background: var(--deep-blue);
+  color: var(--paper);
+  transform: translateY(-2px);
 }
