@@ -23,7 +23,7 @@ export const projects = [
   },
   {
     name: "Icebreaker",
-    description: "A collaborative team project built around playful connection.",
+    description: "A collaborative team project, from the course TDT4140 Software Engineering.",
     tags: ["react", "python"],
     status: "university",
     year: "2023",

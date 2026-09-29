@@ -7,33 +7,56 @@ interface Props {
   overHero?: boolean;
   darkMode?: boolean;
   onToggleDarkMode?: () => void;
+  currentPath?: string;
 }
 
 export default function TopNav({
   overHero = false,
   darkMode,
   onToggleDarkMode,
+  currentPath,
 }: Props) {
   const [internalDarkMode, setInternalDarkMode] = useState(false);
   const isDarkMode = darkMode ?? internalDarkMode;
   const toggleDarkMode =
     onToggleDarkMode ?? (() => setInternalDarkMode((current) => !current));
-  const logo = overHero || isDarkMode ? "sarahslogo-white.svg" : "sarahslogo-black.svg";
-  const [currentPath, setCurrentPath] = useState("/");
+  
+  const logo =
+    overHero || isDarkMode ? "sarahslogo-white.svg" : "sarahslogo-black.svg";
+
+  // Renamed state variable to avoid collision with the prop name
+  // Standardize the initial path from props or window
+  const getNormalizedPath = (path?: string) => {
+    if (!path) return "/";
+    const cleaned = path.replace(/\/$/, "");
+    return cleaned === "" ? "/" : cleaned;
+  };
+
+  const [activePath, setActivePath] = useState(() => 
+    getNormalizedPath(currentPath)
+  );
 
   useEffect(() => {
     const updatePath = () => {
-      setCurrentPath(window.location.pathname.replace(/\/$/, "") || "/");
+      setActivePath(getNormalizedPath(window.location.pathname));
     };
 
     updatePath();
     window.addEventListener("popstate", updatePath);
     window.addEventListener("astro:after-swap", updatePath);
+    
     return () => {
       window.removeEventListener("popstate", updatePath);
       window.removeEventListener("astro:after-swap", updatePath);
     };
   }, []);
+
+  // Sync state if currentPath prop updates from Astro page navigation
+  useEffect(() => {
+    if (currentPath) {
+      setActivePath(getNormalizedPath(currentPath));
+    }
+  }, [currentPath]);
 
   useEffect(() => {
     if (overHero) return;
@@ -43,11 +66,12 @@ export default function TopNav({
       delete document.documentElement.dataset.theme;
     };
   }, [isDarkMode, overHero]);
+
   const links = [
     { href: "/", label: "HOMEPAGE" },
     { href: "/programming", label: "PROGRAMMING" },
     { href: "/photography", label: "PHOTOGRAPHY" },
-    { href: "/programming", label: "DESIGN", active: false },
+    { href: "/design", label: "DESIGN" },
     { href: "/about", label: "ABOUT ME" },
     { href: "/contact", label: "CONTACT" },
   ];
@@ -64,18 +88,18 @@ export default function TopNav({
         SARAH NORTON
       </a>
       <nav className={cn(styles.topNav)} aria-label="Main navigation">
-        {links.map((link) => (
-          <a
-            className={cn(
-              currentPath === link.href &&
-                link.active !== false &&
-                styles.active,
-            )}
-            href={link.href}
-          >
-            {link.label}
-          </a>
-        ))}
+        {links.map((link) => {
+          const isActive = activePath === getNormalizedPath(link.href);
+          return (
+            <a
+              key={link.href}
+              className={cn(isActive && styles.active)}
+              href={link.href}
+            >
+              {link.label}
+            </a>
+          );
+        })}
       </nav>
       <button
         className={cn(styles.toneToggle)}

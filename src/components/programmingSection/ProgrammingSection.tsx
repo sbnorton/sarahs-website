@@ -17,7 +17,7 @@ export default function ProgrammingSection() {
       <div className={cn(shared.sectionIntro)}>
         <p className={cn(shared.eyebrow)}>01 - Programming</p>
         <p className={cn(shared.sectionCopy)}>
-          As a computer science student at NTNU, I have worked on lots of
+          As a computer science student at NTNU, I have worked on a lot of
           interesting projects. Here are some of them:
         </p>
       </div>

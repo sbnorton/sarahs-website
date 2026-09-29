@@ -1,0 +1,42 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { designProjects } from "../../data/design";
+import styles from "./page.module.css";
+---
+
+<Layout
+	title="Design & UX | Sarah Norton"
+	description="Selected graphic design and user experience work by Sarah Norton."
+>
+	<main class={styles.designPage}>
+		<header class={styles.pageHeader}>
+			<p class="eyebrow">Visual Work</p>
+			<h1 class="title">Design &amp; UX</h1>
+			<p class={styles.lead}>
+				I am definitely not a graphical designer on a daily basis, but I do some projects for fun occassionally! Feel free to have a look:)
+			</p>
+		</header>
+
+		<ul class={styles.designList} aria-label="Design projects">
+			{designProjects.map((project) => (
+				<li
+					class={styles.designEntry}
+					style={`--entry-accent: ${project.accent}; --entry-bg: ${project.background};`}
+				>
+					<div class={styles.designEntrySwatch} aria-hidden="true"></div>
+					<div class={styles.designEntryBody}>
+						<div class={styles.designEntryTop}>
+							<span class={styles.designEntryNumber}>{project.number}</span>
+							<span class={styles.designEntryCategory}>{project.category}</span>
+						</div>
+						<p class={styles.designEntryTitle}>{project.title}</p>
+						<p class={styles.designEntryDescription}>{project.description}</p>
+					</div>
+					<div class={styles.designEntryArrow} aria-hidden="true">↗</div>
+				</li>
+			))}
+		</ul>
+
+		<p class={styles.footnote}>More work available on request.</p>
+	</main>
+</Layout>
