@@ -1,14 +1,8 @@
 ---
 import SiteLayout from "../../layouts/Layout.astro";
-import {
-  projectLabelDefinitions,
-  projects,
-} from "../../data/programmingProjects";
+import ProjectDetails from "./ProjectDetails";
+import { projects } from "../../data/programmingProjects";
 import styles from "./page.module.css";
-
-const availableProjectTags = [
-  ...new Set(projects.flatMap((project) => project.tags)),
-];
 
 const skillGroups = [
   {
@@ -51,86 +45,8 @@ const skillGroups = [
 
     <main>
       <section class={styles.projectSection} aria-label="Selected projects">
-        <!-- Technology filters -->
-        <div
-          class={styles.tagFilters}
-          role="group"
-          aria-label="Filter projects by technology"
-        >
-          <button
-            class={styles.tagFilter}
-            type="button"
-            data-project-filter="all"
-            aria-pressed="true"
-          >
-            All
-          </button>
-
-          {
-            availableProjectTags.map((tag) => (
-              <button
-                class={styles.tagFilter}
-                type="button"
-                data-project-filter={tag}
-                aria-pressed="false"
-              >
-                {tag}
-              </button>
-            ))
-          }
-        </div>
-
-        <!-- Projects -->
-        <div class={styles.projectList}>
-          {
-            projects.map((project, index) => (
-              <a
-                class={styles.project}
-                href="/contact"
-                data-project-tags={project.tags.join(" ")}
-              >
-                <span class={styles.projectNumber}>
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-
-                <div class={styles.projectName}>
-                  <h2>{project.name}</h2>
-
-                  <div class={styles.labels}>
-                    {project.labels.map((label) => (
-                      <span
-                        class:list={[
-                          styles.status,
-                          styles[projectLabelDefinitions[label].tone],
-                        ]}
-                      >
-                        {projectLabelDefinitions[label].label}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <p class={styles.projectDescription}>
-                  {project.description}
-                </p>
-
-                <div class={styles.tags}>
-                  {project.tags.slice(0, 3).map((tag) => (
-                    <span>{tag}</span>
-                  ))}
-                </div>
-
-                <div class={styles.projectMeta}>
-                  <span>{project.year}</span>
-
-                  <span class={styles.projectArrow} aria-hidden="true">
-                    ↗
-                  </span>
-                </div>
-              </a>
-            ))
-          }
-        </div>
+        <!-- Filters, project list and modal all live in this one island -->
+        <ProjectDetails client:load projects={projects} />
       </section>
 
       <!-- Skills -->
@@ -161,39 +77,3 @@ const skillGroups = [
     </main>
   </section>
 </SiteLayout>
-
-<script>
-  const filterButtons = document.querySelectorAll<HTMLButtonElement>(
-    "[data-project-filter]",
-  );
-
-  const projectCards = document.querySelectorAll<HTMLElement>(
-    "[data-project-tags]",
-  );
-
-  filterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const filter = button.dataset.projectFilter ?? "all";
-
-      // Update which filter button is active
-      filterButtons.forEach((filterButton) => {
-        const isActive = filterButton === button;
-
-        filterButton.setAttribute(
-          "aria-pressed",
-          String(isActive),
-        );
-      });
-
-      // Show/hide projects
-      projectCards.forEach((project) => {
-        const tags = project.dataset.projectTags?.split(" ") ?? [];
-
-        project.toggleAttribute(
-          "hidden",
-          filter !== "all" && !tags.includes(filter),
-        );
-      });
-    });
-  });
-</script>

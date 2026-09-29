@@ -18,7 +18,7 @@ export interface Project {
   title: string;
   subtitle: string;
   tags: string[];
-  labels: string[];
+  labels: (keyof typeof projectLabelDefinitions)[];
   description: string;
   year: string | null;
   details: string[];
@@ -62,8 +62,8 @@ export const projectLabelDefinitions = {
 export const projects: Project[] = [
   {
     slug: "personal-website",
-    title: "Personal Website",
-    subtitle: "Photography & Computer Science Portfolio",
+    title: "Personal website",
+    subtitle: "Photography and CS Portfolio",
 
     tags: ["TypeScript", "React", "Astro"],
     labels: ["personal", "active"],
@@ -74,13 +74,12 @@ export const projects: Project[] = [
     year: "2026",
 
     details: [
-      "Designed and developed a personal portfolio website.",
-      "Combines photography, programming projects, and design work.",
-      "Built with React and Astro.",
-      "Currently working on deployment and further improvements.",
+      "I wanted to try to design and develop a personal portfolio website.",
+      "The purpose is to showcase photography, programming projects, and design work.",
+      "Currently working on deployment and further improvements (store images in AWS??).",
     ],
 
-    screenshots: null,
+    screenshots: ["/public/assets/images/thisWebsite.png"],
     videoUrl: null,
     github: null,
   },
@@ -139,7 +138,7 @@ export const projects: Project[] = [
   {
     slug: "codetrotter",
     title: "CodeTrotter | TDT4195",
-    subtitle: "Graphics & Visualisation · University Project",
+    subtitle: "Graphics and Visualisation · University Project",
 
     tags: ["C++", "C"],
     labels: ["university", "archived"],
@@ -157,7 +156,7 @@ export const projects: Project[] = [
     ],
 
     screenshots: null,
-    videoUrl: null,
+    videoUrl: "https://youtube.com/embed/weKFIjwk46M",
     github: null,
   },
 ];
