@@ -1,4 +1,3 @@
-import { scrollToSection } from "../../data/progammingSectionData"
 import { galleryImages } from "../../data/images"
 import styles from "./PhotographySection.module.css"
 import shared from "../../styles/shared.module.css"
@@ -31,11 +30,10 @@ export default function PhotographySection() {
       </div>
       <div className={cn(styles.galleryCta)}>
         <p>If you want to see more, you can:</p>
-        <button type="button">Visit the gallery</button>
+        <a href="/photography">
+          Visit the gallery <span aria-hidden="true">↗</span>
+        </a>
       </div>
-      <button className={cn(styles.returnTop)} onClick={() => scrollToSection("welcome")}>
-        Return to the top
-      </button>
     </section>
   )
 }

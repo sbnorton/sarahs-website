@@ -21,7 +21,7 @@ export default function DesignSection() {
         <div className={cn(styles.tile, styles.medium, styles.mid)} />
         <div className={cn(styles.tile, styles.tall, styles.pale)} />
         <div className={cn(styles.tile, styles.short, styles.white)} />
-        <a className={cn(styles.moreDesign)} href="#photography">
+        <a className={cn(styles.moreDesign)} href="/design">
           Click-here-to-see-more-random-design-projects-button:))
         </a>
       </div>
