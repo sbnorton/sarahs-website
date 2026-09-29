@@ -1,7 +1,7 @@
-import { galleryImages } from "../../data/images";
+import { galleryImages } from "../../../data/images";
 import styles from "./PhotographySection.module.css";
-import shared from "../../styles/shared.module.css";
-import { cn } from "../portfolioStyles";
+import shared from "/src/styles/shared.module.css";
+import { cn } from "../../portfolioStyles";
 
 export default function PhotographySection() {
   const previewImages = galleryImages.slice(0, 3);

@@ -59,8 +59,6 @@ export default function TopNav({
   }, [currentPath]);
 
   useEffect(() => {
-    if (overHero) return;
-
     document.documentElement.dataset.theme = isDarkMode ? "dark" : "light";
     return () => {
       delete document.documentElement.dataset.theme;

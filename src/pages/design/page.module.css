@@ -83,7 +83,7 @@
   margin: 0;
   color: var(--entry-accent);
   font-family: "Poppins:Bold", sans-serif;
-  font-size: clamp(1.75rem, 4vw, 3.5rem);
+  font-size: clamp(16px, 1.85vw, 30px);
   line-height: 1;
 }
 

@@ -3,19 +3,18 @@ import styles from "./SiteFooter.module.css";
 ---
 
 <footer class={styles.footer}>
-  <div class={styles.rule} aria-hidden="true">
-    <img src="/assets/svg/4394d.svg" alt="" />
-  </div>
-  <div class={styles.row}>
-    <p>Sarah Norton</p>
-    <div>
-      <a href="https://linkedin.com">linkedin</a>
-      <a href="https://instagram.com">instagram</a>
+  <div class={styles.inner}>
+    <div class={styles.row}>
+      <p>Sarah Norton</p>
+      <div>
+        <a href="https://linkedin.com">linkedin</a>
+        <a href="https://instagram.com">instagram</a>
+      </div>
     </div>
+    <p class={styles.copyright}>
+      <em> Some Sarah-production.</em>
+      <br />
+      © All rights reserved. 2026
+    </p>
   </div>
-  <p class={styles.copyright}>
-    <em> Some Sarah-production.</em>
-    <br />
-    © All rights reserved. 2026
-  </p>
 </footer>

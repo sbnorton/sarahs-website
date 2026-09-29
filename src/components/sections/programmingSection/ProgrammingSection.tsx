@@ -1,12 +1,12 @@
-import { assetPathPrefix } from "../../data/progammingSectionData";
+import { assetPathPrefix } from "../../../data/progammingSectionData";
 import {
   projectStatusDefinitions,
   projectTagDefinitions,
   projects,
-} from "../../data/projects";
+} from "../../../data/projects";
 import styles from "./ProgrammingSection.module.css";
-import shared from "../../styles/shared.module.css";
-import { cn } from "./../portfolioStyles";
+import shared from "/src/styles/shared.module.css";
+import { cn } from "../../portfolioStyles";
 
 export default function ProgrammingSection() {
   return (

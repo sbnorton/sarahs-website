@@ -74,6 +74,15 @@
 
 .sectionRule img { display: block; }
 
+.returnTop {
+  display: block;
+  margin: 54px auto 0;
+  color: inherit;
+  font-family: "Roboto:Regular", sans-serif;
+  font-size: 11px;
+  text-decoration: underline;
+}
+
 @media (max-width: 760px) {
   .designSection { min-height: auto; }
 

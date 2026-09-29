@@ -1,7 +1,7 @@
-import { assetPathPrefix } from "../../data/progammingSectionData";
+import { assetPathPrefix, scrollToSection } from "../../../data/progammingSectionData";
 import styles from "./DesignSection.module.css";
-import shared from "../../styles/shared.module.css";
-import { cn } from "../portfolioStyles";
+import shared from "/src/styles/shared.module.css";
+import { cn } from "../../portfolioStyles";
 
 export default function DesignSection() {
   return (
@@ -32,6 +32,12 @@ export default function DesignSection() {
       <div className={cn(styles.sectionRule)} aria-hidden="true">
         <img alt="" src={`${assetPathPrefix}/svg/1f7c2.svg`} />
       </div>
+      <button
+        className={cn(styles.returnTop)}
+        onClick={() => scrollToSection("welcome")}
+      >
+        Return to the top
+      </button>
     </section>
   );
 }

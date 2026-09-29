@@ -14,13 +14,3 @@
   --deep-blue: #d9eff2;
   --muted: #bdbdbd;
 }
-
-.returnTop {
-  display: block;
-  margin: 0 auto;
-  padding: 54px 0 68px;
-  color: var(--ink);
-  font-family: "Roboto:Regular", sans-serif;
-  font-size: 11px;
-  text-decoration: underline;
-}

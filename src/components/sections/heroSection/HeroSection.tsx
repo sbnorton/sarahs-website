@@ -1,7 +1,7 @@
-import { assetPathPrefix } from "../../data/progammingSectionData"
+import { assetPathPrefix } from "../../../data/progammingSectionData"
 import styles from "./HeroSection.module.css"
-import { cn } from "../portfolioStyles"
-import TopNav from "../topNav/TopNav"
+import { cn } from "../../portfolioStyles"
+import TopNav from "../../topNav/TopNav"
 
 interface Props {
   darkMode: boolean
