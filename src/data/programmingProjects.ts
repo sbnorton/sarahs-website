@@ -98,14 +98,13 @@ export const projects: Project[] = [
     year: "2025",
 
     details: [
-      "Worked as a fullstack developer at Skatteetaten.",
       "Developed functionality for the SISMO debt collection portal.",
       "Worked with React and TypeScript in the frontend.",
-      "Worked with Java and SQL in the backend.",
+      "Java and SQL in the backend.",
       "Collaborated with designers and other developers throughout the project.",
     ],
 
-    screenshots: null,
+    screenshots: ["/public/assets/images/skatteetaten.png"],
     videoUrl: null,
     github: null,
   },

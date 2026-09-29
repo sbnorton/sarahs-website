@@ -19,13 +19,15 @@ export default function ProjectDetails({ projects }: Props) {
   );
 
   const visibleProjects =
-    filter === "all" ? projects : projects.filter((p) => p.tags.includes(filter));
+    filter === "all"
+      ? projects
+      : projects.filter((p) => p.tags.includes(filter));
 
   const closeModal = useCallback(() => setActiveProject(null), []);
 
   return (
     <>
-      {/* Technology filters */}
+      {/* technology filters */}
       <div
         className={styles.tagFilters}
         role="group"
@@ -44,7 +46,7 @@ export default function ProjectDetails({ projects }: Props) {
         ))}
       </div>
 
-      {/* Project list */}
+      {/* project list */}
       <div className={styles.projectList}>
         {visibleProjects.map((project) => (
           <a
@@ -52,7 +54,7 @@ export default function ProjectDetails({ projects }: Props) {
             className={styles.project}
             href={`#${project.slug}`}
             onClick={(event) => {
-              event.preventDefault(); // stops the redirect, opens the modal instead
+              event.preventDefault();
               setActiveProject(project);
             }}
           >
@@ -62,9 +64,11 @@ export default function ProjectDetails({ projects }: Props) {
 
             <div className={styles.projectName}>
               <h2>{project.title}</h2>
+
               <div className={styles.labels}>
                 {project.labels.map((label) => {
                   const def = projectLabelDefinitions[label];
+
                   return (
                     <span
                       key={label}
@@ -77,7 +81,9 @@ export default function ProjectDetails({ projects }: Props) {
               </div>
             </div>
 
-            <p className={styles.projectDescription}>{project.description}</p>
+            <p className={styles.projectDescription}>
+              {project.description}
+            </p>
 
             <div className={styles.tags}>
               {project.tags.slice(0, 3).map((tag) => (
@@ -87,7 +93,11 @@ export default function ProjectDetails({ projects }: Props) {
 
             <div className={styles.projectMeta}>
               <span>{project.year}</span>
-              <span className={styles.projectArrow} aria-hidden="true">
+
+              <span
+                className={styles.projectArrow}
+                aria-hidden="true"
+              >
                 ↗
               </span>
             </div>
@@ -96,7 +106,10 @@ export default function ProjectDetails({ projects }: Props) {
       </div>
 
       {activeProject && (
-        <ProjectModal project={activeProject} onClose={closeModal} />
+        <ProjectModal
+          project={activeProject}
+          onClose={closeModal}
+        />
       )}
     </>
   );
@@ -107,13 +120,81 @@ interface ModalProps {
   onClose: () => void;
 }
 
+type MediaItem =
+  | {
+      type: "video";
+      src: string;
+    }
+  | {
+      type: "image";
+      src: string;
+      index: number;
+    };
+
 function ProjectModal({ project, onClose }: ModalProps) {
   const closeRef = useRef<HTMLButtonElement>(null);
+  const [activeMedia, setActiveMedia] = useState(0);
 
+  /*
+   * build one list containing all available media.
+   * the video is shown first, followed by screenshots.
+   */
+  const media = useMemo<MediaItem[]>(() => {
+    const items: MediaItem[] = [];
+
+    if (project.videoUrl) {
+      items.push({
+        type: "video",
+        src: project.videoUrl,
+      });
+    }
+
+    project.screenshots?.forEach((src, index) => {
+      items.push({
+        type: "image",
+        src,
+        index,
+      });
+    });
+
+    return items;
+  }, [project]);
+
+  /*
+   * start at the first media item whenever a new project is opened.
+   */
   useEffect(() => {
-    const previouslyFocused = document.activeElement as HTMLElement | null;
+    setActiveMedia(0);
+  }, [project]);
+
+  /*
+   * modal keyboard handling and body scroll locking.
+   */
+  useEffect(() => {
+    const previouslyFocused =
+      document.activeElement as HTMLElement | null;
+
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") {
+        onClose();
+        return;
+      }
+
+      if (media.length <= 1) {
+        return;
+      }
+
+      if (event.key === "ArrowRight") {
+        setActiveMedia((current) =>
+          current === media.length - 1 ? 0 : current + 1,
+        );
+      }
+
+      if (event.key === "ArrowLeft") {
+        setActiveMedia((current) =>
+          current === 0 ? media.length - 1 : current - 1,
+        );
+      }
     };
 
     document.addEventListener("keydown", handleKeyDown);
@@ -125,7 +206,21 @@ function ProjectModal({ project, onClose }: ModalProps) {
       document.body.style.overflow = "";
       previouslyFocused?.focus();
     };
-  }, [onClose]);
+  }, [media.length, onClose]);
+
+  const showPrevious = () => {
+    setActiveMedia((current) =>
+      current === 0 ? media.length - 1 : current - 1,
+    );
+  };
+
+  const showNext = () => {
+    setActiveMedia((current) =>
+      current === media.length - 1 ? 0 : current + 1,
+    );
+  };
+
+  const currentMedia = media[activeMedia];
 
   return (
     <div
@@ -135,7 +230,10 @@ function ProjectModal({ project, onClose }: ModalProps) {
       aria-label={project.title}
       onClick={onClose}
     >
-      <div className={styles.modalPanel} onClick={(e) => e.stopPropagation()}>
+      <div
+        className={styles.modalPanel}
+        onClick={(event) => event.stopPropagation()}
+      >
         <button
           ref={closeRef}
           type="button"
@@ -148,52 +246,100 @@ function ProjectModal({ project, onClose }: ModalProps) {
 
         <header className={styles.detailHeader}>
           <div>
-            <p className={styles.detailSubtitle}>{project.subtitle}</p>
-            <h2 className={styles.detailTitle}>{project.title}</h2>
+            <p className={styles.detailSubtitle}>
+              {project.subtitle}
+            </p>
+
+            <h2 className={styles.detailTitle}>
+              {project.title}
+            </h2>
           </div>
+
           {project.year && (
-            <span className={styles.detailYear}>{project.year}</span>
+            <span className={styles.detailYear}>
+              {project.year}
+            </span>
           )}
         </header>
 
         <div className={styles.detailGrid}>
+          {/* media carousel */}
           <div className={styles.detailMedia}>
-            {project.videoUrl ? (
-              <div className={styles.videoFrame}>
-                <iframe
-                  src={project.videoUrl}
-                  title={`${project.title} demo video`}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
+            {media.length > 0 ? (
+              <div className={styles.mediaCarousel}>
+                <div className={styles.mediaViewport}>
+                  {currentMedia?.type === "video" && (
+                    <div className={styles.videoFrame}>
+                      <iframe
+                        src={currentMedia.src}
+                        title={`${project.title} demo video`}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
+                  )}
+
+                  {currentMedia?.type === "image" && (
+                    <img
+                      className={styles.mediaImage}
+                      src={currentMedia.src}
+                      alt={`${project.title} screenshot ${
+                        currentMedia.index + 1
+                      }`}
+                    />
+                  )}
+                </div>
+
+                {media.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      className={`${styles.mediaArrow} ${styles.mediaArrowPrevious}`}
+                      onClick={showPrevious}
+                      aria-label="Previous media"
+                    >
+                      ←
+                    </button>
+
+                    <button
+                      type="button"
+                      className={`${styles.mediaArrow} ${styles.mediaArrowNext}`}
+                      onClick={showNext}
+                      aria-label="Next media"
+                    >
+                      →
+                    </button>
+
+                    <div
+                      className={styles.mediaCounter}
+                      aria-live="polite"
+                    >
+                      {activeMedia + 1} / {media.length}
+                    </div>
+                  </>
+                )}
               </div>
             ) : (
-              <div className={styles.mediaPlaceholder}>No video available</div>
-            )}
-
-            {project.screenshots && project.screenshots.length > 0 && (
-              <div className={styles.screenshots}>
-                {project.screenshots.map((src, i) => (
-                  <img
-                    key={src}
-                    src={src}
-                    alt={`${project.title} screenshot ${i + 1}`}
-                    loading="lazy"
-                  />
-                ))}
+              <div className={styles.mediaPlaceholder}>
+                No media available
               </div>
             )}
           </div>
 
+          {/* project information */}
           <aside className={styles.detailInfo}>
             <section>
-              <p className={styles.detailLabel}>Description</p>
+              <p className={styles.detailLabel}>
+                Description
+              </p>
+
               <p>{project.description}</p>
             </section>
 
             {project.details.length > 0 && (
               <section>
                 <p className={styles.detailLabel}>Details</p>
+
                 <ul>
                   {project.details.map((detail) => (
                     <li key={detail}>{detail}</li>
@@ -203,7 +349,10 @@ function ProjectModal({ project, onClose }: ModalProps) {
             )}
 
             <section>
-              <p className={styles.detailLabel}>Technologies</p>
+              <p className={styles.detailLabel}>
+                Technologies
+              </p>
+
               <div className={styles.tags}>
                 {project.tags.map((tag) => (
                   <span key={tag}>{tag}</span>
@@ -213,8 +362,15 @@ function ProjectModal({ project, onClose }: ModalProps) {
 
             {project.github && (
               <section>
-                <p className={styles.detailLabel}>Repository</p>
-                <a href={project.github} target="_blank" rel="noreferrer">
+                <p className={styles.detailLabel}>
+                  Repository
+                </p>
+
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   View on GitHub ↗
                 </a>
               </section>

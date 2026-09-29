@@ -25,10 +25,10 @@ export default function ProgrammingSection() {
         {projects.map((project) => (
           <article
             className={cn(styles.projectCard)}
-            key={project.name}
+            key={project.title}
           >
             <div>
-              <p className={cn(styles.projectTitle)}>{project.name}</p>
+              <p className={cn(styles.projectTitle)}>{project.title}</p>
 
               <div className={cn(styles.projectLabels)}>
                 {project.labels.map((label) => (
