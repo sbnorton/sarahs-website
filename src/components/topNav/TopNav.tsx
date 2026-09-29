@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { assetPathPrefix } from "../../data/progammingSectionData";
+import { assetPathPrefix } from "../../data/programmingProjects";
 import styles from "./TopNav.module.css";
 import { cn } from "../portfolioStyles";
 

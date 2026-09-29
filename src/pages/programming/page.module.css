@@ -87,14 +87,16 @@
   background: transparent;
   color: var(--muted);
   cursor: pointer;
-  font: 0.68rem "Roboto:Regular", sans-serif;
+  font:
+    0.68rem "Roboto:Regular",
+    sans-serif;
   transition:
     background 0.2s,
     border-color 0.2s,
     color 0.2s;
 }
 .tagFilter:hover,
-.tagFilter[aria-pressed='true'] {
+.tagFilter[aria-pressed="true"] {
   border-color: var(--deep-blue);
   background: var(--deep-blue);
   color: var(--paper);
@@ -156,12 +158,21 @@
   color: #171717;
   font-weight: 700;
 }
+
 .status.lime {
   background: #cadb54;
 }
 .status.universityBlue {
   background: #00509e;
   color: #fff;
+}
+
+.status.inDevelopment {
+  background: #ffb302;
+}
+
+.status.archived {
+  background: #a4abb6;
 }
 
 .status.coral {
@@ -234,7 +245,9 @@
   padding: 0;
   list-style: none;
   color: var(--muted);
-  font: 0.8rem "Roboto:Regular", sans-serif;
+  font:
+    0.8rem "Roboto:Regular",
+    sans-serif;
 }
 .skillGrid li {
   display: flex;
@@ -310,7 +323,9 @@
   border-top: 1px solid #3e5256;
   background: var(--charcoal);
   color: #b9c4c5;
-  font: 0.68rem "Roboto:Regular", sans-serif;
+  font:
+    0.68rem "Roboto:Regular",
+    sans-serif;
 }
 .footer a {
   color: inherit;
@@ -400,50 +415,50 @@
   }
 }
 
-:global(html[data-theme='dark']) body {
+:global(html[data-theme="dark"]) body {
   background: #171717;
   color: #f7f5f0;
 }
 
-:global(html[data-theme='dark']) .pageHeader,
-:global(html[data-theme='dark']) .projectSection,
-:global(html[data-theme='dark']) .ctaSection {
+:global(html[data-theme="dark"]) .pageHeader,
+:global(html[data-theme="dark"]) .projectSection,
+:global(html[data-theme="dark"]) .ctaSection {
   background: #171717;
 }
 
-:global(html[data-theme='dark']) .skillsSection {
+:global(html[data-theme="dark"]) .skillsSection {
   background: #242424;
 }
 
-:global(html[data-theme='dark']) .pageHeader,
-:global(html[data-theme='dark']) .project,
-:global(html[data-theme='dark']) .tags span {
+:global(html[data-theme="dark"]) .pageHeader,
+:global(html[data-theme="dark"]) .project,
+:global(html[data-theme="dark"]) .tags span {
   border-color: #454545;
 }
 
-:global(html[data-theme='dark']) .project:hover {
+:global(html[data-theme="dark"]) .project:hover {
   background: #303030;
   border-color: #f7f5f0;
 }
 
-:global(html[data-theme='dark']) .tagFilter {
+:global(html[data-theme="dark"]) .tagFilter {
   border-color: #454545;
   color: #aaa8a2;
 }
 
-:global(html[data-theme='dark']) .tagFilter:hover,
-:global(html[data-theme='dark']) .tagFilter[aria-pressed='true'] {
+:global(html[data-theme="dark"]) .tagFilter:hover,
+:global(html[data-theme="dark"]) .tagFilter[aria-pressed="true"] {
   border-color: #f7f5f0;
   background: #f7f5f0;
   color: #171717;
 }
 
-:global(html[data-theme='dark']) .headerDescription,
-:global(html[data-theme='dark']) .projectDescription,
-:global(html[data-theme='dark']) .projectNumber,
-:global(html[data-theme='dark']) .projectMeta,
-:global(html[data-theme='dark']) .tags,
-:global(html[data-theme='dark']) .skillGrid ul,
-:global(html[data-theme='dark']) .ctaInner p {
+:global(html[data-theme="dark"]) .headerDescription,
+:global(html[data-theme="dark"]) .projectDescription,
+:global(html[data-theme="dark"]) .projectNumber,
+:global(html[data-theme="dark"]) .projectMeta,
+:global(html[data-theme="dark"]) .tags,
+:global(html[data-theme="dark"]) .skillGrid ul,
+:global(html[data-theme="dark"]) .ctaInner p {
   color: #aaa8a2;
 }

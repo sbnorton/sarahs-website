@@ -14,7 +14,7 @@ export default function PhotographySection() {
       <div className={cn(shared.sectionIntro, shared.light)}>
         <p className={cn(shared.eyebrow)}>02 - Photography</p>
         <p className={cn(shared.sectionCopy)}>
-          Even though I am usually placed in front of a computer, I also enjoy taking
+          Even though I am usually placed in front of the computer, I also enjoy taking
           photos. It can be everything from landscape, weddings, portraits or travel
           photography! Contact me if you are ever in need of a photographer with
           dad jokes. Take a look at some of my work here:

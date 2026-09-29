@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { assetPathPrefix, scrollToSection, sections, type SectionId } from "../../data/progammingSectionData"
+import { assetPathPrefix, scrollToSection, sections, type SectionId } from "../../data/programmingProjects"
 import styles from "./SectionOverview.module.css"
 import { cn } from "../portfolioStyles"
 

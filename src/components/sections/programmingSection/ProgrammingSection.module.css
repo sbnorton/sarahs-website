@@ -3,7 +3,9 @@
   isolation: isolate;
   min-height: 970px;
   background: transparent;
-  transition: background 300ms ease, color 300ms ease;
+  transition:
+    background 300ms ease,
+    color 300ms ease;
 }
 
 .programming::before {
@@ -33,9 +35,15 @@
   color: #e8eeee;
 }
 
-:global(.dark) .mint { background: #214438; }
-:global(.dark) .rose { background: #542f38; }
-:global(.dark) .blue { background: #244b58; }
+:global(.dark) .mint {
+  background: #214438;
+}
+:global(.dark) .rose {
+  background: #542f38;
+}
+:global(.dark) .blue {
+  background: #244b58;
+}
 
 :global(.dark) .courseLink {
   color: var(--muted);
@@ -58,12 +66,30 @@
   font-family: "Roboto:Medium", sans-serif;
 }
 
-.mint { background: #f0fff4; }
-.rose { background: #ffdfdf; }
-.blue { background: #d9f7fe; }
-.lime { background: #cadb54; color: #171717; }
-.sky { background: #9bd0df; color: #171717; }
-.universityBlue { background: #00509e; color: #ffffff; }
+.mint {
+  background: #f0fff4;
+}
+.rose {
+  background: #ffdfdf;
+}
+.blue {
+  background: #d9f7fe;
+}
+.lime {
+  background: #cadb54;
+  color: #171717;
+}
+.sky {
+  background: #9bd0df;
+  color: #171717;
+}
+.universityBlue {
+  background: #00509e;
+  color: #ffffff;
+}
+.inDevelopment {
+  background: #c1a259;
+}
 
 .projectTitle {
   margin: 0;
@@ -113,6 +139,12 @@
   border-radius: 999px;
   background: rgba(217, 217, 217, 0.3);
   color: white;
+}
+
+.projectLabels {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .courseLink {

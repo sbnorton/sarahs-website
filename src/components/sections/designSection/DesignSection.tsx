@@ -1,4 +1,4 @@
-import { assetPathPrefix, scrollToSection } from "../../../data/progammingSectionData";
+import { assetPathPrefix, scrollToSection } from "../../../data/programmingProjects";
 import styles from "./DesignSection.module.css";
 import shared from "/src/styles/shared.module.css";
 import { cn } from "../../portfolioStyles";
