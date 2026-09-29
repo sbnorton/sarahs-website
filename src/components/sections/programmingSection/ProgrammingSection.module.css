@@ -6,6 +6,7 @@
   transition:
     background 300ms ease,
     color 300ms ease;
+  width: min(calc(100% - 2 * var(--page-padding)), var(--content-width));
 }
 
 .programming::before {

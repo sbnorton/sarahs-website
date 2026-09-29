@@ -1,18 +1,22 @@
 .filterButton {
   display: flex;
-  gap: 2em;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   margin-bottom: 20px;
-  font-size: 12px;
+  font-size: clamp(11px, 0.2vw + 10px, 14px);
 }
 
 .filterButton button {
-  padding: 10px 20px;
+  padding: 0.65rem 1.25rem;
   border: none;
-  border-radius: 90px;
+  border-radius: 999px;
   background-color: var(--surface);
   color: var(--ink);
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .filterButton button.active {
@@ -25,60 +29,34 @@
   color: var(--background);
 }
 
-/* Large tablet/small laptop */
-@media (max-width: 1024px) {
-  .filterButton {
-    gap: 1.5em;
-  }
-
-  .filterButton button {
-    padding: 9px 18px;
-    font-size: 11px;
-  }
-}
-
-/* Tablet */
 @media (max-width: 768px) {
   .filterButton {
-    gap: 1em;
+    gap: 0.6rem;
   }
 
   .filterButton button {
-    padding: 8px 16px;
+    padding: 0.6rem 1rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .filterButton {
+    gap: 0.5rem;
+  }
+
+  .filterButton button {
+    padding: 0.55rem 0.9rem;
     font-size: 11px;
   }
 }
 
-/* Large landscape */
-@media (max-width: 666px) {
-  .filterButton {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .filterButton button {
-    width: 100%;
-    padding: 12px;
-    font-size: 13px;
-  }
-}
-
-/* Small landscape */
-@media (max-width: 568px) {
-  .filterButton button {
-    padding: 10px;
-    font-size: 12px;
-  }
-}
-
-/* Mobile */
 @media (max-width: 360px) {
   .filterButton {
-    gap: 8px;
+    gap: 0.4rem;
   }
 
   .filterButton button {
-    padding: 8px;
-    font-size: 11px;
+    padding: 0.5rem 0.75rem;
+    font-size: 10px;
   }
 }

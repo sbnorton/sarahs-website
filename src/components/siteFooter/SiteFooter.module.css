@@ -5,7 +5,7 @@
   border-top: 1px solid var(--border);
   color: var(--ink);
   background: var(--paper);
-  font-size: 11px;
+  font-size: clamp(11px, 0.2vw + 9px, 14px);
   transition:
     background-color 300ms ease,
     color 300ms ease;
@@ -13,9 +13,9 @@
 
 .inner {
   box-sizing: border-box;
-  width: min(calc(100% - 64px), 1120px);
+  width: min(calc(100% - 9%), 1600px);
   margin: 0 auto;
-  padding: 0 4.1% 40px;
+  padding: 0 0 50px;
 }
 
 .rule {
@@ -27,7 +27,7 @@
 .row {
   display: flex;
   justify-content: space-between;
-  padding: 40px 0;
+  padding: clamp(32px, 3vw, 56px) 0;
 }
 
 .row p {
@@ -36,7 +36,7 @@
 
 .row div {
   display: flex;
-  gap: min(18vw, 280px);
+  gap: clamp(28px, 8vw, 140px);
 }
 
 .row a,
@@ -46,7 +46,7 @@
 }
 
 .copyright {
-  margin: 30px 0 0;
+  margin: clamp(24px, 2vw, 36px) 0 0;
   text-align: center;
 }
 

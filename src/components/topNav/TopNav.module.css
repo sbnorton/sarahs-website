@@ -4,13 +4,13 @@
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  padding: 79px 4.5% 0;
+  padding: clamp(60px, 4vw, 100px) 4.5% 0;
   color: var(--ink);
-  font-size: 12px;
+  font-size: clamp(12px, 0.25vw + 10px, 16px);
 }
 
 .siteHeader:not(.overHero) {
-  padding-bottom: 28px;
+  padding-bottom: clamp(24px, 1.5vw, 36px);
   border-bottom: 1px solid var(--border);
 }
 
@@ -25,7 +25,7 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: clamp(10px, 0.5vw, 14px);
   justify-self: start;
   color: inherit;
   font-family: 'Poppins:Bold', sans-serif;
@@ -39,15 +39,15 @@
 }
 
 .brandLogo {
-  width: 24px;
-  height: 24px;
+  width: clamp(24px, 1.4vw, 32px);
+  height: clamp(24px, 1.4vw, 32px);
   object-fit: contain;
 }
 
 .topNav {
   display: flex;
   align-items: center;
-  gap: clamp(24px, 4vw, 64px);
+  gap: clamp(24px, 3.5vw, 72px);
 }
 
 .topNav a {
@@ -58,14 +58,14 @@
 .topNav a.active {
   text-decoration: underline;
   text-decoration-thickness: 1px;
-  text-underline-offset: 5px;
+  text-underline-offset: clamp(4px, 0.3vw, 6px);
 }
 
 .toneToggle {
   position: relative;
   justify-self: end;
-  width: 56px;
-  height: 28px;
+  width: clamp(56px, 3vw, 68px);
+  height: clamp(28px, 1.5vw, 34px);
   padding: 0;
   border: 0;
   border-radius: 999px;
@@ -76,13 +76,13 @@
   position: absolute;
   top: 2px;
   left: 2px;
-  width: 24px;
-  height: 24px;
+  width: clamp(24px, 1.3vw, 30px);
+  height: clamp(24px, 1.3vw, 30px);
   transition: transform 220ms ease;
 }
 
 .toneToggle[aria-pressed='true'] img {
-  transform: translateX(28px);
+  transform: translateX(clamp(28px, 1.5vw, 34px));
 }
 
 @media (max-width: 1100px) and (min-width: 761px) {
@@ -91,10 +91,11 @@
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 800px) {
   .siteHeader {
     grid-template-columns: 1fr auto;
     padding: 44px 30px 0;
+    font-size: 12px;
   }
 
   .siteHeader:not(.overHero) {

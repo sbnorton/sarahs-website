@@ -59,9 +59,12 @@
   --border: #d8d8d2;
   --primary: var(--deep-blue);
   --secondary: #d9f7fe;
-  --content-width: 1180px;
+  --content-width: 1600px;
   --radius: 6px;
   --accent: #e45f4e;
+
+  /* Responsive layout */
+  --page-padding: clamp(30px, 4.5vw, 72px);
 }
 
 html[data-theme='dark'] {
@@ -113,7 +116,7 @@ a {
   margin: 0 0 0.75rem;
   color: var(--muted);
   font-family: 'Poppins:SemiBold', sans-serif;
-  font-size: 0.7rem;
+  font-size: clamp(0.7rem, 0.15vw + 0.65rem, 0.85rem);
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -122,7 +125,7 @@ a {
 .title {
   margin: 0;
   font-family: 'Poppins:Bold', sans-serif;
-  font-size: clamp(2.25rem, 5vw, 4rem);
+  font-size: clamp(2.25rem, 5vw, 5.5rem);
   line-height: 1;
   letter-spacing: 0;
 }
@@ -130,6 +133,6 @@ a {
 .subtitle {
   margin: 0.75rem 0 0;
   color: var(--muted);
-  font-size: 1.15rem;
+  font-size: clamp(1.15rem, 0.5vw + 0.9rem, 1.5rem);
   line-height: 1.5;
 }

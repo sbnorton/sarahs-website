@@ -6,17 +6,17 @@
   z-index: 1000;
   display: grid;
   place-items: center;
-  padding: 1.5rem;
+  padding: clamp(1rem, 2vw, 2.5rem);
   background: rgba(23, 23, 23, 0.6);
   animation: fade 0.18s ease-out;
 }
 
 .panel {
   position: relative;
-  width: min(100%, 60rem);
-  max-height: 100%;
+  width: min(100%, 100rem);
+  max-height: 92vh;
   overflow-y: auto;
-  padding: 2.5rem;
+  padding: clamp(2rem, 3vw, 4rem);
   border: 1px solid var(--border, #d8d5cf);
   border-radius: var(--radius, 6px);
   background: var(--paper, #f7f5f0);
@@ -27,21 +27,22 @@
 
 .close {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 2.25rem;
-  height: 2.25rem;
+  top: clamp(1rem, 1.5vw, 1.5rem);
+  right: clamp(1rem, 1.5vw, 1.5rem);
+  width: clamp(2.25rem, 2.5vw, 3rem);
+  height: clamp(2.25rem, 2.5vw, 3rem);
   border: 1px solid var(--border, #d8d5cf);
   border-radius: var(--radius, 6px);
   background: transparent;
   color: inherit;
-  font-size: 1.4rem;
+  font-size: clamp(1.2rem, 1.2vw, 1.5rem);
   line-height: 1;
   cursor: pointer;
   transition:
     background 0.2s,
     color 0.2s;
 }
+
 .close:hover {
   background: var(--deep-blue, #00509e);
   color: var(--paper, #f7f5f0);
@@ -53,20 +54,22 @@
   justify-content: space-between;
   gap: 1rem;
   padding-right: 3rem;
-  margin-bottom: 2rem;
+  margin-bottom: clamp(1.5rem, 2vw, 2.5rem);
 }
+
 .subtitle,
 .year,
 .label {
   margin: 0;
   color: var(--muted, #6b6b6b);
-  font-size: 0.68rem;
+  font-size: clamp(0.65rem, 0.2vw + 0.6rem, 0.8rem);
   letter-spacing: 0.04em;
 }
+
 .title {
   margin: 0.4rem 0 0;
   font-family: 'Poppins:Bold', sans-serif;
-  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-size: clamp(1.6rem, 3vw, 3.2rem);
   letter-spacing: -0.04em;
   line-height: 1;
 }
@@ -74,21 +77,49 @@
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  gap: 2rem;
+  gap: clamp(2rem, 3vw, 4rem);
 }
+
 .media {
   display: grid;
   gap: 1rem;
   align-content: start;
 }
+
+.mediaCarousel {
+  position: relative;
+}
+
+.mediaViewport {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: clamp(20rem, 30vw, 36rem);
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.mediaImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: clamp(32rem, 40vw, 48rem);
+  object-fit: contain;
+}
+
 .videoFrame {
+  width: 100%;
   aspect-ratio: 16 / 9;
 }
+
 .videoFrame iframe {
+  display: block;
   width: 100%;
   height: 100%;
   border: 0;
 }
+
 .placeholder {
   display: grid;
   place-items: center;
@@ -99,11 +130,60 @@
   color: var(--muted, #6b6b6b);
   font-size: 0.75rem;
 }
+
+.mediaArrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: clamp(2.5rem, 3vw, 3.5rem);
+  height: clamp(2.5rem, 3vw, 3.5rem);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: rgba(23, 23, 23, 0.7);
+  color: var(--paper);
+  cursor: pointer;
+  font-size: clamp(1.1rem, 1.2vw, 1.5rem);
+  transform: translateY(-50%);
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+.mediaArrow:hover {
+  background: var(--deep-blue);
+}
+
+.mediaArrowPrevious {
+  left: clamp(0.75rem, 1.2vw, 1.5rem);
+}
+
+.mediaArrowNext {
+  right: clamp(0.75rem, 1.2vw, 1.5rem);
+}
+
+.mediaCounter {
+  position: absolute;
+  right: 50%;
+  bottom: 0.8rem;
+  z-index: 2;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius);
+  background: rgba(23, 23, 23, 0.7);
+  color: var(--paper);
+  font:
+    0.65rem 'Roboto:Regular',
+    sans-serif;
+  transform: translateX(50%);
+}
+
 .screenshots {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
   gap: 0.6rem;
 }
+
 .screenshots img {
   width: 100%;
   border: 1px solid var(--border, #d8d5cf);
@@ -112,21 +192,25 @@
 
 .info {
   display: grid;
-  gap: 1.5rem;
+  gap: clamp(1.25rem, 1.5vw, 2rem);
   align-content: start;
-  font-size: 0.86rem;
+  font-size: clamp(0.82rem, 0.2vw + 0.75rem, 1rem);
   line-height: 1.55;
 }
+
 .info p {
   margin: 0;
 }
+
 .info ul {
   margin: 0.5rem 0 0;
   padding-left: 1.1rem;
 }
+
 .info .label {
   margin-bottom: 0.5rem;
 }
+
 .info a {
   color: inherit;
 }
@@ -138,6 +222,7 @@
   font-size: 0.68rem;
   letter-spacing: 0.04em;
 }
+
 .tags span {
   padding: 0.3rem 0.45rem;
   border: 1px solid var(--border, #d8d5cf);
@@ -145,17 +230,21 @@
   color: var(--muted, #6b6b6b);
 }
 
+/* ---------- animations ---------- */
+
 @keyframes fade {
   from {
     opacity: 0;
   }
 }
+
 @keyframes rise {
   from {
     opacity: 0;
     transform: translateY(12px);
   }
 }
+
 @media (prefers-reduced-motion: reduce) {
   .backdrop,
   .panel {
@@ -163,38 +252,34 @@
   }
 }
 
-@media (max-width: 800px) {
-  .panel {
-    padding: 1.5rem 1.25rem;
-  }
-  .grid {
-    grid-template-columns: 1fr;
-  }
-}
+/* ---------- dark mode ---------- */
 
-/* Dark mode: supports both mechanisms used on the site (.dark class and data-theme) */
 :global(.dark) .panel,
 :global(html[data-theme='dark']) .panel {
   background: #242424;
   border-color: #454545;
   color: #f7f5f0;
 }
+
 :global(.dark) .close,
 :global(html[data-theme='dark']) .close,
 :global(.dark) .tags span,
 :global(html[data-theme='dark']) .tags span {
   border-color: #454545;
 }
+
 :global(.dark) .close:hover,
 :global(html[data-theme='dark']) .close:hover {
   background: #f7f5f0;
   color: #171717;
 }
+
 :global(.dark) .placeholder,
 :global(html[data-theme='dark']) .placeholder {
   background: #171717;
   border-color: #454545;
 }
+
 :global(.dark) .subtitle,
 :global(html[data-theme='dark']) .subtitle,
 :global(.dark) .year,
@@ -208,135 +293,6 @@
   color: #aaa8a2;
 }
 
-/* ---------- media carousel ---------- */
-
-.mediaCarousel {
-  position: relative;
-}
-
-.mediaViewport {
-  position: relative;
-
-  display: grid;
-  place-items: center;
-
-  min-height: 20rem;
-
-  overflow: hidden;
-
-  border-radius: var(--radius);
-  background: var(--surface);
-}
-
-.mediaImage {
-  display: block;
-
-  width: 100%;
-  height: auto;
-  max-height: 32rem;
-
-  object-fit: contain;
-}
-
-.mediaArrow {
-  position: absolute;
-  top: 50%;
-  z-index: 2;
-
-  display: grid;
-  place-items: center;
-
-  width: 2.5rem;
-  height: 2.5rem;
-
-  border: 1px solid var(--border);
-  border-radius: 50%;
-
-  background: rgba(23, 23, 23, 0.7);
-  color: var(--paper);
-
-  cursor: pointer;
-
-  font-size: 1.2rem;
-
-  transform: translateY(-50%);
-
-  transition:
-    background 0.2s,
-    transform 0.2s;
-}
-
-.mediaArrow:hover {
-  background: var(--deep-blue);
-}
-
-.mediaArrowPrevious {
-  left: 1rem;
-}
-
-.mediaArrowNext {
-  right: 1rem;
-}
-
-.mediaCounter {
-  position: absolute;
-  right: 50%;
-  bottom: 0.8rem;
-  z-index: 2;
-
-  padding: 0.25rem 0.5rem;
-
-  border-radius: var(--radius);
-
-  background: rgba(23, 23, 23, 0.7);
-  color: var(--paper);
-
-  font:
-    0.65rem 'Roboto:Regular',
-    sans-serif;
-
-  transform: translateX(50%);
-}
-
-/* keep the video at the same aspect ratio as before */
-
-.videoFrame {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-}
-
-.videoFrame iframe {
-  display: block;
-
-  width: 100%;
-  height: 100%;
-
-  border: 0;
-}
-
-/* smaller screens */
-
-@media (max-width: 800px) {
-  .mediaViewport {
-    min-height: 15rem;
-  }
-
-  .mediaArrow {
-    width: 2.2rem;
-    height: 2.2rem;
-  }
-
-  .mediaArrowPrevious {
-    left: 0.6rem;
-  }
-
-  .mediaArrowNext {
-    right: 0.6rem;
-  }
-}
-
-/* dark theme */
-
 :global(html[data-theme='dark']) .mediaViewport {
   background: #171717;
 }
@@ -349,4 +305,50 @@
 :global(html[data-theme='dark']) .mediaArrow:hover {
   background: #f7f5f0;
   color: #171717;
+}
+
+/* ---------- smaller screens ---------- */
+
+@media (max-width: 800px) {
+  .panel {
+    width: 100%;
+    max-height: 94vh;
+    padding: 1.5rem 1.25rem;
+  }
+
+  .header {
+    margin-bottom: 1.5rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .info {
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+
+  .mediaViewport {
+    min-height: 15rem;
+  }
+
+  .mediaArrow {
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 1rem;
+  }
+
+  .mediaArrowPrevious {
+    left: 0.6rem;
+  }
+
+  .mediaArrowNext {
+    right: 0.6rem;
+  }
+
+  .mediaImage {
+    max-height: 28rem;
+  }
 }

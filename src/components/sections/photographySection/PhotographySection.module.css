@@ -4,6 +4,7 @@
   min-height: 1em;
   background: transparent;
   color: var(--paper);
+  width: min(calc(100% - 2 * var(--page-padding)), var(--content-width));
 }
 
 .photoSection::before {

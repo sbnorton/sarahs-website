@@ -1,13 +1,12 @@
 .aboutPage {
   box-sizing: border-box;
-  width: min(calc(100% - 64px), 1120px);
+  width: min(calc(100% - 9%), 1600px);
   margin: 0 auto;
-  padding: 4rem 4.1% 3rem;
+  padding: 4rem 0 3rem;
 }
-
 .aboutCard {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem);
+  grid-template-columns: minmax(0, 1fr) minmax(20rem, 28rem);
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -24,7 +23,7 @@
 
 .hello {
   margin: 0 0 0.35rem;
-  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  font-size: clamp(1.9rem, 4vw, 3.5rem);
   line-height: 1;
   letter-spacing: 0;
 }
@@ -45,7 +44,7 @@
 .bio {
   max-width: 52ch;
   font-size: 0.9rem;
-  line-height: 1.75;
+  line-height: 1.65;
 }
 
 .bio p {
@@ -149,10 +148,9 @@
 @media (max-width: 720px) {
   .aboutPage {
     width: calc(100% - 32px);
-    padding: 3rem 24px 2rem;
+    padding: 3rem 0 2rem;
   }
 
-  /* target the global subtitle class within this component */
   :global(.subtitle) {
     margin-bottom: 2rem;
   }
@@ -163,8 +161,21 @@
   }
 
   .contentColumn {
-    gap: 3rem;
-    padding: 2.5rem 1.5rem;
+    gap: 2.5rem;
+    padding: 2rem 1.5rem;
+  }
+
+  .hello {
+    font-size: 2rem;
+  }
+
+  .nameIntro {
+    font-size: 0.95rem;
+  }
+
+  .bio {
+    font-size: 0.85rem;
+    line-height: 1.65;
   }
 
   .portrait,
@@ -186,6 +197,18 @@
 @media (max-width: 520px) {
   .aboutPage {
     width: calc(100% - 20px);
-    padding: 46px 18px 2rem;
+    padding: 46px 0 2rem;
+  }
+
+  .contentColumn {
+    padding: 2rem 1.25rem;
+  }
+
+  .hello {
+    font-size: 1.9rem;
+  }
+
+  .bio {
+    font-size: 0.85rem;
   }
 }
