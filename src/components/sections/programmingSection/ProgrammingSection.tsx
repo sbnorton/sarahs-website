@@ -105,7 +105,7 @@ export default function ProgrammingSection() {
 
       <div className={cn(styles.projectActions)}>
         <a href="/programming" className={cn(styles.showMoreButton)}>
-          Show me more programming projects! <span aria-hidden="true">↗</span>
+          More programming projects <span aria-hidden="true">↗</span>
         </a>
       </div>
     </section>

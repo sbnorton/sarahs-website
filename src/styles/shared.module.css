@@ -23,10 +23,6 @@
   line-height: 1.45;
 }
 
-.light .eyebrow {
-  color: #e0e0e0;
-}
-
 @media (max-width: 760px) {
   .sectionPad {
     width: calc(100% - 32px);

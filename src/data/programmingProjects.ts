@@ -79,7 +79,7 @@ export const projects: Project[] = [
       "Currently working on deployment and further improvements (store images in AWS??).",
     ],
 
-    screenshots: ["/public/assets/images/thisWebsite.png"],
+    screenshots: ["/assets/images/thisWebsite.png"],
     videoUrl: null,
     github: null,
   },
@@ -104,7 +104,7 @@ export const projects: Project[] = [
       "Collaborated with designers and other developers throughout the project.",
     ],
 
-    screenshots: ["/public/assets/images/skatteetaten.png"],
+    screenshots: ["/assets/images/skatteetaten.png"],
     videoUrl: null,
     github: null,
   },

@@ -9,18 +9,20 @@
   padding: 10px 20px;
   border: none;
   border-radius: 90px;
-  background-color: #f0f0f0;
+  background-color: var(--surface);
+  color: var(--ink);
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
 .filterButton button.active {
   background-color: var(--primary);
-  color: white;
+  color: var(--background);
 }
 
 .filterButton button:hover {
-  background-color: #a0a0a0;
+  background-color: var(--muted);
+  color: var(--background);
 }
 
 /* Large tablet/small laptop */
@@ -52,7 +54,6 @@
   .filterButton {
     flex-direction: column;
     gap: 10px;
-
   }
 
   .filterButton button {

@@ -30,11 +30,6 @@ export default function TopNav() {
     };
 
     updateNavigation();
-    console.log(
-      "navigation",
-      window.location.pathname,
-      document.documentElement.dataset.theme,
-    );
 
     window.addEventListener("popstate", updateNavigation);
     document.addEventListener("astro:after-swap", updateNavigation);
@@ -53,7 +48,6 @@ export default function TopNav() {
     localStorage.setItem("theme", nextTheme ? "dark" : "light");
 
     setIsDarkMode(nextTheme);
-    console.log("toggle", nextTheme);
   };
 
   const logo =

@@ -9,8 +9,7 @@ interface Props {
 }
 
 type Slide =
-  | { type: "video"; src: string }
-  | { type: "image"; src: string; alt: string };
+  { type: "video"; src: string } | { type: "image"; src: string; alt: string };
 
 export default function ProjectModal({ project, onClose }: Props) {
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -31,7 +30,6 @@ export default function ProjectModal({ project, onClose }: Props) {
   }, [project]);
 
   const count = slides.length;
-  console.log("ProjectModal", project.slug, { count, video: project.videoUrl, shots: project.screenshots });
   const slide = slides[index];
 
   const goPrevious = () => setIndex((i) => (i - 1 + count) % count);
