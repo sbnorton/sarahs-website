@@ -64,6 +64,21 @@
   --accent: #e45f4e;
 }
 
+html[data-theme="dark"] {
+  --ink: #f5f5f5;
+  --paper: #15191b;
+  --charcoal: #e9eeee;
+  --deep-blue: #9bd0df;
+  --muted: #b9c4c5;
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --surface: #242b2d;
+  --border: #475457;
+  --primary: #9bd0df;
+  --secondary: #cadb54;
+  --accent: #e45f4e;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -73,6 +88,7 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: "Poppins:Regular", sans-serif;
+  transition: background-color 300ms ease, color 300ms ease;
 }
 
 button,

@@ -17,13 +17,39 @@ export default function PhotographyGallery({ images }: Props) {
 
   useEffect(() => {
     if (!selectedImage) return;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setSelectedImage(null);
+    const handleViewerKeyboard = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setSelectedImage(null);
+        return;
+      }
+
+      if (event.key === ' ') {
+        event.preventDefault();
+        setZoomed((current) => !current);
+        return;
+      }
+
+      const direction = event.key === 'ArrowLeft' || event.key === 'ArrowUp'
+        ? -1
+        : event.key === 'ArrowRight' || event.key === 'ArrowDown'
+          ? 1
+          : 0;
+
+      if (!direction) return;
+
+      event.preventDefault();
+      const currentIndex = visibleImages.findIndex((image) => image.id === selectedImage.id);
+      if (currentIndex === -1) return;
+
+      const nextIndex = (currentIndex + direction + visibleImages.length) % visibleImages.length;
+      setSelectedImage(visibleImages[nextIndex]);
+      setZoomed(false);
+      setZoomOrigin('50% 50%');
     };
-    document.addEventListener('keydown', closeOnEscape);
+    document.addEventListener('keydown', handleViewerKeyboard);
     document.body.style.overflow = 'hidden';
     return () => {
-      document.removeEventListener('keydown', closeOnEscape);
+      document.removeEventListener('keydown', handleViewerKeyboard);
       document.body.style.overflow = '';
     };
   }, [selectedImage]);

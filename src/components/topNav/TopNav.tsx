@@ -18,7 +18,7 @@ export default function TopNav({
   const isDarkMode = darkMode ?? internalDarkMode;
   const toggleDarkMode =
     onToggleDarkMode ?? (() => setInternalDarkMode((current) => !current));
-  const logo = overHero ? "sarahslogo-white.svg" : "sarahslogo-black.svg";
+  const logo = overHero || isDarkMode ? "sarahslogo-white.svg" : "sarahslogo-black.svg";
   const [currentPath, setCurrentPath] = useState("/");
 
   useEffect(() => {
@@ -34,6 +34,15 @@ export default function TopNav({
       window.removeEventListener("astro:after-swap", updatePath);
     };
   }, []);
+
+  useEffect(() => {
+    if (overHero) return;
+
+    document.documentElement.dataset.theme = isDarkMode ? "dark" : "light";
+    return () => {
+      delete document.documentElement.dataset.theme;
+    };
+  }, [isDarkMode, overHero]);
   const links = [
     { href: "/", label: "HOMEPAGE" },
     { href: "/programming", label: "PROGRAMMING" },
