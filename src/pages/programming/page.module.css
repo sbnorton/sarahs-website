@@ -3,7 +3,7 @@
 :global(body) {
   background: var(--paper);
   color: var(--ink);
-  font-family: "Poppins:Regular", sans-serif;
+  font-family: 'Poppins:Regular', sans-serif;
 }
 
 /* ---------- shared page layout ---------- */
@@ -46,7 +46,7 @@
 
   border-right: 0.15em solid var(--accent);
 
-  font-family: "Poppins:Bold", sans-serif;
+  font-family: 'Poppins:Bold', sans-serif;
   font-size: clamp(2rem, 8vw, 6rem);
   font-weight: 700;
   letter-spacing: 0;
@@ -107,7 +107,9 @@
 
   cursor: pointer;
 
-  font: 0.68rem "Roboto:Regular", sans-serif;
+  font:
+    0.68rem 'Roboto:Regular',
+    sans-serif;
 
   transition:
     background 0.2s,
@@ -116,7 +118,7 @@
 }
 
 .tagFilter:hover,
-.tagFilter[aria-pressed="true"] {
+.tagFilter[aria-pressed='true'] {
   border-color: var(--deep-blue);
   background: var(--deep-blue);
   color: var(--paper);
@@ -165,7 +167,7 @@
 .projectMeta,
 .tags,
 .status {
-  font-family: "Roboto:Regular", sans-serif;
+  font-family: 'Roboto:Regular', sans-serif;
   font-size: 0.68rem;
   letter-spacing: 0.04em;
 }
@@ -307,7 +309,9 @@
   list-style: none;
   color: var(--muted);
 
-  font: 0.8rem "Roboto:Regular", sans-serif;
+  font:
+    0.8rem 'Roboto:Regular',
+    sans-serif;
 }
 
 .skillGrid li {
@@ -408,7 +412,9 @@
   background: var(--charcoal);
   color: #b9c4c5;
 
-  font: 0.68rem "Roboto:Regular", sans-serif;
+  font:
+    0.68rem 'Roboto:Regular',
+    sans-serif;
 }
 
 .footer a {
@@ -504,7 +510,9 @@
 
   color: var(--muted);
 
-  font: 0.68rem "Roboto:Regular", sans-serif;
+  font:
+    0.68rem 'Roboto:Regular',
+    sans-serif;
   letter-spacing: 0.04em;
 }
 
@@ -552,7 +560,9 @@
   background: var(--surface);
   color: var(--muted);
 
-  font: 0.75rem "Roboto:Regular", sans-serif;
+  font:
+    0.75rem 'Roboto:Regular',
+    sans-serif;
 }
 
 .screenshots {
@@ -737,79 +747,78 @@
 
 /* ---------- dark theme ---------- */
 
-:global(html[data-theme="dark"]) body {
+:global(html[data-theme='dark']) body {
   background: #171717;
   color: #f7f5f0;
 }
 
-:global(html[data-theme="dark"]) .pageHeader,
-:global(html[data-theme="dark"]) .projectSection,
-:global(html[data-theme="dark"]) .ctaSection {
+:global(html[data-theme='dark']) .pageHeader,
+:global(html[data-theme='dark']) .projectSection,
+:global(html[data-theme='dark']) .ctaSection {
   background: #171717;
 }
 
-:global(html[data-theme="dark"]) .skillsSection {
+:global(html[data-theme='dark']) .skillsSection {
   background: #242424;
 }
 
-:global(html[data-theme="dark"]) .pageHeader,
-:global(html[data-theme="dark"]) .project,
-:global(html[data-theme="dark"]) .tags span {
+:global(html[data-theme='dark']) .pageHeader,
+:global(html[data-theme='dark']) .project,
+:global(html[data-theme='dark']) .tags span {
   border-color: #454545;
 }
 
-:global(html[data-theme="dark"]) .project:hover {
+:global(html[data-theme='dark']) .project:hover {
   background: #303030;
   border-color: #f7f5f0;
 }
 
-:global(html[data-theme="dark"]) .tagFilter {
+:global(html[data-theme='dark']) .tagFilter {
   border-color: #454545;
   color: #aaa8a2;
 }
 
-:global(html[data-theme="dark"]) .tagFilter:hover,
-:global(html[data-theme="dark"]) .tagFilter[aria-pressed="true"] {
+:global(html[data-theme='dark']) .tagFilter:hover,
+:global(html[data-theme='dark']) .tagFilter[aria-pressed='true'] {
   border-color: #f7f5f0;
   background: #f7f5f0;
   color: #171717;
 }
 
-:global(html[data-theme="dark"]) .headerDescription,
-:global(html[data-theme="dark"]) .projectDescription,
-:global(html[data-theme="dark"]) .projectNumber,
-:global(html[data-theme="dark"]) .projectMeta,
-:global(html[data-theme="dark"]) .tags,
-:global(html[data-theme="dark"]) .skillGrid ul,
-:global(html[data-theme="dark"]) .ctaInner p {
+:global(html[data-theme='dark']) .headerDescription,
+:global(html[data-theme='dark']) .projectDescription,
+:global(html[data-theme='dark']) .projectNumber,
+:global(html[data-theme='dark']) .projectMeta,
+:global(html[data-theme='dark']) .tags,
+:global(html[data-theme='dark']) .skillGrid ul,
+:global(html[data-theme='dark']) .ctaInner p {
   color: #aaa8a2;
 }
 
 /* modal dark theme */
 
-:global(html[data-theme="dark"]) .modalPanel {
+:global(html[data-theme='dark']) .modalPanel {
   background: #242424;
   border-color: #454545;
   color: #f7f5f0;
 }
 
-:global(html[data-theme="dark"]) .modalClose {
+:global(html[data-theme='dark']) .modalClose {
   border-color: #454545;
 }
 
-:global(html[data-theme="dark"]) .modalClose:hover {
+:global(html[data-theme='dark']) .modalClose:hover {
   background: #f7f5f0;
   color: #171717;
 }
 
-:global(html[data-theme="dark"]) .mediaPlaceholder {
+:global(html[data-theme='dark']) .mediaPlaceholder {
   background: #171717;
   border-color: #454545;
 }
 
-:global(html[data-theme="dark"]) .detailSubtitle,
-:global(html[data-theme="dark"]) .detailYear,
-:global(html[data-theme="dark"]) .detailLabel {
+:global(html[data-theme='dark']) .detailSubtitle,
+:global(html[data-theme='dark']) .detailYear,
+:global(html[data-theme='dark']) .detailLabel {
   color: #aaa8a2;
 }
-

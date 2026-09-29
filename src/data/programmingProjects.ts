@@ -1,16 +1,16 @@
-export const assetPathPrefix = "/assets";
+export const assetPathPrefix = '/assets';
 
 export const sections = [
-  { id: "welcome", label: "Welcome" },
-  { id: "programming", label: "Programming" },
-  { id: "photography", label: "Photography" },
-  { id: "design", label: "Design & UX" },
+  { id: 'welcome', label: 'Welcome' },
+  { id: 'programming', label: 'Programming' },
+  { id: 'photography', label: 'Photography' },
+  { id: 'design', label: 'Design & UX' },
 ] as const;
 
-export type SectionId = (typeof sections)[number]["id"];
+export type SectionId = (typeof sections)[number]['id'];
 
 export function scrollToSection(id: SectionId) {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 }
 
 export interface Project {
@@ -29,104 +29,102 @@ export interface Project {
 
 export const projectLabelDefinitions = {
   university: {
-    label: "University",
-    tone: "universityBlue",
+    label: 'University',
+    tone: 'universityBlue',
   },
 
   archived: {
-    label: "Archived",
-    tone: "muted",
+    label: 'Archived',
+    tone: 'muted',
   },
 
   active: {
-    label: "Active",
-    tone: "lime",
+    label: 'Active',
+    tone: 'lime',
   },
 
   inDevelopment: {
-    label: "In development",
-    tone: "inDevelopment",
+    label: 'In development',
+    tone: 'inDevelopment',
   },
 
   personal: {
-    label: "Personal",
-    tone: "coral",
+    label: 'Personal',
+    tone: 'coral',
   },
 
   si: {
-    label: "Summer Internship",
-    tone: "sky",
+    label: 'Summer Internship',
+    tone: 'sky',
   },
 } as const;
 
 export const projects: Project[] = [
   {
-    slug: "personal-website",
-    title: "Personal website",
-    subtitle: "Photography and CS Portfolio",
+    slug: 'personal-website',
+    title: 'Personal website',
+    subtitle: 'Photography and CS Portfolio',
 
-    tags: ["TypeScript", "React", "Astro"],
-    labels: ["personal", "active"],
+    tags: ['TypeScript', 'React', 'Astro'],
+    labels: ['personal', 'active'],
 
     description:
-      "You are currently looking at it 😄! A website for showcasing my portfolio; both for programming projects and photography work.",
+      'You are currently looking at it 😄! A website for showcasing my portfolio; both for programming projects and photography work.',
 
-    year: "2026",
+    year: '2026',
 
     details: [
-      "I wanted to try to design and develop a personal portfolio website.",
-      "The purpose is to showcase photography, programming projects, and design work.",
-      "Currently working on deployment and further improvements (store images in AWS??).",
+      'I wanted to try to design and develop a personal portfolio website.',
+      'The purpose is to showcase photography, programming projects, and design work.',
+      'Currently working on deployment and further improvements (store images in AWS??).',
     ],
 
-    screenshots: ["/assets/images/thisWebsite.png"],
+    screenshots: ['/assets/images/thisWebsite.png'],
     videoUrl: null,
     github: null,
   },
 
   {
-    slug: "skatteetaten-summer-internship",
-    title: "Skatteetaten Summer Internship",
-    subtitle: "Fullstack Developer · Summer 2025",
+    slug: 'skatteetaten-summer-internship',
+    title: 'Skatteetaten Summer Internship',
+    subtitle: 'Fullstack Developer · Summer 2025',
 
-    tags: ["React", "Java", "SQL"],
-    labels: ["si"],
+    tags: ['React', 'Java', 'SQL'],
+    labels: ['si'],
 
-    description:
-      "Summer job as Fullstack Developer @ Skatteetaten, the summer of 2025.",
+    description: 'Summer job as Fullstack Developer @ Skatteetaten, the summer of 2025.',
 
-    year: "2025",
+    year: '2025',
 
     details: [
-      "Developed functionality for the SISMO debt collection portal.",
-      "Worked with React and TypeScript in the frontend.",
-      "Java and SQL in the backend.",
-      "Collaborated with designers and other developers throughout the project.",
+      'Developed functionality for the SISMO debt collection portal.',
+      'Worked with React and TypeScript in the frontend.',
+      'Java and SQL in the backend.',
+      'Collaborated with designers and other developers throughout the project.',
     ],
 
-    screenshots: ["/assets/images/skatteetaten.png"],
+    screenshots: ['/assets/images/skatteetaten.png'],
     videoUrl: null,
     github: null,
   },
 
   {
-    slug: "icebreaker",
-    title: "Icebreaker | TDT4140",
-    subtitle: "Software Engineering · University Project",
+    slug: 'icebreaker',
+    title: 'Icebreaker | TDT4140',
+    subtitle: 'Software Engineering · University Project',
 
-    tags: ["React", "Tailwind", "Java"],
-    labels: ["university", "archived"],
+    tags: ['React', 'Tailwind', 'Java'],
+    labels: ['university', 'archived'],
 
-    description:
-      "A collaborative team project, from the course TDT4140 Software Engineering.",
+    description: 'A collaborative team project, from the course TDT4140 Software Engineering.',
 
-    year: "2024",
+    year: '2024',
 
     details: [
-      "Developed as part of the TDT4140 Software Engineering course.",
-      "Worked collaboratively as part of a student development team.",
-      "Built a web-based application using React and Tailwind.",
-      "Implemented backend functionality using Java.",
+      'Developed as part of the TDT4140 Software Engineering course.',
+      'Worked collaboratively as part of a student development team.',
+      'Built a web-based application using React and Tailwind.',
+      'Implemented backend functionality using Java.',
     ],
 
     screenshots: null,
@@ -135,27 +133,27 @@ export const projects: Project[] = [
   },
 
   {
-    slug: "codetrotter",
-    title: "CodeTrotter | TDT4195",
-    subtitle: "Graphics and Visualisation · University Project",
+    slug: 'codetrotter',
+    title: 'CodeTrotter | TDT4195',
+    subtitle: 'Graphics and Visualisation · University Project',
 
-    tags: ["C++", "C"],
-    labels: ["university", "archived"],
+    tags: ['C++', 'C'],
+    labels: ['university', 'archived'],
 
     description:
       "Visualizes the Earth's rotation and allows users to explore its surface, including the transition between night and day.",
 
-    year: "2024",
+    year: '2024',
 
     details: [
-      "Developed as part of the TDT4195 Graphics and Visualisation course.",
-      "Created an interactive 3D visualization of the Earth.",
-      "Implemented graphics and interaction using C++ and C.",
-      "Explored real-time rendering and how shaders work.",
+      'Developed as part of the TDT4195 Graphics and Visualisation course.',
+      'Created an interactive 3D visualization of the Earth.',
+      'Implemented graphics and interaction using C++ and C.',
+      'Explored real-time rendering and how shaders work.',
     ],
 
     screenshots: [],
-    videoUrl: "https://youtube.com/embed/weKFIjwk46M",
+    videoUrl: 'https://youtube.com/embed/weKFIjwk46M',
     github: null,
   },
 ];

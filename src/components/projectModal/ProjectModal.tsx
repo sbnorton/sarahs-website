@@ -1,15 +1,14 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { createPortal } from "react-dom";
-import type { Project } from "../../data/programmingProjects";
-import styles from "./ProjectModal.module.css";
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import type { Project } from '../../data/programmingProjects';
+import styles from './ProjectModal.module.css';
 
 interface Props {
   project: Project;
   onClose: () => void;
 }
 
-type Slide =
-  { type: "video"; src: string } | { type: "image"; src: string; alt: string };
+type Slide = { type: 'video'; src: string } | { type: 'image'; src: string; alt: string };
 
 export default function ProjectModal({ project, onClose }: Props) {
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -18,10 +17,10 @@ export default function ProjectModal({ project, onClose }: Props) {
   // Video first (if any), then every screenshot
   const slides = useMemo<Slide[]>(() => {
     const result: Slide[] = [];
-    if (project.videoUrl) result.push({ type: "video", src: project.videoUrl });
+    if (project.videoUrl) result.push({ type: 'video', src: project.videoUrl });
     project.screenshots?.forEach((src, i) =>
       result.push({
-        type: "image",
+        type: 'image',
         src,
         alt: `${project.title} screenshot ${i + 1}`,
       }),
@@ -39,22 +38,22 @@ export default function ProjectModal({ project, onClose }: Props) {
     const previouslyFocused = document.activeElement as HTMLElement | null;
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
-      if (count > 1 && event.key === "ArrowLeft") {
+      if (event.key === 'Escape') onClose();
+      if (count > 1 && event.key === 'ArrowLeft') {
         setIndex((i) => (i - 1 + count) % count);
       }
-      if (count > 1 && event.key === "ArrowRight") {
+      if (count > 1 && event.key === 'ArrowRight') {
         setIndex((i) => (i + 1) % count);
       }
     };
 
-    document.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
     closeRef.current?.focus();
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
       previouslyFocused?.focus();
     };
   }, [onClose, count]);
@@ -97,7 +96,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                 aria-label={`${project.title} media`}
               >
                 <div className={styles.mediaViewport}>
-                  {slide.type === "video" ? (
+                  {slide.type === 'video' ? (
                     <div className={styles.videoFrame}>
                       <iframe
                         src={slide.src}
@@ -107,11 +106,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                       />
                     </div>
                   ) : (
-                    <img
-                      className={styles.mediaImage}
-                      src={slide.src}
-                      alt={slide.alt}
-                    />
+                    <img className={styles.mediaImage} src={slide.src} alt={slide.alt} />
                   )}
 
                   {count > 1 && (

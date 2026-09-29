@@ -1,16 +1,12 @@
-import { useCallback, useState } from "react";
-import {
-  projectLabelDefinitions,
-  projects,
-  type Project,
-} from "../../../data/programmingProjects";
-import ProjectModal from "../../projectModal/ProjectModal";
-import styles from "./ProgrammingSection.module.css";
-import shared from "/src/styles/shared.module.css";
-import { cn } from "../../portfolioStyles";
+import { useCallback, useState } from 'react';
+import { projectLabelDefinitions, projects, type Project } from '../../../data/programmingProjects';
+import ProjectModal from '../../projectModal/ProjectModal';
+import styles from './ProgrammingSection.module.css';
+import shared from '/src/styles/shared.module.css';
+import { cn } from '../../portfolioStyles';
 
 // Card colours used when a project has no screenshot
-const cardPalette = ["mint", "rose", "blue"] as const;
+const cardPalette = ['mint', 'rose', 'blue'] as const;
 
 // Same project -> same colour on every render (Math.random would differ
 // between server and browser and make the colours flicker on hydration)
@@ -25,15 +21,12 @@ export default function ProgrammingSection() {
   const closeModal = useCallback(() => setActiveProject(null), []);
 
   return (
-    <section
-      className={cn(styles.programming, shared.sectionPad)}
-      id="programming"
-    >
+    <section className={cn(styles.programming, shared.sectionPad)} id="programming">
       <div className={cn(shared.sectionIntro)}>
         <p className={cn(shared.eyebrow)}>01 - Programming</p>
         <p className={cn(shared.sectionCopy)}>
-          As a computer science student at NTNU, I have worked on a lot of
-          interesting projects. Here are some of them:
+          As a computer science student at NTNU, I have worked on a lot of interesting projects.
+          Here are some of them:
         </p>
       </div>
 
@@ -63,9 +56,7 @@ export default function ProgrammingSection() {
                   onClick={() => setActiveProject(project)}
                   aria-haspopup="dialog"
                 >
-                  <span className={cn(styles.projectTitle)}>
-                    {project.title}
-                  </span>
+                  <span className={cn(styles.projectTitle)}>{project.title}</span>
                 </button>
 
                 <div className={cn(styles.projectLabels)}>
@@ -84,9 +75,7 @@ export default function ProgrammingSection() {
               </div>
 
               <div className={cn(styles.projectMeta)}>
-                <p className={cn(styles.projectDescription)}>
-                  {project.description}
-                </p>
+                <p className={cn(styles.projectDescription)}>{project.description}</p>
 
                 <div className={cn(styles.tagRow)}>
                   {project.tags.map((tag) => (
@@ -99,9 +88,7 @@ export default function ProgrammingSection() {
         })}
       </div>
 
-      {activeProject && (
-        <ProjectModal project={activeProject} onClose={closeModal} />
-      )}
+      {activeProject && <ProjectModal project={activeProject} onClose={closeModal} />}
 
       <div className={cn(styles.projectActions)}>
         <a href="/programming" className={cn(styles.showMoreButton)}>

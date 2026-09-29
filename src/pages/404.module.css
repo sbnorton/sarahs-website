@@ -11,14 +11,14 @@
 .eyebrow {
   margin: 0;
   color: var(--muted);
-  font-family: "Poppins:SemiBold", sans-serif;
+  font-family: 'Poppins:SemiBold', sans-serif;
   font-size: 11px;
 }
 
 .title {
   max-width: 620px;
   margin: 0;
-  font-family: "Poppins:Bold", sans-serif;
+  font-family: 'Poppins:Bold', sans-serif;
   font-size: clamp(32px, 6vw, 76px);
   line-height: 1.05;
 }
@@ -26,6 +26,6 @@
 .textPage a {
   justify-self: center;
   color: var(--deep-blue);
-  font-family: "Roboto:Medium", sans-serif;
+  font-family: 'Roboto:Medium', sans-serif;
   text-decoration: underline;
 }

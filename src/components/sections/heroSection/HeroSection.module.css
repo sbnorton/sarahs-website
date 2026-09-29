@@ -35,7 +35,7 @@
   align-items: center;
   gap: 10px;
   justify-self: start;
-  font-family: "Poppins:Bold", sans-serif;
+  font-family: 'Poppins:Bold', sans-serif;
   letter-spacing: 0.02em;
 }
 
@@ -91,7 +91,7 @@
   top: 50%;
   left: 4.45%;
   margin: 0;
-  font-family: "Inter:Regular", sans-serif;
+  font-family: 'Inter:Regular', sans-serif;
   font-size: 12px;
   letter-spacing: 0.91em;
   white-space: nowrap;

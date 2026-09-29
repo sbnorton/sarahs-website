@@ -10,13 +10,12 @@ export interface DesignProject {
 
 export const designProjects: DesignProject[] = [
   {
-    number: "01",
-    title: "Vær-Varsom",
-    category: "Editorial · Print",
-    description:
-      "Heia ytringsfriheten!",
-    accent: "#c9b99a",
-    background: "#2a2116",
-    url: "https://www.presse.no/vaer-varsom-plakaten"
+    number: '01',
+    title: 'Vær-Varsom',
+    category: 'Editorial · Print',
+    description: 'Heia ytringsfriheten!',
+    accent: '#c9b99a',
+    background: '#2a2116',
+    url: 'https://www.presse.no/vaer-varsom-plakaten',
   },
 ];

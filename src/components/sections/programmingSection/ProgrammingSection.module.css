@@ -15,7 +15,7 @@
   left: 50%;
   width: 100vw;
   background: var(--paper);
-  content: "";
+  content: '';
   transform: translateX(-50%);
 }
 
@@ -58,7 +58,7 @@
   overflow: hidden;
   border-radius: 6px;
   color: #1f1f1f; /* dark text: readable on every light card colour */
-  font-family: "Roboto:Medium", sans-serif;
+  font-family: 'Roboto:Medium', sans-serif;
   transition: transform 0.2s;
 }
 
@@ -127,7 +127,7 @@
 .cardButton::after {
   position: absolute;
   inset: 0;
-  content: "";
+  content: '';
 }
 
 .cardButton:focus-visible {
@@ -143,7 +143,7 @@
 .projectTitle {
   display: block;
   margin: 0;
-  font-family: "Poppins:Bold", sans-serif;
+  font-family: 'Poppins:Bold', sans-serif;
   font-size: clamp(19px, 1.85vw, 28px);
   letter-spacing: -0.03em;
   line-height: 1.15;
@@ -207,7 +207,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
-  font-family: "Roboto:Regular", sans-serif;
+  font-family: 'Roboto:Regular', sans-serif;
   letter-spacing: 0.04em;
 }
 
@@ -229,7 +229,7 @@
   align-self: center;
   justify-self: center;
   color: #bdbdbd;
-  font-family: "Roboto:Regular", sans-serif;
+  font-family: 'Roboto:Regular', sans-serif;
   font-size: clamp(16px, 1.85vw, 30px);
   text-decoration: underline;
 }

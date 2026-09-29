@@ -1,14 +1,11 @@
-import { assetPathPrefix, scrollToSection } from "../../../data/programmingProjects";
-import styles from "./DesignSection.module.css";
-import shared from "/src/styles/shared.module.css";
-import { cn } from "../../portfolioStyles";
+import { assetPathPrefix, scrollToSection } from '../../../data/programmingProjects';
+import styles from './DesignSection.module.css';
+import shared from '/src/styles/shared.module.css';
+import { cn } from '../../portfolioStyles';
 
 export default function DesignSection() {
   return (
-    <section
-      className={cn(styles.designSection, shared.sectionPad)}
-      id="design"
-    >
+    <section className={cn(styles.designSection, shared.sectionPad)} id="design">
       <div className={cn(shared.sectionIntro, shared.light)}>
         <p className={cn(shared.eyebrow)}>03 - Design &amp; UX</p>
         {/* <p className={cn(shared.sectionCopy)}>
@@ -17,9 +14,7 @@ export default function DesignSection() {
           to mention that I probably know more about Vær Varsom-plakaten, than the
           average person.
         </p> */}
-        <p className={cn(shared.sectionCopy)}>
-          TODO!!
-        </p>
+        <p className={cn(shared.sectionCopy)}>TODO!!</p>
       </div>
       <div className={cn(styles.masonry)} aria-label="Design project previews">
         <div className={cn(styles.tile, styles.tall, styles.soft)} />
@@ -35,10 +30,7 @@ export default function DesignSection() {
       <div className={cn(styles.sectionRule)} aria-hidden="true">
         <img alt="" src={`${assetPathPrefix}/svg/1f7c2.svg`} />
       </div>
-      <button
-        className={cn(styles.returnTop)}
-        onClick={() => scrollToSection("welcome")}
-      >
+      <button className={cn(styles.returnTop)} onClick={() => scrollToSection('welcome')}>
         Return to the top
       </button>
     </section>

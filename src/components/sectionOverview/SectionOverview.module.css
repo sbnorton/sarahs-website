@@ -23,7 +23,9 @@
   border-radius: 999px;
   color: white;
   font-size: 10px;
-  transition: background 240ms ease, width 240ms ease;
+  transition:
+    background 240ms ease,
+    width 240ms ease;
 }
 
 .overviewItem img {
@@ -48,7 +50,9 @@
   margin-right: 78px;
   opacity: 0;
   transform: translateX(10px);
-  transition: opacity 200ms ease, transform 200ms ease;
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
 }
 
 .isActive {

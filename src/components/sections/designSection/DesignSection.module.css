@@ -13,7 +13,7 @@
   inset-block: 0;
   left: 50%;
   width: 100vw;
-  content: "";
+  content: '';
   transform: translateX(-50%);
 }
 
@@ -21,11 +21,21 @@
   background: var(--charcoal);
 }
 
-:global(.dark) .soft { background: #383d3e; }
-:global(.dark) .pale { background: #d9dddd; }
-:global(.dark) .warm { background: #aeb5b5; }
-:global(.dark) .mid { background: #7f8989; }
-:global(.dark) .white { background: #f5f7f6; }
+:global(.dark) .soft {
+  background: #383d3e;
+}
+:global(.dark) .pale {
+  background: #d9dddd;
+}
+:global(.dark) .warm {
+  background: #aeb5b5;
+}
+:global(.dark) .mid {
+  background: #7f8989;
+}
+:global(.dark) .white {
+  background: #f5f7f6;
+}
 
 :global(.dark) .moreDesign {
   background: #c7cecd;
@@ -40,15 +50,33 @@
   margin-top: 44px;
 }
 
-.tile { border-radius: 7px; }
-.tall { grid-row: span 2; }
-.medium { grid-row: span 2; }
-.short { grid-row: span 1; }
-.soft { background: #d9d9d9; }
-.pale { background: #fafafa; }
-.warm { background: #afafaf; }
-.mid { background: #8d8d8d; }
-.white { background: white; }
+.tile {
+  border-radius: 7px;
+}
+.tall {
+  grid-row: span 2;
+}
+.medium {
+  grid-row: span 2;
+}
+.short {
+  grid-row: span 1;
+}
+.soft {
+  background: #d9d9d9;
+}
+.pale {
+  background: #fafafa;
+}
+.warm {
+  background: #afafaf;
+}
+.mid {
+  background: #8d8d8d;
+}
+.white {
+  background: white;
+}
 
 .moreDesign {
   display: grid;
@@ -59,7 +87,7 @@
   border-radius: 7px;
   background: #494949;
   box-shadow: 0 20px 80px rgba(0, 0, 0, 0.25);
-  font-family: "Roboto:Regular", sans-serif;
+  font-family: 'Roboto:Regular', sans-serif;
   font-size: 11px;
   text-align: center;
 }
@@ -72,19 +100,23 @@
   overflow: hidden;
 }
 
-.sectionRule img { display: block; }
+.sectionRule img {
+  display: block;
+}
 
 .returnTop {
   display: block;
   margin: 54px auto 0;
   color: inherit;
-  font-family: "Roboto:Regular", sans-serif;
+  font-family: 'Roboto:Regular', sans-serif;
   font-size: 11px;
   text-decoration: underline;
 }
 
 @media (max-width: 760px) {
-  .designSection { min-height: auto; }
+  .designSection {
+    min-height: auto;
+  }
 
   .masonry {
     grid-template-columns: repeat(2, minmax(0, 1fr));

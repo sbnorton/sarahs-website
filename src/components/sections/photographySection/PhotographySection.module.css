@@ -13,7 +13,7 @@
   left: 50%;
   width: 100vw;
   background: linear-gradient(to bottom, var(--charcoal), var(--deep-blue));
-  content: "";
+  content: '';
   transform: translateX(-50%);
 }
 
@@ -30,7 +30,7 @@
 .photoEdge {
   height: min(38vw, 430px);
   /* 1. Clips the scaling image inside the frame to prevent the pop-up effect */
-  overflow: hidden; 
+  overflow: hidden;
   /* Prevent blue selection highlights/overlays when clicking/dragging */
   user-select: none;
   -webkit-user-select: none;
@@ -74,7 +74,7 @@
   padding: 14px 24px;
   border: 1px solid currentColor;
   color: inherit;
-  font-family: "Roboto:Regular", sans-serif;
+  font-family: 'Roboto:Regular', sans-serif;
   font-size: 11px;
   transition:
     background 220ms ease,

@@ -1,9 +1,9 @@
-// @ts-check
-import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
+export default ({ mode }) => ({
+  site: mode === 'production'
+    ? 'https:/sbnorton.github.io'
+    : 'http://localhost:4321',
 
-export default defineConfig({
-  site: "https://sbnorton.github.io",
-  base: "/sarahs-website",
-  integrations: [react()],
+  base: mode === 'production'
+    ? '/sarahs-website'
+    : '/',
 });

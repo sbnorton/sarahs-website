@@ -7,10 +7,7 @@ interface FilterButtonProps {
   setActiveFilter: (filter: string) => void;
 }
 
-export const FilterButton: React.FC<FilterButtonProps> = ({
-  activeFilter,
-  setActiveFilter,
-}) => {
+export const FilterButton: React.FC<FilterButtonProps> = ({ activeFilter, setActiveFilter }) => {
   return (
     <div className={styles.filterButton}>
       {filters.map((filter) => (

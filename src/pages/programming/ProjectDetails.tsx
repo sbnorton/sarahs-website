@@ -1,10 +1,7 @@
-import { useCallback, useMemo, useState } from "react";
-import {
-  projectLabelDefinitions,
-  type Project,
-} from "../../data/programmingProjects";
-import ProjectModal from "../../components/projectModal/ProjectModal";
-import styles from "./page.module.css";
+import { useCallback, useMemo, useState } from 'react';
+import { projectLabelDefinitions, type Project } from '../../data/programmingProjects';
+import ProjectModal from '../../components/projectModal/ProjectModal';
+import styles from './page.module.css';
 
 interface Props {
   projects: Project[];
@@ -12,27 +9,20 @@ interface Props {
 
 export default function ProjectDetails({ projects }: Props) {
   const [activeProject, setActiveProject] = useState<Project | null>(null);
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState('all');
 
-  const availableTags = useMemo(
-    () => [...new Set(projects.flatMap((p) => p.tags))],
-    [projects],
-  );
+  const availableTags = useMemo(() => [...new Set(projects.flatMap((p) => p.tags))], [projects]);
 
   const visibleProjects =
-    filter === "all" ? projects : projects.filter((p) => p.tags.includes(filter));
+    filter === 'all' ? projects : projects.filter((p) => p.tags.includes(filter));
 
   const closeModal = useCallback(() => setActiveProject(null), []);
 
   return (
     <>
       {/* Technology filters */}
-      <div
-        className={styles.tagFilters}
-        role="group"
-        aria-label="Filter projects by technology"
-      >
-        {["all", ...availableTags].map((tag) => (
+      <div className={styles.tagFilters} role="group" aria-label="Filter projects by technology">
+        {['all', ...availableTags].map((tag) => (
           <button
             key={tag}
             type="button"
@@ -40,7 +30,7 @@ export default function ProjectDetails({ projects }: Props) {
             aria-pressed={filter === tag}
             onClick={() => setFilter(tag)}
           >
-            {tag === "all" ? "All" : tag}
+            {tag === 'all' ? 'All' : tag}
           </button>
         ))}
       </div>
@@ -58,7 +48,7 @@ export default function ProjectDetails({ projects }: Props) {
             }}
           >
             <span className={styles.projectNumber}>
-              {String(projects.indexOf(project) + 1).padStart(2, "0")}
+              {String(projects.indexOf(project) + 1).padStart(2, '0')}
             </span>
 
             <div className={styles.projectName}>
@@ -67,10 +57,7 @@ export default function ProjectDetails({ projects }: Props) {
                 {project.labels.map((label) => {
                   const def = projectLabelDefinitions[label];
                   return (
-                    <span
-                      key={label}
-                      className={`${styles.status} ${styles[def.tone]}`}
-                    >
+                    <span key={label} className={`${styles.status} ${styles[def.tone]}`}>
                       {def.label}
                     </span>
                   );
@@ -96,9 +83,7 @@ export default function ProjectDetails({ projects }: Props) {
         ))}
       </div>
 
-      {activeProject && (
-        <ProjectModal project={activeProject} onClose={closeModal} />
-      )}
+      {activeProject && <ProjectModal project={activeProject} onClose={closeModal} />}
     </>
   );
 }

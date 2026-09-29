@@ -34,7 +34,9 @@
   border-radius: var(--radius);
   background: var(--entry-bg);
   color: #ffffff;
-  transition: transform 220ms ease, box-shadow 220ms ease;
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
 }
 
 .designEntry:hover {
@@ -64,7 +66,7 @@
 
 .designEntryNumber,
 .designEntryCategory {
-  font-family: "Roboto:Regular", sans-serif;
+  font-family: 'Roboto:Regular', sans-serif;
   font-size: 0.7rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -82,7 +84,7 @@
 .designEntryTitle {
   margin: 0;
   color: var(--entry-accent);
-  font-family: "Poppins:Bold", sans-serif;
+  font-family: 'Poppins:Bold', sans-serif;
   font-size: clamp(16px, 1.85vw, 30px);
   line-height: 1;
 }
@@ -110,7 +112,7 @@
 .footnote {
   margin: 2rem 0 0;
   color: var(--muted);
-  font-family: "Roboto:Regular", sans-serif;
+  font-family: 'Roboto:Regular', sans-serif;
   font-size: 0.75rem;
 }
 

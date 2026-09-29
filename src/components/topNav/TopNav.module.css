@@ -28,7 +28,7 @@
   gap: 10px;
   justify-self: start;
   color: inherit;
-  font-family: "Poppins:Bold", sans-serif;
+  font-family: 'Poppins:Bold', sans-serif;
   letter-spacing: 0.02em;
   transition: opacity 180ms ease;
 }
@@ -81,7 +81,7 @@
   transition: transform 220ms ease;
 }
 
-.toneToggle[aria-pressed="true"] img {
+.toneToggle[aria-pressed='true'] img {
   transform: translateX(28px);
 }
 

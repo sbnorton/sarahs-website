@@ -1,6 +1,6 @@
-import { assetPathPrefix } from "../../../data/programmingProjects";
-import styles from "./HeroSection.module.css";
-import { cn } from "../../portfolioStyles";
+import { assetPathPrefix } from '../../../data/programmingProjects';
+import styles from './HeroSection.module.css';
+import { cn } from '../../portfolioStyles';
 
 export default function HeroSection() {
   return (

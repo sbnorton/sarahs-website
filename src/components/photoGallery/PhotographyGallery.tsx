@@ -13,7 +13,8 @@ export default function PhotographyGallery({ images }: Props) {
   const [zoomed, setZoomed] = useState(false);
   const [zoomOrigin, setZoomOrigin] = useState('50% 50%');
 
-  const visibleImages = activeTag === 'All' ? images : images.filter((image) => image.tags.includes(activeTag));
+  const visibleImages =
+    activeTag === 'All' ? images : images.filter((image) => image.tags.includes(activeTag));
 
   useEffect(() => {
     if (!selectedImage) return;
@@ -29,11 +30,12 @@ export default function PhotographyGallery({ images }: Props) {
         return;
       }
 
-      const direction = event.key === 'ArrowLeft' || event.key === 'ArrowUp'
-        ? -1
-        : event.key === 'ArrowRight' || event.key === 'ArrowDown'
-          ? 1
-          : 0;
+      const direction =
+        event.key === 'ArrowLeft' || event.key === 'ArrowUp'
+          ? -1
+          : event.key === 'ArrowRight' || event.key === 'ArrowDown'
+            ? 1
+            : 0;
 
       if (!direction) return;
 
@@ -52,7 +54,7 @@ export default function PhotographyGallery({ images }: Props) {
       document.removeEventListener('keydown', handleViewerKeyboard);
       document.body.style.overflow = '';
     };
-  }, [selectedImage]);
+  }, [selectedImage, visibleImages]);
 
   const selectImage = (image: GalleryImage) => {
     setZoomed(false);
@@ -78,17 +80,45 @@ export default function PhotographyGallery({ images }: Props) {
       <FilterButton activeFilter={activeTag} setActiveFilter={setActiveTag} />
       <div className={styles.gallery}>
         {visibleImages.map((image) => (
-          <button key={image.id} type="button" className={styles.imageButton} onClick={() => selectImage(image)} aria-label={`View ${image.alt}`}>
+          <button
+            key={image.id}
+            type="button"
+            className={styles.imageButton}
+            onClick={() => selectImage(image)}
+            aria-label={`View ${image.alt}`}
+          >
             <img src={image.thumbnail} alt={image.alt} loading="lazy" />
           </button>
         ))}
       </div>
       {selectedImage && (
         <div className={styles.overlay} role="presentation" onClick={() => setSelectedImage(null)}>
-          <div className={styles.dialog} role="dialog" aria-modal="true" aria-label={selectedImage.alt} onClick={(event) => event.stopPropagation()}>
-            <button type="button" className={styles.close} onClick={() => setSelectedImage(null)} aria-label="Close image viewer">Close</button>
-            <button type="button" className={`${styles.fullImageButton} ${zoomed ? styles.zoomed : ''}`} onClick={toggleZoom} aria-label={zoomed ? 'Zoom out' : 'Zoom in'}>
-              <img src={selectedImage.src} alt={selectedImage.alt} style={{ '--zoom-origin': zoomOrigin } as CSSProperties} />
+          <div
+            className={styles.dialog}
+            role="dialog"
+            aria-modal="true"
+            aria-label={selectedImage.alt}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className={styles.close}
+              onClick={() => setSelectedImage(null)}
+              aria-label="Close image viewer"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              className={`${styles.fullImageButton} ${zoomed ? styles.zoomed : ''}`}
+              onClick={toggleZoom}
+              aria-label={zoomed ? 'Zoom out' : 'Zoom in'}
+            >
+              <img
+                src={selectedImage.src}
+                alt={selectedImage.alt}
+                style={{ '--zoom-origin': zoomOrigin } as CSSProperties}
+              />
             </button>
           </div>
         </div>

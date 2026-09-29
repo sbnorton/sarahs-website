@@ -1,65 +1,64 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { assetPathPrefix } from "../../data/programmingProjects";
-import styles from "./TopNav.module.css";
-import { cn } from "../portfolioStyles";
+import { assetPathPrefix } from '../../data/programmingProjects';
+import styles from './TopNav.module.css';
+import { cn } from '../portfolioStyles';
 
 export default function TopNav() {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [activePath, setActivePath] = useState("/");
-  const isHomepage = activePath === "/";
+  const [activePath, setActivePath] = useState('/');
+  const isHomepage = activePath === '/';
 
   const getNormalizedPath = (path?: string) => {
-    if (!path) return "/";
+    if (!path) return '/';
 
-    const cleaned = path.replace(/\/$/, "");
+    const cleaned = path.replace(/\/$/, '');
 
-    return cleaned === "" ? "/" : cleaned;
+    return cleaned === '' ? '/' : cleaned;
   };
 
   // Read the existing document theme after React has mounted.
   useEffect(() => {
-    setIsDarkMode(document.documentElement.dataset.theme === "dark");
+    setIsDarkMode(document.documentElement.dataset.theme === 'dark');
   }, []);
 
   useEffect(() => {
     const updateNavigation = () => {
       setActivePath(getNormalizedPath(window.location.pathname));
 
-      setIsDarkMode(document.documentElement.dataset.theme === "dark");
+      setIsDarkMode(document.documentElement.dataset.theme === 'dark');
     };
 
     updateNavigation();
 
-    window.addEventListener("popstate", updateNavigation);
-    document.addEventListener("astro:after-swap", updateNavigation);
+    window.addEventListener('popstate', updateNavigation);
+    document.addEventListener('astro:after-swap', updateNavigation);
 
     return () => {
-      window.removeEventListener("popstate", updateNavigation);
-      document.removeEventListener("astro:after-swap", updateNavigation);
+      window.removeEventListener('popstate', updateNavigation);
+      document.removeEventListener('astro:after-swap', updateNavigation);
     };
   }, []);
 
   const toggleDarkMode = () => {
-    const nextTheme = document.documentElement.dataset.theme !== "dark";
+    const nextTheme = document.documentElement.dataset.theme !== 'dark';
 
-    document.documentElement.dataset.theme = nextTheme ? "dark" : "light";
+    document.documentElement.dataset.theme = nextTheme ? 'dark' : 'light';
 
-    localStorage.setItem("theme", nextTheme ? "dark" : "light");
+    localStorage.setItem('theme', nextTheme ? 'dark' : 'light');
 
     setIsDarkMode(nextTheme);
   };
 
-  const logo =
-    isHomepage || isDarkMode ? "sarahslogo-white.svg" : "sarahslogo-black.svg";
+  const logo = isHomepage || isDarkMode ? 'sarahslogo-white.svg' : 'sarahslogo-black.svg';
 
   const links = [
-    { href: "/", label: "HOMEPAGE" },
-    { href: "/programming", label: "PROGRAMMING" },
-    { href: "/photography", label: "PHOTOGRAPHY" },
-    { href: "/design", label: "DESIGN" },
-    { href: "/about", label: "ABOUT ME" },
-    { href: "/contact", label: "CONTACT" },
+    { href: '/', label: 'HOMEPAGE' },
+    { href: '/programming', label: 'PROGRAMMING' },
+    { href: '/photography', label: 'PHOTOGRAPHY' },
+    { href: '/design', label: 'DESIGN' },
+    { href: '/about', label: 'ABOUT ME' },
+    { href: '/contact', label: 'CONTACT' },
   ];
 
   return (
@@ -79,11 +78,7 @@ export default function TopNav() {
           const isActive = activePath === getNormalizedPath(link.href);
 
           return (
-            <a
-              key={link.href}
-              className={cn(isActive && styles.active)}
-              href={link.href}
-            >
+            <a key={link.href} className={cn(isActive && styles.active)} href={link.href}>
               {link.label}
             </a>
           );

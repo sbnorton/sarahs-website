@@ -1,48 +1,48 @@
 @font-face {
-  font-family: "Inter:Regular";
-  src: url("https://static.figma.com/font/Inter_1") format("woff2");
+  font-family: 'Inter:Regular';
+  src: url('https://static.figma.com/font/Inter_1') format('woff2');
   font-style: normal;
   font-weight: 400;
 }
 
 @font-face {
-  font-family: "Poppins:Bold";
-  src: url("https://static.figma.com/font/Poppins-Bold_6") format("woff2");
+  font-family: 'Poppins:Bold';
+  src: url('https://static.figma.com/font/Poppins-Bold_6') format('woff2');
   font-style: normal;
   font-weight: 700;
 }
 
 @font-face {
-  font-family: "Poppins:Italic";
-  src: url("https://static.figma.com/font/Poppins-Italic_4") format("woff2");
+  font-family: 'Poppins:Italic';
+  src: url('https://static.figma.com/font/Poppins-Italic_4') format('woff2');
   font-style: italic;
   font-weight: 400;
 }
 
 @font-face {
-  font-family: "Poppins:Regular";
-  src: url("https://static.figma.com/font/Poppins-Regular_6") format("woff2");
+  font-family: 'Poppins:Regular';
+  src: url('https://static.figma.com/font/Poppins-Regular_6') format('woff2');
   font-style: normal;
   font-weight: 400;
 }
 
 @font-face {
-  font-family: "Poppins:SemiBold";
-  src: url("https://static.figma.com/font/Poppins-SemiBold_6") format("woff2");
+  font-family: 'Poppins:SemiBold';
+  src: url('https://static.figma.com/font/Poppins-SemiBold_6') format('woff2');
   font-style: normal;
   font-weight: 600;
 }
 
 @font-face {
-  font-family: "Roboto:Medium";
-  src: url("https://static.figma.com/font/Roboto_wdth_wght__3") format("woff2");
+  font-family: 'Roboto:Medium';
+  src: url('https://static.figma.com/font/Roboto_wdth_wght__3') format('woff2');
   font-style: normal;
   font-weight: 500;
 }
 
 @font-face {
-  font-family: "Roboto:Regular";
-  src: url("https://static.figma.com/font/Roboto_wdth_wght__3") format("woff2");
+  font-family: 'Roboto:Regular';
+  src: url('https://static.figma.com/font/Roboto_wdth_wght__3') format('woff2');
   font-style: normal;
   font-weight: 400;
 }
@@ -64,7 +64,7 @@
   --accent: #e45f4e;
 }
 
-html[data-theme="dark"] {
+html[data-theme='dark'] {
   --ink: #f5f5f5;
   --paper: #15191b;
   --charcoal: #e9eeee;
@@ -87,8 +87,10 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: "Poppins:Regular", sans-serif;
-  transition: background-color 300ms ease, color 300ms ease;
+  font-family: 'Poppins:Regular', sans-serif;
+  transition:
+    background-color 300ms ease,
+    color 300ms ease;
 }
 
 button,
@@ -110,7 +112,7 @@ a {
 .eyebrow {
   margin: 0 0 0.75rem;
   color: var(--muted);
-  font-family: "Poppins:SemiBold", sans-serif;
+  font-family: 'Poppins:SemiBold', sans-serif;
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.16em;
@@ -119,7 +121,7 @@ a {
 
 .title {
   margin: 0;
-  font-family: "Poppins:Bold", sans-serif;
+  font-family: 'Poppins:Bold', sans-serif;
   font-size: clamp(2.25rem, 5vw, 4rem);
   line-height: 1;
   letter-spacing: 0;
