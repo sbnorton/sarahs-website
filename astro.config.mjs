@@ -1,9 +1,7 @@
-export default ({ mode }) => ({
-  site: mode === 'production'
-    ? 'https://github.com/sbnorton'
-    : 'http://localhost:4321',
+import react from '@astrojs/react';
 
-  base: mode === 'production'
-    ? '/sarahs-website'
-    : '/',
-});
+export default {
+  integrations: [react()],
+  site: 'https://github.com/sbnorton',
+  base: '/',
+};
