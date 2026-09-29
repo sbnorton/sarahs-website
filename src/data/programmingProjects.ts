@@ -13,23 +13,41 @@ export function scrollToSection(id: SectionId) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 }
 
+export interface Project {
+  slug: string;
+  title: string;
+  subtitle: string;
+  tags: string[];
+  labels: string[];
+  description: string;
+  year: string | null;
+  details: string[];
+  screenshots: string[] | null;
+  videoUrl: string | null;
+  github: string | null;
+}
+
 export const projectLabelDefinitions = {
   university: {
     label: "University",
     tone: "universityBlue",
   },
+
   archived: {
     label: "Archived",
     tone: "muted",
   },
+
   active: {
     label: "Active",
     tone: "lime",
   },
+
   inDevelopment: {
     label: "In development",
     tone: "inDevelopment",
   },
+
   personal: {
     label: "Personal",
     tone: "coral",
@@ -41,37 +59,105 @@ export const projectLabelDefinitions = {
   },
 } as const;
 
-export const projects = [
+export const projects: Project[] = [
   {
-    name: "Personal Website",
+    slug: "personal-website",
+    title: "Personal Website",
+    subtitle: "Photography & Computer Science Portfolio",
+
+    tags: ["TypeScript", "React", "Astro"],
+    labels: ["personal", "active"],
+
     description:
       "You are currently looking at it 😄! A website for showcasing my portfolio; both for code projects and photography work.",
-    tags: ["Typescript", "React", "Astro"],
-    labels: ["personal", "active"],
+
     year: "2026",
+
+    details: [
+      "Designed and developed a personal portfolio website.",
+      "Combines photography, programming projects, and design work.",
+      "Built with React and Astro.",
+      "Currently working on deployment and further improvements.",
+    ],
+
+    screenshots: null,
+    videoUrl: null,
+    github: null,
   },
+
   {
-    name: "Skatteetaten Summer Internship",
-    description:
-      "Summer job as Fullstack Developer @ Skatteetaten, the summer of 2025",
+    slug: "skatteetaten-summer-internship",
+    title: "Skatteetaten Summer Internship",
+    subtitle: "Fullstack Developer · Summer 2025",
+
     tags: ["React", "Java", "SQL"],
     labels: ["si"],
-    year: "2025",
-  },
-  {
-    name: "Icebreaker | TDT4140",
+
     description:
-      "A collaborative team project, from the course TDT4140 Software Engineering.",
+      "Summer job as Fullstack Developer @ Skatteetaten, the summer of 2025.",
+
+    year: "2025",
+
+    details: [
+      "Worked as a fullstack developer at Skatteetaten.",
+      "Developed functionality for the SISMO debt collection portal.",
+      "Worked with React and TypeScript in the frontend.",
+      "Worked with Java and SQL in the backend.",
+      "Collaborated with designers and other developers throughout the project.",
+    ],
+
+    screenshots: null,
+    videoUrl: null,
+    github: null,
+  },
+
+  {
+    slug: "icebreaker",
+    title: "Icebreaker | TDT4140",
+    subtitle: "Software Engineering · University Project",
+
     tags: ["React", "Tailwind", "Java"],
     labels: ["university", "archived"],
-    year: "2024",
-  },
-  {
-    name: "CodeTrotter | TDT4195 ",
+
     description:
-      "Visualizes the Earth's rotation and allows users to explore its surface, including the transition between night and day.",
+      "A collaborative team project, from the course TDT4140 Software Engineering.",
+
+    year: "2024",
+
+    details: [
+      "Developed as part of the TDT4140 Software Engineering course.",
+      "Worked collaboratively as part of a student development team.",
+      "Built a web-based application using React and Tailwind.",
+      "Implemented backend functionality using Java.",
+    ],
+
+    screenshots: null,
+    videoUrl: null,
+    github: null,
+  },
+
+  {
+    slug: "codetrotter",
+    title: "CodeTrotter | TDT4195",
+    subtitle: "Graphics & Visualisation · University Project",
+
     tags: ["C++", "C"],
     labels: ["university", "archived"],
+
+    description:
+      "Visualizes the Earth's rotation and allows users to explore its surface, including the transition between night and day.",
+
     year: "2024",
+
+    details: [
+      "Developed as part of the TDT4195 Graphics and Visualisation course.",
+      "Created an interactive 3D visualization of the Earth.",
+      "Implemented graphics and interaction using C++ and C.",
+      "Explored real-time rendering and interactive 3D environments.",
+    ],
+
+    screenshots: null,
+    videoUrl: null,
+    github: null,
   },
-] as const;
+];
