@@ -76,7 +76,7 @@ export const projects: Project[] = [
     details: [
       'I wanted to try to design and develop a personal portfolio website.',
       'The purpose is to showcase photography, programming projects, and design work.',
-      'Currently working on deployment and further improvements (store images in AWS??).',
+      'Currently working on deployment and further improvements (e.g. storing images in AWS).',
     ],
 
     screenshots: ['/assets/images/thisWebsite.png'],
@@ -97,7 +97,7 @@ export const projects: Project[] = [
     year: '2025',
 
     details: [
-      'Developed functionality for the SISMO debt collection portal.',
+      'Developed functionality for the debt collection portal.',
       'Worked with React and TypeScript in the frontend.',
       'Java and SQL in the backend.',
       'Collaborated with designers and other developers throughout the project.',

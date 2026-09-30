@@ -30,9 +30,7 @@
 .photoMain,
 .photoEdge {
   height: min(38vw, 430px);
-  /* 1. Clips the scaling image inside the frame to prevent the pop-up effect */
   overflow: hidden;
-  /* Prevent blue selection highlights/overlays when clicking/dragging */
   user-select: none;
   -webkit-user-select: none;
 }
@@ -43,20 +41,19 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Smooth hardware-accelerated transform transition */
   transition: transform 300ms ease;
   will-change: transform;
 }
 
 .photoMain:hover img,
 .photoEdge:hover img {
-  /* 3. Smooth inner zoom effect */
   transform: scale(1.02);
 }
 
 .photoMain {
   background: #d9d9d9;
 }
+
 .photoEdge {
   background: linear-gradient(#d9d9d9, #737373);
 }
@@ -64,12 +61,11 @@
 .galleryCta {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .galleryCta a {
   display: inline-flex;
-  margin-left: auto;
   align-items: center;
   gap: 0.7rem;
   padding: 14px 24px;
@@ -94,17 +90,12 @@
 }
 
 @media (max-width: 760px) {
-  .photoSection {
-    min-height: 1140px;
-  }
-
   .photoStrip {
     margin-top: 50px;
   }
 
   .galleryCta {
-    align-items: flex-start;
-    flex-direction: column;
+    justify-content: flex-end;
   }
 }
 
@@ -120,8 +111,11 @@
     height: 58vw;
   }
 
+  .galleryCta {
+    justify-content: flex-end;
+  }
+
   .galleryCta a {
-    width: 100%;
-    justify-content: space-between;
+    width: auto;
   }
 }
