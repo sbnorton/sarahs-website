@@ -39,3 +39,11 @@ coverage/
 *todo.md
 !README.md
 
+# Wrangler build and state directory
+.wrangler/
+
+.dev.vars
+.dev.vars.*
+
+# wrangler.toml
+# wrangler.jsonc
