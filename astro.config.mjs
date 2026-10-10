@@ -5,7 +5,6 @@ import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
   integrations: [react()],
-  site: 'https://github.com/sbnorton',
   base: '/',
   adapter: cloudflare(),
 });
