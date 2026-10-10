@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import type { Project } from '../../data/programmingProjects';
+import type { Project } from '../../../data/programmingProjects';
 import styles from './ProjectModal.module.css';
 
 interface Props {

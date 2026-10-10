@@ -7,8 +7,8 @@ interface Props {
 
 import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
-import TopNav from "../components/topNav/TopNav";
-import SiteFooter from "../components/siteFooter/SiteFooter.astro";
+import TopNav from "../components/layout/topNav/TopNav";
+import SiteFooter from "../components/layout/siteFooter/SiteFooter.astro";
 
 const { title, description, showNav = true } = Astro.props;
 ---

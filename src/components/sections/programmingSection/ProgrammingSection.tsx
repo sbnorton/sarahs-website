@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { projectLabelDefinitions, projects, type Project } from '../../../data/programmingProjects';
-import ProjectModal from '../../projectModal/ProjectModal';
+import ProjectModal from '../../ui/projectModal/ProjectModal';
 import styles from './ProgrammingSection.module.css';
 import shared from '/src/styles/shared.module.css';
 import { cn } from '../../portfolioStyles';

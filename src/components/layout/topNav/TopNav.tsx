@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { assetPathPrefix } from '../../data/programmingProjects';
+import { assetPathPrefix } from '../../../data/programmingProjects';
 import styles from './TopNav.module.css';
-import { cn } from '../portfolioStyles';
+import { cn } from '../../portfolioStyles';
 
 export default function TopNav() {
   const [isDarkMode, setIsDarkMode] = useState(false);
