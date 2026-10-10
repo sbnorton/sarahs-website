@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import { projectLabelDefinitions, type Project } from '../../data/programmingProjects';
-import ProjectModal from '../../components/projectModal/ProjectModal';
+import ProjectModal from '../../components/ui/projectModal/ProjectModal';
 import styles from './page.module.css';
 
 interface Props {
@@ -20,7 +20,7 @@ export default function ProjectDetails({ projects }: Props) {
 
   return (
     <>
-      {/* Technology filters */}
+      {/* tech filters */}
       <div className={styles.tagFilters} role="group" aria-label="Filter projects by technology">
         {['all', ...availableTags].map((tag) => (
           <button
