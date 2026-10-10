@@ -1,7 +1,7 @@
 import { useEffect, useState, type CSSProperties } from 'react';
 import type { GalleryImage } from '../../data/images';
 import styles from './PhotographyGallery.module.css';
-import { FilterButton } from '../filterButton/FilterButton';
+import { FilterButton } from '../ui/filterButton/FilterButton';
 
 interface Props {
   images: GalleryImage[];

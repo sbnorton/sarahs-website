@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { projectLabelDefinitions, type Project } from '../../data/programmingProjects';
 import ProjectModal from './projectModal/ProjectModal';
-import styles from './page.module.css';
+import styles from '../../pages/programming/page.module.css';
 
 interface Props {
   projects: Project[];
