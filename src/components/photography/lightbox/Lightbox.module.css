@@ -1,56 +1,3 @@
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 2rem 0;
-}
-
-.filters button {
-  border: 1px solid var(--line);
-  background: transparent;
-  color: inherit;
-  padding: 0.55rem 0.85rem;
-  cursor: pointer;
-}
-
-.filters button:hover,
-.activeFilter {
-  background: var(--primary);
-  color: var(--background);
-}
-
-.gallery {
-  columns: 3 18rem;
-  column-gap: 0.75rem;
-}
-
-.imageButton {
-  display: block;
-  width: 100%;
-  padding: 0;
-  margin: 0 0 0.75rem;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  break-inside: avoid;
-}
-
-.imageButton img {
-  display: block;
-  width: 100%;
-  height: auto;
-  transition:
-    transform 0.25s ease,
-    opacity 0.25s ease;
-}
-
-.imageButton:hover img {
-  opacity: 0.8;
-  transform: scale(0.985);
-}
-
-/* ---------- fullscreen image viewer ---------- */
-
 .overlay {
   position: fixed;
   inset: 0;
@@ -65,10 +12,8 @@
   position: relative;
   display: grid;
   place-items: center;
-
   width: min(100%, 1600px);
   height: min(100%, 90vh);
-
   max-width: 1600px;
   max-height: 90vh;
 }
@@ -105,19 +50,15 @@
   max-width: 100%;
   max-height: 90vh;
   object-fit: contain;
-  transform-origin: center center;
+  transform-origin: var(--zoom-origin, center center);
   transition: transform 0.2s ease;
 }
 
 /* ---------- zoom ---------- */
 
 .fullImageButton.zoomed {
-  display: block;
-  width: auto;
-  height: auto;
   max-width: none;
   max-height: none;
-  overflow: visible;
   cursor: zoom-out;
 }
 
@@ -147,7 +88,6 @@
 
   .close {
     top: -2rem;
-    right: 0;
   }
 
   .fullImageButton.zoomed img {
