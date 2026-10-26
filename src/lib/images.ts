@@ -1,6 +1,7 @@
 const imageBase = (
   import.meta.env.PUBLIC_IMAGE_BASE ?? 'https://www.images.sarah-norton.com'
 ).replace(/\/$/, '');
+const siteBase = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 export const THUMB_WIDTHS = [400, 800, 1200];
 export const FULL_WIDTHS = [1200, 1800, 2400];
