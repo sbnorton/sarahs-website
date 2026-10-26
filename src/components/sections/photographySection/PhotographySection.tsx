@@ -1,4 +1,5 @@
 import { galleryImages } from '../../../data/images';
+import { imageSrcSet, imageUrl, THUMB_WIDTHS } from '../../../lib/images';
 import styles from './PhotographySection.module.css';
 import shared from '/src/styles/shared.module.css';
 import { cn } from '../../portfolioStyles';
@@ -24,7 +25,16 @@ export default function PhotographySection() {
             href="/photography"
             key={image.id}
           >
-            <img src={image.thumbnail} alt={image.alt} loading="lazy" />
+            <img
+              src={imageUrl(image.key, 800)}
+              srcSet={imageSrcSet(image.key, THUMB_WIDTHS)}
+              sizes="(max-width: 520px) 25vw, 20vw"
+              width={image.width}
+              height={image.height}
+              alt={image.alt}
+              loading="lazy"
+              decoding="async"
+            />
           </a>
         ))}
       </div>

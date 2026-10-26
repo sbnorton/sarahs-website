@@ -69,7 +69,7 @@ export default function Lightbox({ images, index, onClose, onNavigate }: Props) 
           onClick={onClose}
           aria-label="Close image viewer"
         >
-          Close
+          ×
         </button>
         <button
           type="button"
