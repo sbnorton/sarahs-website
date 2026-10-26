@@ -7,4 +7,5 @@
   "assets": {
     "directory": "./dist",
   },
+  "previews": {},
 }
