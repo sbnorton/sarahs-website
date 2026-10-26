@@ -11,4 +11,17 @@
   "observability": {
     "enabled": true,
   },
+  "r2_buckets": [
+    {
+      "binding": "PHOTOS_BUCKET",
+      "bucket_name": "photography-portfolio",
+    },
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "ba0d3e06a0da48b2a469356f23715da3",
+      "remote": true,
+    },
+  ],
 }
