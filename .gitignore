@@ -15,6 +15,7 @@ lerna-debug.log*
 
 # Local environment files
 *.local
+.env
  
 # Test coverage
 coverage/
