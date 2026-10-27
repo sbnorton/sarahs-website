@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build output and Wrangler state
+dist/
+.wrangler/
+
+# Generated Worker types
+worker-configuration.d.ts
+
+# Test coverage
+coverage/
+
+# Local environment files
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
+
+# Logs and local caches
+*.log
+.npm/
+*.tsbuildinfo
+
+# Editor and OS files
+.vscode/*
+!.vscode/extensions.json
+.DS_Store

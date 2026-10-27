@@ -7,5 +7,7 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["./worker-configuration.d.ts"]
+  "include": ["./worker-configuration.d.ts"],
+
+  "exclude": ["temp", "dist"]
 }
