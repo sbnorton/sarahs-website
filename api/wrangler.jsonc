@@ -17,6 +17,18 @@
 		},
 	],
 
+	"r2_buckets": [
+		{
+			"binding": "PHOTOS_BUCKET",
+			"bucket_name": "photography-portfolio",
+			"remote": true,
+		},
+	],
+
+	"vars": {
+		"SITE_ORIGIN": "https://www.sarah-norton.com",
+	},
+
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

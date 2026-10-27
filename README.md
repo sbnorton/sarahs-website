@@ -81,11 +81,51 @@ requires the appropriate Cloudflare/Wrangler configuration and credentials.
 The normal `npm run dev` workflow is sufficient for working on the site's
 pages, components, styling, and local static assets.
 
+### Photography API
+
+The Cloudflare Worker and its D1 migrations are in `api/`. To run the API
+locally:
+
+```sh
+cd api
+npm install
+npm run seed:local
+npm run dev
+```
+
+The Worker exposes `GET /photos` for ready photo metadata and enables CORS for
+the configured site origin. The local site origin (`http://localhost:4321`) is
+also allowed during development. The generated seed migration is based on
+`src/data/photos.json`.
+
+Set the public API URL in the site environment before starting the site or
+building it:
+
+```sh
+cp .env.example .env
+```
+
+For production, set `PUBLIC_PHOTOS_API_URL` to the deployed Worker URL ending
+in `/photos`. If the API cannot be reached, the gallery keeps using
+`src/data/photos.json` as a fallback.
+
+To apply the seed migration to the remote D1 database and deploy the Worker:
+
+```sh
+cd api
+npm run seed:remote
+npm run deploy
+```
+
+Wrangler credentials are used by the remote commands and are not stored in the
+repository. Do not commit `.env` files, API tokens, or other credentials.
+
 ## Project structure
 
 ```text
 .
 ├── public/              # Static images, logos, and other public assets
+├── api/                 # Cloudflare Worker, D1 migrations, and API tests
 ├── src/
 │   ├── components/      # Astro and React UI components
 │   ├── data/            # Project and gallery data

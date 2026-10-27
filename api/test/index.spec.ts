@@ -16,6 +16,9 @@ describe('Photography API', () => {
 				id TEXT PRIMARY KEY,
 				key TEXT NOT NULL UNIQUE,
 				title TEXT NOT NULL,
+				alt TEXT,
+				width INTEGER,
+				height INTEGER,
 				status TEXT NOT NULL DEFAULT 'pending',
 				created_at TEXT NOT NULL DEFAULT (datetime('now'))
 			)
@@ -39,5 +42,40 @@ describe('Photography API', () => {
 		const response = await SELF.fetch('https://example.com');
 		expect(response.status).toBe(200);
 		expect(await response.json()).toEqual([]);
+	});
+
+	it('returns ready photos with CORS headers', async () => {
+		await env.photography_metadata
+			.prepare("INSERT INTO photos (id, key, title, status) VALUES ('photo-1', 'photos/photo.jpg', 'Photo', 'ready')")
+			.run();
+
+		const response = await SELF.fetch('https://example.com/photos', {
+			headers: { Origin: 'http://localhost:4321' },
+		});
+
+		expect(response.status).toBe(200);
+		expect(response.headers.get('Access-Control-Allow-Origin')).toBe('http://localhost:4321');
+		expect(await response.json()).toEqual([
+			{
+				id: 'photo-1',
+				key: 'photos/photo.jpg',
+				title: 'Photo',
+				alt: null,
+				width: null,
+				height: null,
+				status: 'ready',
+				tags: [],
+			},
+		]);
+	});
+
+	it('handles CORS preflight requests', async () => {
+		const response = await SELF.fetch('https://example.com/photos', {
+			method: 'OPTIONS',
+			headers: { Origin: 'http://localhost:4321' },
+		});
+
+		expect(response.status).toBe(200);
+		expect(response.headers.get('Access-Control-Allow-Methods')).toBe('GET, OPTIONS');
 	});
 });

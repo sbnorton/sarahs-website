@@ -7,7 +7,10 @@
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
 		"test": "vitest",
-		"cf-typegen": "wrangler types"
+		"cf-typegen": "wrangler types",
+		"seed:generate": "node scripts/generate-photo-seed.mjs",
+		"seed:local": "npm run seed:generate && wrangler d1 migrations apply photography-metadata --local",
+		"seed:remote": "npm run seed:generate && wrangler d1 migrations apply photography-metadata --remote"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-plugin": "^1.4.3",
