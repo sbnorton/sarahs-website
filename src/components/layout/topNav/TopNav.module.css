@@ -85,6 +85,11 @@
   transform: translateX(clamp(28px, 1.5vw, 34px));
 }
 
+.menuToggle,
+.menuBackdrop {
+  display: none;
+}
+
 @media (max-width: 1100px) and (min-width: 761px) {
   .topNav {
     gap: 28px;
@@ -93,8 +98,9 @@
 
 @media (max-width: 800px) {
   .siteHeader {
-    grid-template-columns: 1fr auto;
-    padding: 44px 30px 0;
+    grid-template-columns: 1fr auto auto;
+    column-gap: 1rem;
+    padding: 44px 12px 0 30px;
     font-size: 12px;
   }
 
@@ -107,13 +113,80 @@
   }
 
   .topNav {
-    position: absolute;
-    top: 106px;
-    right: 30px;
-    left: 30px;
-    justify-content: space-between;
-    gap: 10px;
-    font-size: 9px;
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    width: 80vw;
+    padding: 7rem 2rem 2rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    background: var(--paper);
+    box-shadow: -1rem 0 2.5rem rgb(0 0 0 / 16%);
+    color: var(--ink);
+    font-size: 1rem;
+    transform: translateX(100%);
+    transition: transform 220ms ease;
+    visibility: hidden;
+  }
+
+  .topNav.menuOpen {
+    transform: translateX(0);
+    visibility: visible;
+  }
+
+  .topNav a {
+    width: 100%;
+    padding: 0.35rem 0;
+  }
+
+  .menuToggle {
+    z-index: 5;
+    display: flex;
+    width: 2.25rem;
+    height: 2.75rem;
+    padding: 0.4rem;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.35rem;
+    border: 0;
+    background: transparent;
+    color: inherit;
+  }
+
+  .menuToggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    border-radius: 999px;
+    background: currentColor;
+    transition:
+      transform 180ms ease,
+      opacity 180ms ease;
+  }
+
+  .menuToggle[aria-expanded='true'] span:first-child {
+    transform: translateY(0.45rem) rotate(45deg);
+  }
+
+  .menuToggle[aria-expanded='true'] span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menuToggle[aria-expanded='true'] span:last-child {
+    transform: translateY(-0.45rem) rotate(-45deg);
+  }
+
+  .menuBackdrop {
+    position: fixed;
+    z-index: 3;
+    inset: 0;
+    display: block;
+    border: 0;
+    background: rgb(0 0 0 / 38%);
   }
 
   .brandLogo {

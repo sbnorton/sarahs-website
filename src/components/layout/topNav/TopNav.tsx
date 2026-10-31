@@ -7,6 +7,7 @@ import { cn } from '../../portfolioStyles';
 export default function TopNav() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [activePath, setActivePath] = useState('/');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isHomepage = activePath === '/';
 
   const getNormalizedPath = (path?: string) => {
@@ -25,6 +26,7 @@ export default function TopNav() {
   useEffect(() => {
     const updateNavigation = () => {
       setActivePath(getNormalizedPath(window.location.pathname));
+      setIsMenuOpen(false);
 
       setIsDarkMode(document.documentElement.dataset.theme === 'dark');
     };
@@ -39,6 +41,26 @@ export default function TopNav() {
       document.removeEventListener('astro:after-swap', updateNavigation);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isMenuOpen) {
+      document.body.style.removeProperty('overflow');
+      return;
+    }
+
+    document.body.style.overflow = 'hidden';
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsMenuOpen(false);
+    };
+
+    document.addEventListener('keydown', closeOnEscape);
+
+    return () => {
+      document.body.style.removeProperty('overflow');
+      document.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [isMenuOpen]);
 
   const toggleDarkMode = () => {
     const nextTheme = document.documentElement.dataset.theme !== 'dark';
@@ -73,12 +95,43 @@ export default function TopNav() {
         SARAH NORTON
       </a>
 
-      <nav className={cn(styles.topNav)} aria-label="Main navigation">
+      <button
+        type="button"
+        className={cn(styles.menuToggle)}
+        aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+        aria-expanded={isMenuOpen}
+        aria-controls="main-navigation"
+        onClick={() => setIsMenuOpen((open) => !open)}
+      >
+        <span aria-hidden="true" />
+        <span aria-hidden="true" />
+        <span aria-hidden="true" />
+      </button>
+
+      {isMenuOpen && (
+        <button
+          type="button"
+          className={styles.menuBackdrop}
+          aria-label="Close navigation menu"
+          onClick={() => setIsMenuOpen(false)}
+        />
+      )}
+
+      <nav
+        id="main-navigation"
+        className={cn(styles.topNav, isMenuOpen && styles.menuOpen)}
+        aria-label="Main navigation"
+      >
         {links.map((link) => {
           const isActive = activePath === getNormalizedPath(link.href);
 
           return (
-            <a key={link.href} className={cn(isActive && styles.active)} href={link.href}>
+            <a
+              key={link.href}
+              className={cn(isActive && styles.active)}
+              href={link.href}
+              onClick={() => setIsMenuOpen(false)}
+            >
               {link.label}
             </a>
           );
