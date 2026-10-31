@@ -71,6 +71,19 @@ export default function PhotoUploader() {
     });
   };
 
+  const removeItem = (index: number) => {
+    setItems((current) => {
+      const item = current[index];
+      if (item) {
+        URL.revokeObjectURL(item.previewUrl);
+      }
+
+      const next = current.filter((_, itemIndex) => itemIndex !== index);
+      itemsRef.current = next;
+      return next;
+    });
+  };
+
   const upload = (index: number) => {
     const item = items[index];
     if (!item || !apiUrl || !token) {
@@ -164,7 +177,7 @@ export default function PhotoUploader() {
         <span className={styles.uploadIcon} aria-hidden="true">
           ↑
         </span>
-        <p className={styles.dropzoneTitle}>Drag and drop images here</p>
+        <p className={styles.dropzoneTitle}>Drag or click to choose photos</p>
         <p className={styles.dropzoneOr}>or</p>
         <button
           className={styles.browseButton}
@@ -173,7 +186,7 @@ export default function PhotoUploader() {
         >
           Browse files
         </button>
-        <p className={styles.fileHint}>Accepted file types: JPG, JPEG, and PNG</p>
+        <p className={styles.fileHint}>JPG, JPEG, and PNG · Maximum 25 MB per photo</p>
         <input
           ref={fileInput}
           className={styles.hiddenInput}
@@ -183,22 +196,26 @@ export default function PhotoUploader() {
           onChange={(event) => event.target.files && addFiles(event.target.files)}
         />
       </div>
-      {items.some((item) => item.state === 'queued' || item.state === 'error') && (
-        <button
-          className={styles.uploadAllButton}
-          type="button"
-          disabled={!token || !apiConfigured || items.some((item) => item.state === 'uploading')}
-          onClick={uploadAll}
-        >
-          Upload selected photos
-        </button>
-      )}
-      <ul className={styles.fileList}>
+      {items.length > 0 && <p className={styles.queueLabel}>Photo queue</p>}
+      <ul className={styles.fileList} aria-label="Photo queue">
         {items.map((item, index) => (
           <li key={`${item.file.name}-${index}`}>
             <div className={styles.fileHeader}>
               <img className={styles.preview} src={item.previewUrl} alt="" width="96" height="96" />
-              <strong>{item.file.name}</strong>
+              <div className={styles.fileDetails}>
+                <strong>{item.file.name}</strong>
+                <span>{formatFileSize(item.file.size)}</span>
+              </div>
+              <button
+                className={styles.removeButton}
+                type="button"
+                aria-label={`Remove ${item.file.name}`}
+                title="Discard photo"
+                onClick={() => removeItem(index)}
+                disabled={item.state === 'uploading'}
+              >
+                <span aria-hidden="true">×</span>
+              </button>
             </div>
             <label>
               Title
@@ -224,16 +241,32 @@ export default function PhotoUploader() {
             {item.state === 'error' && <span className={styles.error}>{item.error}</span>}
             {item.state !== 'complete' && (
               <button
+                className={styles.singleUploadButton}
                 type="button"
                 disabled={!token || !apiConfigured || item.state === 'uploading'}
                 onClick={() => upload(index)}
               >
-                Upload
+                Upload photo
               </button>
             )}
           </li>
         ))}
       </ul>
+      {items.length > 0 && (
+        <button
+          className={styles.uploadAllButton}
+          type="button"
+          disabled={
+            !token ||
+            !apiConfigured ||
+            items.every((item) => item.state === 'complete') ||
+            items.some((item) => item.state === 'uploading')
+          }
+          onClick={uploadAll}
+        >
+          Upload {items.length === 1 ? 'photo' : 'photos'}
+        </button>
+      )}
     </section>
   );
 }
@@ -261,4 +294,12 @@ function isSupportedImage(file: File): boolean {
     ((extension === 'jpg' || extension === 'jpeg') && file.type === 'image/jpeg') ||
     (extension === 'png' && file.type === 'image/png')
   );
+}
+
+function formatFileSize(bytes: number): string {
+  if (bytes < 1024 * 1024) {
+    return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+  }
+
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
