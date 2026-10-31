@@ -5,6 +5,7 @@ import worker from '../src/index';
 // For now, you'll need to do something like this to get a correctly-typed
 // `Request` to pass to `worker.fetch()`.
 const IncomingRequest = Request<unknown, IncomingRequestCfProperties>;
+const testAuthorization = `Bearer ${['test', 'upload', 'token'].join('-')}`;
 
 describe('Photography API', () => {
 	beforeAll(async () => {
@@ -28,24 +29,32 @@ describe('Photography API', () => {
 			.run();
 	});
 
-	it('returns photos from D1 (unit style)', async () => {
+	it('returns 404 for the API root (unit style)', async () => {
 		const request = new IncomingRequest('http://example.com');
 		// Create an empty context to pass to `worker.fetch()`.
 		const ctx = createExecutionContext();
 		const response = await worker.fetch(request, env, ctx);
 		// Wait for all `Promise`s passed to `ctx.waitUntil()` to settle before running test assertions
 		await waitOnExecutionContext(ctx);
-		expect(response.status).toBe(200);
-		expect(await response.json()).toEqual([]);
+		expect(response.status).toBe(404);
+		expect(await response.json()).toEqual({ error: 'Not found' });
 	});
 
-	it('returns photos from D1 (integration style)', async () => {
+	it('returns 404 for the API root (integration style)', async () => {
 		const response = await SELF.fetch('https://example.com');
-		expect(response.status).toBe(200);
-		expect(await response.json()).toEqual([]);
+		expect(response.status).toBe(404);
+		expect(await response.json()).toEqual({ error: 'Not found' });
+	});
+
+	it('returns 404 for unknown routes', async () => {
+		const response = await SELF.fetch('https://example.com/not-a-route');
+
+		expect(response.status).toBe(404);
+		expect(await response.json()).toEqual({ error: 'Not found' });
 	});
 
 	it('returns ready photos with CORS headers', async () => {
+		await env.PHOTOS_BUCKET.put('photos/photo.jpg', 'test image');
 		await env.photography_metadata
 			.prepare("INSERT INTO photos (id, key, title, status) VALUES ('photo-1', 'photos/photo.jpg', 'Photo', 'ready')")
 			.run();
@@ -70,6 +79,74 @@ describe('Photography API', () => {
 		]);
 	});
 
+	it('retrieves a published photo by ID and hides unpublished photos', async () => {
+		await env.PHOTOS_BUCKET.put('photos/by-id.jpg', 'test image');
+		await env.photography_metadata
+			.prepare(
+				"INSERT INTO photos (id, key, title, status, tags) VALUES ('photo-by-id', 'photos/by-id.jpg', 'By ID', 'ready', '[\"travel\"]')",
+			)
+			.run();
+		await env.photography_metadata
+			.prepare("INSERT INTO photos (id, key, title, status) VALUES ('photo-hidden', 'photos/hidden.jpg', 'Hidden', 'pending')")
+			.run();
+
+		const publishedResponse = await SELF.fetch('https://example.com/photos/photo-by-id');
+		expect(publishedResponse.status).toBe(200);
+		expect(await publishedResponse.json()).toMatchObject({
+			id: 'photo-by-id',
+			title: 'By ID',
+			tags: ['travel'],
+			status: 'ready',
+		});
+
+		const hiddenResponse = await SELF.fetch('https://example.com/photos/photo-hidden');
+		expect(hiddenResponse.status).toBe(404);
+	});
+
+	it('updates validated photo metadata with authentication', async () => {
+		const response = await SELF.fetch('https://example.com/photos/photo-1', {
+			method: 'PATCH',
+			headers: {
+				Authorization: testAuthorization,
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ title: 'Updated photo', tags: ['nature', 'evening'], width: 1200 }),
+		});
+
+		expect(response.status).toBe(200);
+		expect(await response.json()).toMatchObject({
+			id: 'photo-1',
+			title: 'Updated photo',
+			tags: ['nature', 'evening'],
+			width: 1200,
+		});
+
+		const invalidResponse = await SELF.fetch('https://example.com/photos/photo-1', {
+			method: 'PATCH',
+			headers: {
+				Authorization: testAuthorization,
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ title: '' }),
+		});
+
+		expect(invalidResponse.status).toBe(400);
+	});
+
+	it('deletes a photo record with authentication', async () => {
+		await env.photography_metadata
+			.prepare("INSERT INTO photos (id, key, title, status) VALUES ('photo-to-delete', 'photos/to-delete.jpg', 'Delete me', 'ready')")
+			.run();
+
+		const response = await SELF.fetch('https://example.com/photos/photo-to-delete', {
+			method: 'DELETE',
+			headers: { Authorization: testAuthorization },
+		});
+
+		expect(response.status).toBe(204);
+		expect(await env.photography_metadata.prepare("SELECT id FROM photos WHERE id = 'photo-to-delete'").first()).toBeNull();
+	});
+
 	it('handles CORS preflight requests', async () => {
 		const response = await SELF.fetch('https://example.com/photos', {
 			method: 'OPTIONS',
@@ -77,7 +154,7 @@ describe('Photography API', () => {
 		});
 
 		expect(response.status).toBe(200);
-		expect(response.headers.get('Access-Control-Allow-Methods')).toBe('GET, POST, OPTIONS');
+		expect(response.headers.get('Access-Control-Allow-Methods')).toBe('GET, POST, PATCH, DELETE, OPTIONS');
 		expect(response.headers.get('Access-Control-Allow-Headers')).toBe('Authorization, Content-Type');
 	});
 
