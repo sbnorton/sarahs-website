@@ -1,10 +1,11 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './PhotoUploader.module.css';
 
 type UploadState = 'queued' | 'uploading' | 'complete' | 'error';
 
 interface UploadItem {
   file: File;
+  previewUrl: string;
   title: string;
   tags: string;
   width: number;
@@ -21,8 +22,10 @@ export default function PhotoUploader() {
     typeof window === 'undefined' ? '' : (window.localStorage.getItem(tokenStorageKey) ?? ''),
   );
   const [items, setItems] = useState<UploadItem[]>([]);
+  const [uploadSummary, setUploadSummary] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
+  const itemsRef = useRef<UploadItem[]>([]);
   const apiUrl = import.meta.env.PUBLIC_PHOTOS_API_URL;
 
   const apiConfigured = useMemo(() => Boolean(apiUrl), [apiUrl]);
@@ -30,11 +33,12 @@ export default function PhotoUploader() {
   const addFiles = async (files: FileList | File[]) => {
     const newItems = await Promise.all(
       Array.from(files)
-        .filter((file) => file.type.startsWith('image/'))
+        .filter((file) => isSupportedImage(file))
         .map(async (file) => {
           const dimensions = await readImageDimensions(file);
           return {
             file,
+            previewUrl: URL.createObjectURL(file),
             title: file.name.replace(/\.[^/.]+$/, ''),
             tags: '',
             width: dimensions?.width ?? 3,
@@ -44,13 +48,27 @@ export default function PhotoUploader() {
           };
         }),
     );
-    setItems((current) => [...current, ...newItems]);
+    setItems((current) => {
+      const next = [...current, ...newItems];
+      itemsRef.current = next;
+      return next;
+    });
   };
 
+  useEffect(() => {
+    return () => {
+      itemsRef.current.forEach((item) => URL.revokeObjectURL(item.previewUrl));
+    };
+  }, []);
+
   const updateItem = (index: number, update: Partial<UploadItem>) => {
-    setItems((current) =>
-      current.map((item, itemIndex) => (itemIndex === index ? { ...item, ...update } : item)),
-    );
+    setItems((current) => {
+      const next = current.map((item, itemIndex) =>
+        itemIndex === index ? { ...item, ...update } : item,
+      );
+      itemsRef.current = next;
+      return next;
+    });
   };
 
   const upload = (index: number) => {
@@ -81,11 +99,15 @@ export default function PhotoUploader() {
     request.onload = () => {
       if (request.status >= 200 && request.status < 300) {
         updateItem(index, { progress: 100, state: 'complete' });
+        setUploadSummary(`${item.title} was uploaded successfully.`);
       } else {
         updateItem(index, { state: 'error', error: `Upload failed (${request.status})` });
       }
     };
-    request.onerror = () => updateItem(index, { state: 'error', error: 'Network error' });
+    request.onerror = () => {
+      updateItem(index, { state: 'error', error: 'Network error' });
+      setUploadSummary(null);
+    };
     updateItem(index, { state: 'uploading', error: undefined });
     request.send(formData);
   };
@@ -109,6 +131,11 @@ export default function PhotoUploader() {
       {!apiConfigured && (
         <p className={styles.configurationAlert} role="alert">
           Set PUBLIC_PHOTOS_API_URL before uploading.
+        </p>
+      )}
+      {uploadSummary && (
+        <p className={styles.successSummary} role="status">
+          ✓ {uploadSummary}
         </p>
       )}
       <label>
@@ -146,12 +173,12 @@ export default function PhotoUploader() {
         >
           Browse files
         </button>
-        <p className={styles.fileHint}>Accepted file types: images only</p>
+        <p className={styles.fileHint}>Accepted file types: JPG, JPEG, and PNG</p>
         <input
           ref={fileInput}
           className={styles.hiddenInput}
           type="file"
-          accept="image/*"
+          accept=".jpg,.jpeg,.png,image/jpeg,image/png"
           multiple
           onChange={(event) => event.target.files && addFiles(event.target.files)}
         />
@@ -169,7 +196,10 @@ export default function PhotoUploader() {
       <ul className={styles.fileList}>
         {items.map((item, index) => (
           <li key={`${item.file.name}-${index}`}>
-            <strong>{item.file.name}</strong>
+            <div className={styles.fileHeader}>
+              <img className={styles.preview} src={item.previewUrl} alt="" width="96" height="96" />
+              <strong>{item.file.name}</strong>
+            </div>
             <label>
               Title
               <input
@@ -223,4 +253,12 @@ function readImageDimensions(file: File): Promise<{ width: number; height: numbe
     };
     image.src = objectUrl;
   });
+}
+
+function isSupportedImage(file: File): boolean {
+  const extension = file.name.split('.').pop()?.toLowerCase();
+  return (
+    ((extension === 'jpg' || extension === 'jpeg') && file.type === 'image/jpeg') ||
+    (extension === 'png' && file.type === 'image/png')
+  );
 }

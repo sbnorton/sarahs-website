@@ -70,8 +70,8 @@ async function uploadPhoto(request: Request, env: Env, origin: string | null): P
 			return Response.json({ error: 'A file is required' }, { status: 400, headers: corsHeaders(origin) });
 		}
 
-		if (!file.type.startsWith('image/')) {
-			return Response.json({ error: 'Only image files are supported' }, { status: 400, headers: corsHeaders(origin) });
+		if (!isSupportedImage(file)) {
+			return Response.json({ error: 'Only JPG, JPEG, and PNG files are supported' }, { status: 400, headers: corsHeaders(origin) });
 		}
 
 		const maxFileSize = 25 * 1024 * 1024;
@@ -86,7 +86,7 @@ async function uploadPhoto(request: Request, env: Env, origin: string | null): P
 		const height = numberField(formData, 'height');
 		const id = crypto.randomUUID();
 		const extension = extensionFor(file);
-		const key = `photos/${id}${extension}`;
+		const key = await photoKey(env.PHOTOS_BUCKET, title, extension);
 
 		await env.PHOTOS_BUCKET.put(key, file.stream(), {
 			httpMetadata: { contentType: file.type },
@@ -164,15 +164,40 @@ function parseTags(value: unknown): string[] {
 }
 
 function extensionFor(file: File): string {
-	const extension = file.name.match(/\.[a-z0-9]+$/i)?.[0].toLowerCase();
-	return extension && extension.length <= 6 ? extension : '.bin';
+	return `.${file.name.split('.').pop()?.toLowerCase() ?? 'jpg'}`;
+}
+
+function isSupportedImage(file: File): boolean {
+	const extension = file.name.split('.').pop()?.toLowerCase();
+	return (
+		((extension === 'jpg' || extension === 'jpeg') && file.type === 'image/jpeg') || (extension === 'png' && file.type === 'image/png')
+	);
+}
+
+async function photoKey(bucket: R2Bucket, title: string, extension: string): Promise<string> {
+	const slug = title
+		.normalize('NFKD')
+		.replace(/[^\w\s-]/g, '')
+		.trim()
+		.toLowerCase()
+		.replace(/[\s_-]+/g, '-')
+		.replace(/^-+|-+$/g, '')
+		.slice(0, 80);
+	const baseName = slug || 'photo';
+	const baseKey = `photos/${baseName}${extension}`;
+
+	if (!(await bucket.head(baseKey))) {
+		return baseKey;
+	}
+
+	return `photos/${baseName}-${crypto.randomUUID().slice(0, 8)}${extension}`;
 }
 
 function corsHeaders(origin: string | null): HeadersInit {
 	return {
 		...(origin ? { 'Access-Control-Allow-Origin': origin } : {}),
 		'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-		'Access-Control-Allow-Headers': 'Content-Type',
+		'Access-Control-Allow-Headers': 'Authorization, Content-Type',
 		Vary: 'Origin',
 	};
 }
