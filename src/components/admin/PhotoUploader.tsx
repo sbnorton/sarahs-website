@@ -111,10 +111,27 @@ export default function PhotoUploader() {
     };
     request.onload = () => {
       if (request.status >= 200 && request.status < 300) {
-        updateItem(index, { progress: 100, state: 'complete' });
-        setUploadSummary(`${item.title} was uploaded successfully.`);
+        try {
+          const response = JSON.parse(request.responseText) as { key?: string };
+          updateItem(index, { progress: 100, state: 'complete' });
+          setUploadSummary(
+            `${item.title} was uploaded successfully${response.key ? ` as ${response.key}` : ''}.`,
+          );
+        } catch {
+          updateItem(index, {
+            state: 'error',
+            error: 'The server confirmed the upload, but returned an invalid response.',
+          });
+        }
       } else {
-        updateItem(index, { state: 'error', error: `Upload failed (${request.status})` });
+        let message = `Upload failed (${request.status})`;
+        try {
+          const response = JSON.parse(request.responseText) as { error?: string };
+          if (response.error) message = response.error;
+        } catch {
+          // Keep the status-based message when the server response is not JSON.
+        }
+        updateItem(index, { state: 'error', error: message });
       }
     };
     request.onerror = () => {

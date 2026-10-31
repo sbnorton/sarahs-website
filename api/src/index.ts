@@ -116,6 +116,10 @@ async function uploadPhoto(request: Request, env: Env, origin: string | null): P
 		});
 
 		try {
+			if (!(await env.PHOTOS_BUCKET.head(key))) {
+				throw new Error(`R2 object was not found after upload: ${key}`);
+			}
+
 			await env.photography_metadata
 				.prepare('INSERT INTO photos (id, key, title, alt, width, height, tags, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)')
 				.bind(id, key, title, alt, width, height, JSON.stringify(tags), 'ready')
