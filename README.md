@@ -104,6 +104,27 @@ folder if you want to run the website locally with the API.
 If the API is unavailable, the gallery uses the photo list included in the
 project as a fallback.
 
+#### Photo metadata endpoints
+
+The public endpoints only return photos whose status is `ready`:
+
+```text
+GET    /photos          List published photos
+GET    /photos/:id      Retrieve one published photo
+```
+
+The metadata management endpoints require
+`Authorization: Bearer <UPLOAD_TOKEN>`:
+
+```text
+PATCH  /photos/:id      Update title, alt text, tags, dimensions, or status
+DELETE /photos/:id      Delete the metadata record and its R2 object
+```
+
+Update requests use JSON. Tags must be an array of strings, dimensions must be
+positive integers (or `null`), and status must be one of `pending`,
+`processing`, `ready`, or `failed`.
+
 #### Deploy it
 
 From the `api` folder, create the upload password once:
