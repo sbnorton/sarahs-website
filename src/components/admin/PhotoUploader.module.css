@@ -178,7 +178,7 @@
 .fileList .removeButton span {
   display: block;
   line-height: 0.8;
-  transform: translateY(-0.02em);
+  transform: translat eY(-0.02em);
 }
 
 .fileList .removeButton:hover:not(:disabled) {
