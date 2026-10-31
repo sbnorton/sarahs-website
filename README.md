@@ -83,8 +83,12 @@ pages, components, styling, and local static assets.
 
 ### Photography API
 
-The Cloudflare Worker and its D1 migrations are in `api/`. To run the API
-locally:
+The photography API lives in `api/`. It stores photo information in Cloudflare
+D1 and the image files in Cloudflare R2.
+
+#### Run it on your computer
+
+From the project folder:
 
 ```sh
 cd api
@@ -93,32 +97,42 @@ npm run seed:local
 npm run dev
 ```
 
-The Worker exposes `GET /photos` for ready photo metadata and enables CORS for
-the configured site origin. The local site origin (`http://localhost:4321`) is
-also allowed during development. The generated seed migration is based on
-`src/data/photos.json`.
+The website can then use the local API at
+`http://localhost:8787/photos`. Copy `.env.example` to `.env` in the project
+folder if you want to run the website locally with the API.
 
-Set the public API URL in the site environment before starting the site or
-building it:
+If the API is unavailable, the gallery uses the photo list included in the
+project as a fallback.
+
+#### Deploy it
+
+From the `api` folder, create the upload password once:
 
 ```sh
-cp .env.example .env
+npx wrangler secret put UPLOAD_TOKEN
 ```
 
-For production, set `PUBLIC_PHOTOS_API_URL` to the deployed Worker URL ending
-in `/photos`. If the API cannot be reached, the gallery keeps using
-`src/data/photos.json` as a fallback.
+Wrangler will ask you to enter the secret. Keep it private and don't add it to Git.
 
-To apply the seed migration to the remote D1 database and deploy the Worker:
+Then seed the production database and deploy the Worker:
 
 ```sh
-cd api
 npm run seed:remote
 npm run deploy
 ```
 
-Wrangler credentials are used by the remote commands and are not stored in the
-repository. Do not commit `.env` files, API tokens, or other credentials.
+When the Worker has been deployed, set the website's `PUBLIC_PHOTOS_API_URL` setting to its `/photos` address before building the
+website. This tells the gallery where to find the latest photos.
+
+#### Upload photos
+
+The site includes a private upload page at `/admin`. Enter the upload secret,
+choose or drag in one or more images, add titles and tags, and click
+**Upload**. The page shows progress for each image.
+
+The upload secret is saved only in your browser. Clear the saved site data if
+you no longer want it stored there. The Worker checks the secret before it
+accepts any upload.
 
 ## Project structure
 

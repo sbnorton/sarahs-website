@@ -80,6 +80,7 @@ export default function PhotographyGallery({ images }: Props) {
               sizes="(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 33vw"
               width={image.width}
               height={image.height}
+              style={{ aspectRatio: `${image.width || 3} / ${image.height || 2}` }}
               loading="lazy"
               decoding="async"
               alt={image.alt}

@@ -1,0 +1,133 @@
+.uploader {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.uploader label {
+  display: grid;
+  gap: 0.35rem;
+  margin: 1rem 0;
+}
+
+.uploader input {
+  padding: 0.6rem;
+}
+
+.configurationAlert {
+  max-width: 32rem;
+  margin: 1.5rem auto;
+  padding: 1rem 1.25rem;
+  border: 1px solid #b45309;
+  border-radius: 0.35rem;
+  background: #fff7ed;
+  color: #92400e;
+  text-align: center;
+  font-weight: 600;
+}
+
+.dropzone {
+  padding: 2.5rem 1.5rem 1.25rem;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  text-align: center;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.dragging {
+  border-color: var(--primary);
+  background: var(--secondary);
+}
+
+.uploadIcon {
+  display: block;
+  color: var(--primary);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.dropzoneTitle {
+  margin: 0.75rem 0 0.25rem;
+  font-family: 'Poppins:SemiBold', sans-serif;
+}
+
+.dropzoneOr {
+  margin: 0.25rem 0;
+  color: var(--muted);
+}
+
+.browseButton,
+.uploadAllButton,
+.fileList button {
+  padding: 0.7rem 1.25rem;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--paper);
+  font-family: 'Poppins:SemiBold', sans-serif;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.browseButton:hover,
+.uploadAllButton:hover,
+.fileList button:hover:not(:disabled) {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.fileHint {
+  margin: 1.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.uploadAllButton {
+  display: block;
+  width: 100%;
+  margin: 1rem 0;
+  padding: 0.9rem 1.25rem;
+  font-size: 1rem;
+}
+
+.uploadAllButton:disabled,
+.fileList button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.fileList {
+  display: grid;
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.fileList li {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid currentColor;
+}
+
+.error {
+  color: #a11;
+}
+
+.success {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid #15803d;
+  border-radius: 0.35rem;
+  background: #f0fdf4;
+  color: #166534;
+  font-weight: 600;
+}

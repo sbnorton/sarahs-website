@@ -19,6 +19,7 @@ describe('Photography API', () => {
 				alt TEXT,
 				width INTEGER,
 				height INTEGER,
+				tags TEXT NOT NULL DEFAULT '[]',
 				status TEXT NOT NULL DEFAULT 'pending',
 				created_at TEXT NOT NULL DEFAULT (datetime('now'))
 			)
@@ -76,6 +77,50 @@ describe('Photography API', () => {
 		});
 
 		expect(response.status).toBe(200);
-		expect(response.headers.get('Access-Control-Allow-Methods')).toBe('GET, OPTIONS');
+		expect(response.headers.get('Access-Control-Allow-Methods')).toBe('GET, POST, OPTIONS');
+	});
+
+	it('rejects uploads without authentication', async () => {
+		const response = await SELF.fetch('https://example.com/photos', {
+			method: 'POST',
+			body: new FormData(),
+		});
+
+		expect(response.status).toBe(401);
+	});
+
+	it('uploads an authenticated photo to R2 and D1', async () => {
+		const formData = new FormData();
+		formData.set('file', new File(['image bytes'], 'new-photo.jpg', { type: 'image/jpeg' }));
+		formData.set('title', 'New photo');
+		formData.set('alt', 'A new photo');
+		formData.set('tags', 'landscape, evening');
+		formData.set('width', '1200');
+		formData.set('height', '800');
+
+		const response = await SELF.fetch('https://example.com/photos', {
+			method: 'POST',
+			headers: { Authorization: 'Bearer test-upload-token' },
+			body: formData,
+		});
+
+		expect(response.status).toBe(201);
+		expect(await response.json()).toMatchObject({
+			title: 'New photo',
+			alt: 'A new photo',
+			tags: ['landscape', 'evening'],
+			status: 'ready',
+		});
+		const rows = await env.photography_metadata.prepare("SELECT key, status, tags FROM photos WHERE title = 'New photo'").all();
+		expect(rows.results).toHaveLength(1);
+		expect(rows.results[0]).toMatchObject({ status: 'ready', tags: '["landscape","evening"]' });
+
+		const photosResponse = await SELF.fetch('https://example.com/photos');
+		expect(await photosResponse.json()).toContainEqual(
+			expect.objectContaining({
+				title: 'New photo',
+				tags: ['landscape', 'evening'],
+			}),
+		);
 	});
 });
