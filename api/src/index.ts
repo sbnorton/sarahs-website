@@ -40,12 +40,17 @@ export default {
 			const { results } = await env.photography_metadata
 				.prepare("SELECT id, key, title, alt, width, height, tags, status FROM photos WHERE status = 'ready' ORDER BY created_at DESC")
 				.all();
+			const availablePhotos = await Promise.all(
+				results.map(async (photo) => ((await env.PHOTOS_BUCKET.head(String(photo.key))) ? photo : null)),
+			);
 
 			return Response.json(
-				results.map((photo) => ({
-					...photo,
-					tags: parseTags(photo.tags),
-				})),
+				availablePhotos
+					.filter((photo): photo is NonNullable<typeof photo> => photo !== null)
+					.map((photo) => ({
+						...photo,
+						tags: parseTags(photo.tags),
+					})),
 				{
 					headers: corsHeaders(allowedOrigin),
 				},
@@ -134,7 +139,7 @@ async function getPhoto(id: string, env: Env, origin: string | null): Promise<Re
 			.bind(id)
 			.first();
 
-		if (!photo) {
+		if (!photo || !(await env.PHOTOS_BUCKET.head(String(photo.key)))) {
 			return Response.json({ error: 'Photo not found' }, { status: 404, headers: corsHeaders(origin) });
 		}
 

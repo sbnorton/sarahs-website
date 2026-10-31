@@ -54,6 +54,7 @@ describe('Photography API', () => {
 	});
 
 	it('returns ready photos with CORS headers', async () => {
+		await env.PHOTOS_BUCKET.put('photos/photo.jpg', 'test image');
 		await env.photography_metadata
 			.prepare("INSERT INTO photos (id, key, title, status) VALUES ('photo-1', 'photos/photo.jpg', 'Photo', 'ready')")
 			.run();
@@ -79,6 +80,7 @@ describe('Photography API', () => {
 	});
 
 	it('retrieves a published photo by ID and hides unpublished photos', async () => {
+		await env.PHOTOS_BUCKET.put('photos/by-id.jpg', 'test image');
 		await env.photography_metadata
 			.prepare(
 				"INSERT INTO photos (id, key, title, status, tags) VALUES ('photo-by-id', 'photos/by-id.jpg', 'By ID', 'ready', '[\"travel\"]')",
