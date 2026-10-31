@@ -81,11 +81,65 @@ requires the appropriate Cloudflare/Wrangler configuration and credentials.
 The normal `npm run dev` workflow is sufficient for working on the site's
 pages, components, styling, and local static assets.
 
+### Photography API
+
+The photography API lives in `api/`. It stores photo information in Cloudflare
+D1 and the image files in Cloudflare R2.
+
+#### Run it on your computer
+
+From the project folder:
+
+```sh
+cd api
+npm install
+npm run seed:local
+npm run dev
+```
+
+The website can then use the local API at
+`http://localhost:8787/photos`. Copy `.env.example` to `.env` in the project
+folder if you want to run the website locally with the API.
+
+If the API is unavailable, the gallery uses the photo list included in the
+project as a fallback.
+
+#### Deploy it
+
+From the `api` folder, create the upload password once:
+
+```sh
+npx wrangler secret put UPLOAD_TOKEN
+```
+
+Wrangler will ask you to enter the secret. Keep it private and don't add it to Git.
+
+Then seed the production database and deploy the Worker:
+
+```sh
+npm run seed:remote
+npm run deploy
+```
+
+When the Worker has been deployed, set the website's `PUBLIC_PHOTOS_API_URL` setting to its `/photos` address before building the
+website. This tells the gallery where to find the latest photos.
+
+#### Upload photos
+
+The site includes a private upload page at `/admin`. Enter the upload secret,
+choose or drag in one or more images, add titles and tags, and click
+**Upload**. The page shows progress for each image.
+
+The upload secret is saved only in your browser. Clear the saved site data if
+you no longer want it stored there. The Worker checks the secret before it
+accepts any upload.
+
 ## Project structure
 
 ```text
 .
 ├── public/              # Static images, logos, and other public assets
+├── api/                 # Cloudflare Worker, D1 migrations, and API tests
 ├── src/
 │   ├── components/      # Astro and React UI components
 │   ├── data/            # Project and gallery data

@@ -1,0 +1,8 @@
+---
+import SiteLayout from '../../layouts/Layout.astro';
+import PhotoUploader from '../../components/admin/PhotoUploader';
+---
+
+<SiteLayout title="Photo uploads | Sarah Norton" description="Upload photography metadata and images.">
+  <PhotoUploader client:load />
+</SiteLayout>

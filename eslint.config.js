@@ -6,7 +6,13 @@ import astro from 'eslint-plugin-astro';
 
 export default tseslint.config(
   {
-    ignores: ['dist/**', '.astro/**', 'node_modules/**'],
+    ignores: [
+      'dist/**',
+      '.astro/**',
+      'node_modules/**',
+      'api/.wrangler/**',
+      'api/worker-configuration.d.ts',
+    ],
   },
 
   js.configs.recommended,
@@ -16,7 +22,7 @@ export default tseslint.config(
   ...astro.configs.recommended,
 
   {
-    files: ['scripts/**/*.mjs'],
+    files: ['scripts/**/*.mjs', 'api/scripts/**/*.mjs'],
     languageOptions: {
       globals: {
         console: 'readonly',
