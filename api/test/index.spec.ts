@@ -78,6 +78,7 @@ describe('Photography API', () => {
 
 		expect(response.status).toBe(200);
 		expect(response.headers.get('Access-Control-Allow-Methods')).toBe('GET, POST, OPTIONS');
+		expect(response.headers.get('Access-Control-Allow-Headers')).toBe('Authorization, Content-Type');
 	});
 
 	it('rejects uploads without authentication', async () => {
@@ -87,6 +88,22 @@ describe('Photography API', () => {
 		});
 
 		expect(response.status).toBe(401);
+	});
+
+	it('rejects unsupported upload file types', async () => {
+		const formData = new FormData();
+		formData.set('file', new File(['text'], 'notes.txt', { type: 'text/plain' }));
+
+		const response = await SELF.fetch('https://example.com/photos', {
+			method: 'POST',
+			headers: { Authorization: 'Bearer test-upload-token' },
+			body: formData,
+		});
+
+		expect(response.status).toBe(400);
+		expect(await response.json()).toEqual({
+			error: 'Only JPG, JPEG, and PNG files are supported',
+		});
 	});
 
 	it('uploads an authenticated photo to R2 and D1', async () => {
@@ -105,12 +122,14 @@ describe('Photography API', () => {
 		});
 
 		expect(response.status).toBe(201);
-		expect(await response.json()).toMatchObject({
+		const uploadedPhoto = await response.json();
+		expect(uploadedPhoto).toMatchObject({
 			title: 'New photo',
 			alt: 'A new photo',
 			tags: ['landscape', 'evening'],
 			status: 'ready',
 		});
+		expect(uploadedPhoto.key).toMatch(/^photos\/new-photo(?:-[a-f0-9]{8})?\.jpg$/);
 		const rows = await env.photography_metadata.prepare("SELECT key, status, tags FROM photos WHERE title = 'New photo'").all();
 		expect(rows.results).toHaveLength(1);
 		expect(rows.results[0]).toMatchObject({ status: 'ready', tags: '["landscape","evening"]' });
