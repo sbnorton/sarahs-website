@@ -1,8 +1,8 @@
 .textPage {
-  max-width: 46rem;
+  width: min(calc(100% - 64px), 1120px);
   min-height: 70vh;
   margin: 0 auto;
-  padding: 12rem 2rem 4rem;
+  padding: 4rem 4.1% 6rem;
   color: var(--ink);
 }
 
@@ -25,4 +25,18 @@
 .textPage a {
   color: var(--deep-blue);
   text-decoration: underline;
+}
+
+@media (max-width: 760px) {
+  .textPage {
+    width: calc(100% - 32px);
+    padding: 3rem 24px 4rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .textPage {
+    width: calc(100% - 20px);
+    padding: 46px 18px 3rem;
+  }
 }

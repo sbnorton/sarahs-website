@@ -113,6 +113,9 @@ GET    /photos          List published photos
 GET    /photos/:id      Retrieve one published photo
 ```
 
+Add `?tag=landscape` to `/photos` to return only published photos with that
+tag. Tag matching is case-insensitive.
+
 The metadata management endpoints require
 `Authorization: Bearer <UPLOAD_TOKEN>`:
 
