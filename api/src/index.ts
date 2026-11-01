@@ -43,6 +43,7 @@ export default {
 			const availablePhotos = await Promise.all(
 				results.map(async (photo) => ((await env.PHOTOS_BUCKET.head(String(photo.key))) ? photo : null)),
 			);
+			const requestedTag = url.searchParams.get('tag')?.trim().toLocaleLowerCase();
 
 			return Response.json(
 				availablePhotos
@@ -50,7 +51,8 @@ export default {
 					.map((photo) => ({
 						...photo,
 						tags: parseTags(photo.tags),
-					})),
+					}))
+					.filter((photo) => !requestedTag || photo.tags.some((tag) => tag.toLocaleLowerCase() === requestedTag)),
 				{
 					headers: corsHeaders(allowedOrigin),
 				},

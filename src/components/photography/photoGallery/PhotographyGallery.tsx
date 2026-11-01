@@ -23,8 +23,16 @@ export default function PhotographyGallery({ images }: Props) {
     }
 
     let isCurrent = true;
+    const requestUrl = new URL(apiUrl);
+    if (activeTag !== 'All') {
+      requestUrl.searchParams.set('tag', activeTag);
+    } else {
+      requestUrl.searchParams.delete('tag');
+    }
 
-    fetch(apiUrl)
+    setIsLoading(true);
+
+    fetch(requestUrl)
       .then(async (response) => {
         if (!response.ok) {
           throw new Error(`Photo API returned ${response.status}`);
@@ -38,7 +46,9 @@ export default function PhotographyGallery({ images }: Props) {
         }
       })
       .catch(() => {
-        // Keep the manifest images when the API is unavailable.
+        if (isCurrent) {
+          setGalleryImages(images);
+        }
       })
       .finally(() => {
         if (isCurrent) {
@@ -49,13 +59,15 @@ export default function PhotographyGallery({ images }: Props) {
     return () => {
       isCurrent = false;
     };
-  }, []);
+  }, [activeTag, images]);
 
   const visibleImages = useMemo(
     () =>
       activeTag === 'All'
         ? galleryImages
-        : galleryImages.filter((image) => image.tags.includes(activeTag)),
+        : galleryImages.filter((image) =>
+            image.tags.some((tag) => tag.toLocaleLowerCase() === activeTag.toLocaleLowerCase()),
+          ),
     [galleryImages, activeTag],
   );
 

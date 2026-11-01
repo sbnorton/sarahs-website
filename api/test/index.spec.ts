@@ -103,6 +103,25 @@ describe('Photography API', () => {
 		expect(hiddenResponse.status).toBe(404);
 	});
 
+	it('filters published photos by tag case-insensitively', async () => {
+		await env.PHOTOS_BUCKET.put('photos/tagged.jpg', 'test image');
+		await env.photography_metadata
+			.prepare(
+				"INSERT INTO photos (id, key, title, status, tags) VALUES ('photo-tagged', 'photos/tagged.jpg', 'Tagged', 'ready', '[\"Landscape\", \"travel\"]')",
+			)
+			.run();
+
+		const response = await SELF.fetch('https://example.com/photos?tag=landscape');
+
+		expect(response.status).toBe(200);
+		expect(await response.json()).toEqual([
+			expect.objectContaining({
+				id: 'photo-tagged',
+				tags: ['Landscape', 'travel'],
+			}),
+		]);
+	});
+
 	it('updates validated photo metadata with authentication', async () => {
 		const response = await SELF.fetch('https://example.com/photos/photo-1', {
 			method: 'PATCH',

@@ -61,7 +61,10 @@ export default function Lightbox({ images, index, onClose, onNavigate }: Props) 
         role="dialog"
         aria-modal="true"
         aria-label={image.alt}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) onClose();
+          event.stopPropagation();
+        }}
       >
         <button
           type="button"

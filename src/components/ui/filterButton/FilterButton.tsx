@@ -1,6 +1,5 @@
 import styles from './FilterButton.module.css';
-
-const filters = ['All', 'Landscape', 'City', 'Animals', 'Events', 'Portraits'];
+import { photoTags } from '../../../data/photoTags';
 
 interface FilterButtonProps {
   activeFilter: string;
@@ -10,7 +9,7 @@ interface FilterButtonProps {
 export const FilterButton: React.FC<FilterButtonProps> = ({ activeFilter, setActiveFilter }) => {
   return (
     <div className={styles.filterButton}>
-      {filters.map((filter) => (
+      {['All', ...photoTags].map((filter) => (
         <button
           key={filter}
           onClick={() => setActiveFilter(filter)}
