@@ -22,7 +22,7 @@
 
 .hello {
   margin: 0 0 0.35rem;
-  font-size: clamp(1.9rem, 4vw, 3.5rem);
+  font-size: clamp(1rem, -0.0938rem + 3.5vw, 1.875rem);
   line-height: 1;
   letter-spacing: 0;
 }

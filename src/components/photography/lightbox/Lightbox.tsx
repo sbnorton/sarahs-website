@@ -76,7 +76,9 @@ export default function Lightbox({ images, index, onClose, onNavigate }: Props) 
         </button>
         <button
           type="button"
-          className={`${styles.fullImageButton} ${zoomed ? styles.zoomed : ''}`}
+          className={`${styles.fullImageButton} ${
+            image.width >= image.height ? styles.landscape : styles.portrait
+          } ${zoomed ? styles.zoomed : ''}`}
           onClick={toggleZoom}
           aria-label={zoomed ? 'Zoom out' : 'Zoom in'}
         >
