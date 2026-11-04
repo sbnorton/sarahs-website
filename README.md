@@ -136,34 +136,6 @@ From the `api` folder, create the upload password once:
 npx wrangler secret put UPLOAD_TOKEN
 ```
 
-#### Contact form configuration
-
-The contact form uses the Worker at the same base URL as the photo API. Add the
-public Turnstile site key to the website environment:
-
-```sh
-PUBLIC_PHOTOS_API_URL=https://api.example.com/photos
-PUBLIC_TURNSTILE_SITE_KEY=your_turnstile_site_key
-```
-
-In the `api` folder, store the private Worker values as secrets:
-
-```sh
-npx wrangler secret put CONTACT_TO_EMAIL
-npx wrangler secret put CONTACT_FROM_EMAIL
-npx wrangler secret put TURNSTILE_SECRET_KEY
-```
-
-`CONTACT_TO_EMAIL` is the verified destination address and
-`CONTACT_FROM_EMAIL` must be an address on the domain configured for Cloudflare
-Email Routing. The `CONTACT_EMAIL` binding is intentionally unrestricted in
-`api/wrangler.jsonc`, so neither address is committed to the repository.
-
-Before deploying, enable Email Routing for the domain and verify the
-destination address in Cloudflare. Create a Turnstile widget for the production
-domain (and localhost for development), then copy its site key into the
-website environment and its secret key into `TURNSTILE_SECRET_KEY`.
-
 Wrangler will ask you to enter the secret. Keep it private and don't add it to Git.
 
 Then seed the production database and deploy the Worker:
