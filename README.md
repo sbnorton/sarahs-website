@@ -1,4 +1,4 @@
-# Welcome to my website!
+# Sarah Norton's website
 
 Hi! This is my personal portfolio! LinkedIn is a bit superficial and a printed pdf of my CV is a bit unpersonal. Therefore, this website was created to showcase my work as a developer and photographer, with some additional room for presenting my design and user experience projects as well🤝
 
