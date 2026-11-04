@@ -1,5 +1,6 @@
 ---
 import SiteLayout from "../../layouts/Layout.astro";
+import ContactForm from "../../components/contact/ContactForm";
 import styles from "./page.module.css";
 ---
 
@@ -44,9 +45,7 @@ import styles from "./page.module.css";
         <div class={styles.cardFooter}>
           <div class={styles.divider}></div>
           <div class={styles.actions}>
-            <a class={styles.cta} href="mailto:hello@sarahnorton.no"
-              >Get in touch</a
-            >
+            <ContactForm client:load />
             <div class={styles.connect}>
               <p class={styles.connectLabel}>Find me on</p>
               <div class={styles.links}>
