@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type SubmitEvent } from 'react';
 import styles from './ContactForm.module.css';
 
 const MAX_MESSAGE_LENGTH = 2000;
@@ -83,7 +83,7 @@ export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
   const turnstileRef = useRef<HTMLDivElement>(null);
-  const widgetIdRef = useRef<string>();
+  const widgetIdRef = useRef<string | undefined>(undefined);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -136,7 +136,7 @@ export default function ContactForm() {
     setStatusTone('idle');
   };
 
-  const submit = async (event: FormEvent<HTMLFormElement>) => {
+  const submit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     const validationError = validate(values);
     if (validationError) {
