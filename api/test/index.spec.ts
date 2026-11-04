@@ -1,6 +1,7 @@
 import { env, createExecutionContext, waitOnExecutionContext, SELF } from 'cloudflare:test';
 import { beforeAll, describe, it, expect } from 'vitest';
 import worker from '../src/index';
+import { parseContactInput } from '../src/contact';
 
 // For now, you'll need to do something like this to get a correctly-typed
 // `Request` to pass to `worker.fetch()`.
@@ -8,6 +9,40 @@ const IncomingRequest = Request<unknown, IncomingRequestCfProperties>;
 const testAuthorization = `Bearer ${['test', 'upload', 'token'].join('-')}`;
 
 describe('Photography API', () => {
+	describe('contact validation', () => {
+		it('trims valid contact input', () => {
+			expect(
+				parseContactInput({
+					name: ' Sarah ',
+					email: ' visitor@example.com ',
+					message: ' Hello ',
+					website: '',
+					turnstileToken: 'token',
+				}),
+			).toEqual({
+				valid: true,
+				value: { name: 'Sarah', email: 'visitor@example.com', message: 'Hello', website: '', turnstileToken: 'token' },
+			});
+		});
+
+		it('rejects invalid email and oversized messages', () => {
+			expect(parseContactInput({ name: 'Sarah', email: 'invalid', message: 'Hello', website: '', turnstileToken: 'token' }).valid).toBe(
+				false,
+			);
+			expect(
+				parseContactInput({ name: 'Sarah', email: 'visitor@example.com', message: 'x'.repeat(2001), website: '', turnstileToken: 'token' })
+					.valid,
+			).toBe(false);
+		});
+
+		it('marks honeypot submissions without validating their other fields', () => {
+			expect(parseContactInput({ name: '', email: '', message: '', website: 'bot', turnstileToken: '' })).toEqual({
+				valid: true,
+				value: { name: '', email: '', message: '', website: 'bot', turnstileToken: '' },
+			});
+		});
+	});
+
 	beforeAll(async () => {
 		await env.photography_metadata.prepare('DROP TABLE IF EXISTS photos').run();
 		await env.photography_metadata
