@@ -10,12 +10,27 @@
  *
  * Learn more at https://developers.cloudflare.com/workers/
  */
+import { createMimeMessage } from 'mimetext';
+import { parseContactInput } from './contact';
 
 export default {
 	async fetch(request: Request, env: Env): Promise<Response> {
 		const url = new URL(request.url);
 		const origin = request.headers.get('Origin');
 		const allowedOrigin = origin === env.SITE_ORIGIN || origin === 'http://localhost:4321' ? origin : null;
+
+		if (url.pathname === '/contact') {
+			if (origin && !allowedOrigin) {
+				return Response.json({ error: 'Origin not allowed' }, { status: 403 });
+			}
+			if (request.method === 'OPTIONS') {
+				return new Response(null, { headers: corsHeaders(allowedOrigin) });
+			}
+			if (request.method !== 'POST') {
+				return Response.json({ error: 'Method not allowed' }, { status: 405, headers: corsHeaders(allowedOrigin) });
+			}
+			return sendContact(request, env, allowedOrigin);
+		}
 
 		if (url.pathname === '/photos') {
 			if (request.method === 'OPTIONS') {
@@ -86,6 +101,62 @@ export default {
 } satisfies ExportedHandler<Env>;
 
 type UploadEnv = Env & { UPLOAD_TOKEN?: string };
+
+async function sendContact(request: Request, env: Env, origin: string | null): Promise<Response> {
+	try {
+		const body: unknown = await request.json();
+		const parsed = parseContactInput(body);
+		if (!parsed.valid) {
+			return Response.json({ error: parsed.error }, { status: 400, headers: corsHeaders(origin) });
+		}
+		if (parsed.value.website) {
+			return Response.json({ ok: true }, { headers: corsHeaders(origin) });
+		}
+
+		if (!env.TURNSTILE_SECRET_KEY || !env.CONTACT_TO_EMAIL || !env.CONTACT_FROM_EMAIL) {
+			console.error('Contact email configuration is incomplete');
+			return Response.json({ error: 'Contact form is temporarily unavailable' }, { status: 503, headers: corsHeaders(origin) });
+		}
+
+		// TODO: Add IP-based rate limiting with a Cloudflare rate limiting or Durable Object binding.
+		const turnstileResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				secret: env.TURNSTILE_SECRET_KEY,
+				response: parsed.value.turnstileToken,
+				remoteip: request.headers.get('CF-Connecting-IP') ?? undefined,
+			}),
+		});
+		const verification: unknown = await turnstileResponse.json();
+		if (!turnstileResponse.ok || !isTurnstileSuccess(verification)) {
+			return Response.json({ error: 'Spam protection failed. Please try again.' }, { status: 400, headers: corsHeaders(origin) });
+		}
+
+		const message = createMimeMessage();
+		message.setSender(env.CONTACT_FROM_EMAIL);
+		message.setRecipient(env.CONTACT_TO_EMAIL);
+		message.setSubject('Portfolio contact form submission');
+		message.setHeader('Reply-To', parsed.value.email);
+		message.addMessage({
+			contentType: 'text/plain',
+			data: `Name: ${parsed.value.name}\nEmail: ${parsed.value.email}\n\n${parsed.value.message}`,
+		});
+		await env.CONTACT_EMAIL.send(new EmailMessage(env.CONTACT_FROM_EMAIL, env.CONTACT_TO_EMAIL, message.asRaw()));
+
+		return Response.json({ ok: true }, { headers: corsHeaders(origin) });
+	} catch (error) {
+		if (error instanceof SyntaxError) {
+			return Response.json({ error: 'Request body must be valid JSON' }, { status: 400, headers: corsHeaders(origin) });
+		}
+		console.error('Contact message failed', error);
+		return Response.json({ error: 'Message could not be sent' }, { status: 500, headers: corsHeaders(origin) });
+	}
+}
+
+function isTurnstileSuccess(value: unknown): value is { success: true } {
+	return typeof value === 'object' && value !== null && 'success' in value && value.success === true;
+}
 
 async function uploadPhoto(request: Request, env: Env, origin: string | null): Promise<Response> {
 	try {

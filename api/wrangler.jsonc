@@ -25,6 +25,12 @@
 		},
 	],
 
+	"send_email": [
+		{
+			"name": "CONTACT_EMAIL",
+		},
+	],
+
 	"vars": {
 		"SITE_ORIGIN": "https://www.sarah-norton.com",
 	},
